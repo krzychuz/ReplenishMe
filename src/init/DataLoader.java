@@ -4,11 +4,14 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-
+import java.sql.*;
+import com.microsoft.sqlserver.jdbc.*;
 import calculation.Forecast;
-import db.Database;
+import db.Server;
 import enums.Procurement;
 import enums.SafetyStrategy;
 import enums.Type;
@@ -18,11 +21,22 @@ import master.Product;
 public class DataLoader {
     public static void loadMaterialMaster(){
 
+        // deklaracja zmiennych potrzebnych do wczytywania pliku CSV
         String masterDataFile = "master_data.csv";
         BufferedReader br = null;
         String line = "";
         String cvsSplitBy = ",";
 
+        // deklaracja zmiennych potrzebnych do obsługi JDBC
+        Connection con = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+
+        //deklaracja logalnie używanego produktu
+        Product p = null;
+        List<Product> productList = new ArrayList<>();
+
+        //wczytywanie pliksu CSV i tworzenie obiektu
         try {
 
             br = new BufferedReader(new FileReader(masterDataFile));
@@ -43,13 +57,9 @@ public class DataLoader {
                 int roundingValue = Integer.parseInt(item[8]);
 
                 //tworzenie obiektu produktu
-                Product p = new Product (location, GCAS, description, unit, type, procurement, strategy, target, roundingValue);
-
-                Database.addProduct(p);
-
+                p = new Product (location, GCAS, description, unit, type, procurement, strategy, target, roundingValue);
+                productList.add(p);
             }
-
-            Database.printProducts();
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -63,6 +73,27 @@ public class DataLoader {
                     e.printStackTrace();
                 }
             }
+        }
+
+        // zapisywanie stworzonego obiektu do bazy danych
+        try {
+            SQLServerDataSource ds = Server.getServer();
+            con = ds.getConnection();
+            stmt = con.createStatement();
+            stmt.execute("TRUNCATE TABLE PRODUCT"); //wyczyszczenie tabeli przed importen danych
+            
+            for (Product product : productList) {
+                String SQLquery = "INSERT INTO PRODUCT(gcas, description, uom, type, roundval) " +
+                        "VALUES (" + product.getGCAS() + ", '" + product.getDescription() + "', '" + product.getUnit() + "', '" +
+                        product.getType() + "', " + product.getRoundingValue() + ")";
+                System.out.println(SQLquery);
+                stmt.executeUpdate(SQLquery);
+            }
+
+            con.close();
+            
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -93,8 +124,6 @@ public class DataLoader {
 
                 Forecast f = new Forecast(location,GCAS,forecastMap);
 
-                Database.addForecast(f);
-
             }
 
         } catch (FileNotFoundException e) {
@@ -110,6 +139,5 @@ public class DataLoader {
                 }
             }
         }
-        Database.printForecast();
     }
 }
