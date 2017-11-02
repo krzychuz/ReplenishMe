@@ -80,10 +80,10 @@ public class DataLoader {
             SQLServerDataSource ds = Server.getServer();
             con = ds.getConnection();
             stmt = con.createStatement();
-            stmt.execute("TRUNCATE TABLE PRODUCT"); //wyczyszczenie tabeli przed importen danych
+            stmt.execute("TRUNCATE TABLE PRODUCTS"); //wyczyszczenie tabeli przed importen danych
             
             for (Product product : productList) {
-                String SQLquery = "INSERT INTO PRODUCT(gcas, description, uom, type, roundval) " +
+                String SQLquery = "INSERT INTO PRODUCTS(gcas, description, uom, type, roundval) " +
                         "VALUES (" + product.getGCAS() + ", '" + product.getDescription() + "', '" + product.getUnit() + "', '" +
                         product.getType() + "', " + product.getRoundingValue() + ")";
                 System.out.println(SQLquery);
@@ -95,6 +95,25 @@ public class DataLoader {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public ResultSet getMaterialMaster(){
+
+        Connection con = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+
+        try {
+            SQLServerDataSource ds = Server.getServer();
+            con = ds.getConnection();
+            stmt = con.createStatement();
+            rs = stmt.executeQuery("SELECT * FROM PRODUCTS");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return rs;
     }
 
     public static void loadForecast(){
