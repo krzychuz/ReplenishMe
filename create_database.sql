@@ -8,8 +8,10 @@ CREATE TABLE SHIPMENTS (
 	locationfrom smallint NOT NULL,
 	locationto smallint NOT NULL,
 	shipntnumber int NOT NULL,
-	loadingtime datetime NOT NULL,
-	unloadingtime datetime NOT NULL,
+	loadingdate date NOT NULL,
+	loadingtime time NOT NULL,
+	unloadingdate date NOT NULL,
+	unloadingtime time NOT NULL,
 	product int NOT NULL,
 	quantity int NOT NULL,
 	shipparty varchar(50) NOT NULL

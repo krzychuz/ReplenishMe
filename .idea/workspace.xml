@@ -2,13 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d18e25b4-7e66-4fc6-b417-5ea4b429a8d1" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/ReplenishMe/Main.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/ReplenishMe/db/Test.class" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ReplenishMe/init/DataLoader.class" afterPath="$PROJECT_DIR$/out/production/ReplenishMe/init/DataLoader.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/calculation/Shipment.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/init/DummyDataGenerator.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/gui/GridView.java" afterPath="$PROJECT_DIR$/src/gui/GridView.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/create_database.sql" afterPath="$PROJECT_DIR$/create_database.sql" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/gui/MainMenu.java" afterPath="$PROJECT_DIR$/src/gui/MainMenu.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/init/DataLoader.java" afterPath="$PROJECT_DIR$/src/init/DataLoader.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path=".idea/dataSources.local.xml" />
@@ -29,11 +27,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="DataLoader.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="DataLoader.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/init/DataLoader.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="27" column="32" selection-start-line="27" selection-start-column="32" selection-end-line="27" selection-end-column="32" />
+            <state relative-caret-position="-765">
+              <caret line="21" column="44" selection-start-line="21" selection-start-column="44" selection-end-line="21" selection-end-column="44" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <marker date="1509296272942" expanded="true" signature="2917:3195" ph="INSERT INTO PRODUCT... " />
@@ -43,11 +41,93 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="DummyDataGenerator.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/init/DummyDataGenerator.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="838">
+              <caret line="70" column="40" selection-start-line="70" selection-start-column="40" selection-end-line="70" selection-end-column="40" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <marker date="1509793475647" expanded="true" signature="2301:2517" ph="INSERT INTO SHIPMENTS... " />
+                <marker date="1509793475647" expanded="true" signature="2301:2518" ph="INSERT INTO PRODUCTS... " />
+                <marker date="1509793475647" expanded="true" signature="2301:2552" ph="INSERT INTO SHIPMENTS... " />
+                <marker date="1509793475647" expanded="true" signature="2301:2553" ph="INSERT INTO SHIPMENTS... " />
+                <marker date="1509793475647" expanded="true" signature="2301:2610" ph="INSERT INTO SHIPMENTS... " />
+                <marker date="1509793475647" expanded="true" signature="2301:2611" ph="INSERT INTO SHIPMENTS... " />
+                <marker date="1509793475647" expanded="true" signature="2301:2672" ph="INSERT INTO SHIPMENTS... " />
+                <marker date="1509793475647" expanded="true" signature="2301:2673" ph="INSERT INTO SHIPMENTS... " />
+                <marker date="1509793475647" expanded="true" signature="2301:2794" ph="INSERT INTO SHIPMENTS... " />
+                <marker date="1509793475647" expanded="true" signature="2301:2795" ph="INSERT INTO SHIPMENTS... " />
+                <marker date="1509793475647" expanded="true" signature="2301:2920" ph="INSERT INTO SHIPMENTS... " />
+                <marker date="1509793475647" expanded="true" signature="2301:2921" ph="INSERT INTO SHIPMENTS... " />
+                <marker date="1509793475647" expanded="true" signature="2301:2975" ph="INSERT INTO SHIPMENTS... " />
+                <marker date="1509793475647" expanded="true" signature="2301:2976" ph="INSERT INTO SHIPMENTS... " />
+                <marker date="1509793475647" expanded="true" signature="2301:3031" ph="INSERT INTO SHIPMENTS... " />
+                <marker date="1509793475647" expanded="true" signature="2301:3032" ph="INSERT INTO SHIPMENTS... " />
+                <marker date="1509793475647" expanded="true" signature="2301:3090" ph="INSERT INTO SHIPMENTS... " />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DateFormat.java" pinned="false" current-in-tab="false">
+        <entry file="jar://C:/Program Files/Java/jdk1.8.0_91/src.zip!/java/text/DateFormat.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="374">
+              <caret line="309" column="0" selection-start-line="309" selection-start-column="0" selection-end-line="309" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Random.java" pinned="false" current-in-tab="false">
+        <entry file="jar://C:/Program Files/Java/jdk1.8.0_91/src.zip!/java/util/Random.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="159">
+              <caret line="103" column="11" selection-start-line="103" selection-start-column="11" selection-end-line="103" selection-end-column="11" />
+              <folding>
+                <element signature="e#3504#3505#0" expanded="true" />
+                <element signature="e#3562#3563#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Shipment.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/calculation/Shipment.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="158">
+              <caret line="43" column="36" selection-start-line="43" selection-start-column="36" selection-end-line="43" selection-end-column="36" />
+              <folding>
+                <element signature="e#1137#1138#0" expanded="true" />
+                <element signature="e#1172#1173#0" expanded="true" />
+                <element signature="e#1206#1207#0" expanded="true" />
+                <element signature="e#1239#1240#0" expanded="true" />
+                <element signature="e#1311#1312#0" expanded="true" />
+                <element signature="e#1351#1352#0" expanded="true" />
+                <element signature="e#1387#1388#0" expanded="true" />
+                <element signature="e#1425#1426#0" expanded="true" />
+                <element signature="e#1462#1463#0" expanded="true" />
+                <element signature="e#1500#1501#0" expanded="true" />
+                <element signature="e#1534#1535#0" expanded="true" />
+                <element signature="e#1574#1575#0" expanded="true" />
+                <element signature="e#1610#1611#0" expanded="true" />
+                <element signature="e#1641#1642#0" expanded="true" />
+                <element signature="e#1671#1672#0" expanded="true" />
+                <element signature="e#1703#1704#0" expanded="true" />
+                <element signature="e#1734#1735#0" expanded="true" />
+                <element signature="e#1770#1771#0" expanded="true" />
+                <element signature="e#1802#1803#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="MainMenu.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/gui/MainMenu.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="401">
-              <caret line="42" column="36" selection-start-line="42" selection-start-column="36" selection-end-line="42" selection-end-column="36" />
+            <state relative-caret-position="707">
+              <caret line="58" column="52" selection-start-line="58" selection-start-column="52" selection-end-line="58" selection-end-column="52" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -118,9 +198,11 @@
         <option value="$PROJECT_DIR$/src/master/Product.java" />
         <option value="$PROJECT_DIR$/src/db/Server.java" />
         <option value="$PROJECT_DIR$/src/Main.java" />
-        <option value="$PROJECT_DIR$/src/gui/MainMenu.java" />
         <option value="$PROJECT_DIR$/src/gui/GridView.java" />
         <option value="$PROJECT_DIR$/src/init/DataLoader.java" />
+        <option value="$PROJECT_DIR$/src/gui/MainMenu.java" />
+        <option value="$PROJECT_DIR$/src/calculation/Shipment.java" />
+        <option value="$PROJECT_DIR$/src/init/DummyDataGenerator.java" />
       </list>
     </option>
   </component>
@@ -772,12 +854,12 @@
       <workItem from="1508683163621" duration="1807000" />
       <workItem from="1509285399737" duration="625000" />
       <workItem from="1509288597633" duration="5402000" />
-      <workItem from="1509297192002" duration="1192000" />
+      <workItem from="1509297192002" duration="7113000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="51386000" />
+    <option name="totallyTimeSpent" value="57307000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -790,7 +872,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32998884" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -800,7 +882,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.26971608" sideWeight="0.50292826" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26971608" sideWeight="0.49707174" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.35804418" sideWeight="0.49707174" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.27647716" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -851,40 +933,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/db/Database.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/calculation/Replenishment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="25" selection-start-line="7" selection-start-column="25" selection-end-line="7" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/calculation/Forecast.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="9" column="25" selection-start-line="9" selection-start-column="25" selection-end-line="9" selection-end-column="25" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/master/Product.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="10" column="31" selection-start-line="10" selection-start-column="31" selection-end-line="10" selection-end-column="31" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/enums/Procurement.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
@@ -938,7 +986,7 @@
         <state relative-caret-position="136">
           <caret line="9" column="25" selection-start-line="9" selection-start-column="25" selection-end-line="9" selection-end-column="25" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1149,7 +1197,7 @@
         <state relative-caret-position="272">
           <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1181,22 +1229,96 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/gui/MainMenu.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="401">
-          <caret line="42" column="36" selection-start-line="42" selection-start-column="36" selection-end-line="42" selection-end-column="36" />
+        <state relative-caret-position="707">
+          <caret line="58" column="52" selection-start-line="58" selection-start-column="52" selection-end-line="58" selection-end-column="52" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_91/src.zip!/java/util/Random.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="159">
+          <caret line="103" column="11" selection-start-line="103" selection-start-column="11" selection-end-line="103" selection-end-column="11" />
+          <folding>
+            <element signature="e#3504#3505#0" expanded="true" />
+            <element signature="e#3562#3563#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_91/src.zip!/java/text/DateFormat.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="309" column="0" selection-start-line="309" selection-start-column="0" selection-end-line="309" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/init/DataLoader.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="27" column="32" selection-start-line="27" selection-start-column="32" selection-end-line="27" selection-end-column="32" />
+        <state relative-caret-position="-765">
+          <caret line="21" column="44" selection-start-line="21" selection-start-column="44" selection-end-line="21" selection-end-column="44" />
           <folding>
             <element signature="imports" expanded="true" />
             <marker date="1509296272942" expanded="true" signature="2917:3195" ph="INSERT INTO PRODUCT... " />
             <marker date="1509296272942" expanded="true" signature="3747:3769" ph="SELECT * FRO... PRODUCTS" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/calculation/Shipment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="158">
+          <caret line="43" column="36" selection-start-line="43" selection-start-column="36" selection-end-line="43" selection-end-column="36" />
+          <folding>
+            <element signature="e#1137#1138#0" expanded="true" />
+            <element signature="e#1172#1173#0" expanded="true" />
+            <element signature="e#1206#1207#0" expanded="true" />
+            <element signature="e#1239#1240#0" expanded="true" />
+            <element signature="e#1311#1312#0" expanded="true" />
+            <element signature="e#1351#1352#0" expanded="true" />
+            <element signature="e#1387#1388#0" expanded="true" />
+            <element signature="e#1425#1426#0" expanded="true" />
+            <element signature="e#1462#1463#0" expanded="true" />
+            <element signature="e#1500#1501#0" expanded="true" />
+            <element signature="e#1534#1535#0" expanded="true" />
+            <element signature="e#1574#1575#0" expanded="true" />
+            <element signature="e#1610#1611#0" expanded="true" />
+            <element signature="e#1641#1642#0" expanded="true" />
+            <element signature="e#1671#1672#0" expanded="true" />
+            <element signature="e#1703#1704#0" expanded="true" />
+            <element signature="e#1734#1735#0" expanded="true" />
+            <element signature="e#1770#1771#0" expanded="true" />
+            <element signature="e#1802#1803#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/init/DummyDataGenerator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="838">
+          <caret line="70" column="40" selection-start-line="70" selection-start-column="40" selection-end-line="70" selection-end-column="40" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <marker date="1509793475647" expanded="true" signature="2301:2517" ph="INSERT INTO SHIPMENTS... " />
+            <marker date="1509793475647" expanded="true" signature="2301:2518" ph="INSERT INTO PRODUCTS... " />
+            <marker date="1509793475647" expanded="true" signature="2301:2552" ph="INSERT INTO SHIPMENTS... " />
+            <marker date="1509793475647" expanded="true" signature="2301:2553" ph="INSERT INTO SHIPMENTS... " />
+            <marker date="1509793475647" expanded="true" signature="2301:2610" ph="INSERT INTO SHIPMENTS... " />
+            <marker date="1509793475647" expanded="true" signature="2301:2611" ph="INSERT INTO SHIPMENTS... " />
+            <marker date="1509793475647" expanded="true" signature="2301:2672" ph="INSERT INTO SHIPMENTS... " />
+            <marker date="1509793475647" expanded="true" signature="2301:2673" ph="INSERT INTO SHIPMENTS... " />
+            <marker date="1509793475647" expanded="true" signature="2301:2794" ph="INSERT INTO SHIPMENTS... " />
+            <marker date="1509793475647" expanded="true" signature="2301:2795" ph="INSERT INTO SHIPMENTS... " />
+            <marker date="1509793475647" expanded="true" signature="2301:2920" ph="INSERT INTO SHIPMENTS... " />
+            <marker date="1509793475647" expanded="true" signature="2301:2921" ph="INSERT INTO SHIPMENTS... " />
+            <marker date="1509793475647" expanded="true" signature="2301:2975" ph="INSERT INTO SHIPMENTS... " />
+            <marker date="1509793475647" expanded="true" signature="2301:2976" ph="INSERT INTO SHIPMENTS... " />
+            <marker date="1509793475647" expanded="true" signature="2301:3031" ph="INSERT INTO SHIPMENTS... " />
+            <marker date="1509793475647" expanded="true" signature="2301:3032" ph="INSERT INTO SHIPMENTS... " />
+            <marker date="1509793475647" expanded="true" signature="2301:3090" ph="INSERT INTO SHIPMENTS... " />
           </folding>
         </state>
       </provider>

@@ -1,6 +1,7 @@
 package gui;
 
 import init.DataLoader;
+import init.DummyDataGenerator;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -55,5 +56,6 @@ public class MainMenu extends JFrame {
             ex.setVisible(true);
         });
         DataLoader.loadMaterialMaster();
+        DummyDataGenerator.GenerateDummyShipments();
     }
 }
