@@ -57,5 +57,6 @@ public class MainMenu extends JFrame {
         });
         DataLoader.loadMaterialMaster();
         DummyDataGenerator.GenerateDummyShipments();
+        DummyDataGenerator.GenerateDummyDeliveries();
     }
 }

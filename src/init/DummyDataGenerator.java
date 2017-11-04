@@ -1,14 +1,14 @@
 package init;
 
+import calculation.Delivery;
 import calculation.Shipment;
 import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
 import db.Server;
-import master.Product;
-
 import java.sql.*;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
+import java.util.List;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -37,7 +37,6 @@ public class DummyDataGenerator {
         return time.toString();
     }
 
-
     public static void GenerateDummyShipments() {
 
         // deklaracja zmiennych potrzebnych do obsługi JDBC
@@ -45,20 +44,27 @@ public class DummyDataGenerator {
         Statement stmt = null;
         ResultSet rs = null;
 
-        // inicjalizacja zmiennych
-        int LocationFrom = 0;
-        int LocationTo = 0;
-        int ShipmentNumber = 0;
-        String LoadingDate = getRandomDate();
-        String UnloadingDate = getRandomDate();
-        String LoadingTime = getRandomTime();
-        String UnloadingTime = getRandomTime();
-        int Product = 0;
-        int quantity = 0;
-        String ShipParty = "Procter & Gamble";
+        List <Shipment> shipmentList = new ArrayList<>();
+        for (int i=0; i<10; i++){
+            int LocationFrom = 5053;
+            int LocationTo = 2751;
+            int ShipmentNumber = 2856315;
+            String LoadingDate = getRandomDate();
+            String UnloadingDate = getRandomDate();
+            String LoadingTime = getRandomTime();
+            String UnloadingTime = getRandomTime();
+            int Product = 83732531;
+            int quantity = 140;
+            String ShipParty = "Procter & Gamble";
 
-        Shipment shipment = new Shipment(LocationFrom, LocationTo, ShipmentNumber, LoadingDate, LoadingTime,
-                UnloadingDate, UnloadingTime, Product, quantity, ShipParty);
+            Shipment shipment = new Shipment(LocationFrom, LocationTo, ShipmentNumber, LoadingDate, LoadingTime,
+                    UnloadingDate, UnloadingTime, Product, quantity, ShipParty);
+
+            shipmentList.add(shipment);
+        }
+
+
+
 
 
         try {
@@ -67,22 +73,84 @@ public class DummyDataGenerator {
             stmt = con.createStatement();
             stmt.execute("TRUNCATE TABLE SHIPMENTS"); //wyczyszczenie tabeli przed wrzuceniem danych
 
+            for (int i=0; i<10; i++){
                 String SQLquery = "INSERT INTO SHIPMENTS (locationfrom, locationto, shipntnumber, loadingdate, loadingtime, " +
                         "unloadingdate, unloadingtime, product,  quantity, shipparty) " +
-                        "VALUES (" + shipment.getLocationFrom() + ", " +
-                        shipment.getLocationTo() + ", " +
-                        shipment.getShipmentNumber() + ", '" +
-                        shipment.getLoadingDate() + "', '" +
-                        shipment.getLoadingTime() + "', '" +
-                        shipment.getUnloadingDate() + "', '" +
-                        shipment.getUnloadingTime() + "', " +
-                        shipment.getProduct() + ", " +
-                        shipment.getQuantity() + ", '" +
-                        shipment.getShipParty() + "')";
+                        "VALUES (" + shipmentList.get(i).getLocationFrom() + ", " +
+                        shipmentList.get(i).getLocationTo() + ", " +
+                        shipmentList.get(i).getShipmentNumber() + ", '" +
+                        shipmentList.get(i).getLoadingDate() + "', '" +
+                        shipmentList.get(i).getLoadingTime() + "', '" +
+                        shipmentList.get(i).getUnloadingDate() + "', '" +
+                        shipmentList.get(i).getUnloadingTime() + "', " +
+                        shipmentList.get(i).getProduct() + ", " +
+                        shipmentList.get(i).getQuantity() + ", '" +
+                        shipmentList.get(i).getShipParty() + "')";
 
                 System.out.println(SQLquery);
                 stmt.executeUpdate(SQLquery);
+            }
 
+            con.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void GenerateDummyDeliveries() {
+
+        // deklaracja zmiennych potrzebnych do obsługi JDBC
+        Connection con = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+
+        List <Delivery> deliveriesList = new ArrayList<>();
+        for (int i=0; i<10; i++){
+            int LocationFrom = 4853;
+            int LocationTo = 2751;
+            int DeliveryNumber = 3784137;
+            String LoadingDate = getRandomDate();
+            String UnloadingDate = getRandomDate();
+            String LoadingTime = getRandomTime();
+            String UnloadingTime = getRandomTime();
+            int Product = 83732533;
+            int quantity = 132;
+            String DlvParty = "Procter & Gamble";
+
+            Delivery delivery = new Delivery(LocationFrom, LocationTo, DeliveryNumber, LoadingDate, LoadingTime,
+                    UnloadingDate, UnloadingTime, Product, quantity, DlvParty);
+
+            deliveriesList.add(delivery);
+        }
+
+
+
+
+
+        try {
+            SQLServerDataSource ds = Server.getServer();
+            con = ds.getConnection();
+            stmt = con.createStatement();
+            stmt.execute("TRUNCATE TABLE DELIVERIES"); //wyczyszczenie tabeli przed wrzuceniem danych
+
+            for (int i=0; i<10; i++){
+                String SQLquery = "INSERT INTO DELIVERIES (locationfrom, locationto, dlvnumber, loadingdate, loadingtime, " +
+                        "unloadingdate, unloadingtime, product,  quantity, dlvparty) " +
+                        "VALUES (" + deliveriesList.get(i).getLocationFrom() + ", " +
+                        deliveriesList.get(i).getLocationTo() + ", " +
+                        deliveriesList.get(i).getDeliveryNumber() + ", '" +
+                        deliveriesList.get(i).getLoadingDate() + "', '" +
+                        deliveriesList.get(i).getLoadingTime() + "', '" +
+                        deliveriesList.get(i).getUnloadingDate() + "', '" +
+                        deliveriesList.get(i).getUnloadingTime() + "', " +
+                        deliveriesList.get(i).getProduct() + ", " +
+                        deliveriesList.get(i).getQuantity() + ", '" +
+                        deliveriesList.get(i).getDlvParty() + "')";
+
+                System.out.println(SQLquery);
+                stmt.executeUpdate(SQLquery);
+            }
 
             con.close();
 
