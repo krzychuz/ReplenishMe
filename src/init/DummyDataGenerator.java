@@ -1,15 +1,14 @@
 package init;
 
 import calculation.Delivery;
+import calculation.Forecast;
 import calculation.Shipment;
 import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
 import db.Server;
 import java.sql.*;
+import java.sql.Date;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
@@ -114,7 +113,7 @@ public class DummyDataGenerator {
             String UnloadingDate = getRandomDate();
             String LoadingTime = getRandomTime();
             String UnloadingTime = getRandomTime();
-            int Product = 83732533;
+            int Product = 83732531;
             int quantity = 132;
             String DlvParty = "Procter & Gamble";
 
@@ -123,9 +122,6 @@ public class DummyDataGenerator {
 
             deliveriesList.add(delivery);
         }
-
-
-
 
 
         try {
@@ -147,6 +143,52 @@ public class DummyDataGenerator {
                         deliveriesList.get(i).getProduct() + ", " +
                         deliveriesList.get(i).getQuantity() + ", '" +
                         deliveriesList.get(i).getDlvParty() + "')";
+
+                System.out.println(SQLquery);
+                stmt.executeUpdate(SQLquery);
+            }
+
+            con.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void GenerateDummyForecast() {
+
+        // deklaracja zmiennych potrzebnych do obsługi JDBC
+        Connection con = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+
+        List <Forecast> forecastList = new ArrayList<>();
+
+        for (int i=0; i<10; i++){
+            int Location = 2751;
+            int Product = 83732531;
+            int Quantity = 500;
+            String Date = getRandomDate();
+            String ForecastDate = "20170411";
+
+            Forecast forecast = new Forecast(Location, Product, Quantity, Date, ForecastDate);
+
+            forecastList.add(forecast);
+        }
+
+        try {
+            SQLServerDataSource ds = Server.getServer();
+            con = ds.getConnection();
+            stmt = con.createStatement();
+            stmt.execute("TRUNCATE TABLE FORECAST"); //wyczyszczenie tabeli przed wrzuceniem danych
+
+            for (int i=0; i<10; i++){
+                String SQLquery = "INSERT INTO FORECAST (location, product, quantity, date1, fcstdate) " +
+                        "VALUES (" + forecastList.get(i).getLocation() + ", " +
+                        forecastList.get(i).getProduct() + ", " +
+                        forecastList.get(i).getQuantity() + ", '" +
+                        forecastList.get(i).getDate() + "', '" +
+                        forecastList.get(i).getForecastDate() + "')";
 
                 System.out.println(SQLquery);
                 stmt.executeUpdate(SQLquery);

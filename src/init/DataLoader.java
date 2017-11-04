@@ -116,7 +116,7 @@ public class DataLoader {
         return rs;
     }
 
-    public static void loadForecast(){
+    /*public static void loadForecast(){
 
         String masterDataFile = "forecast.csv";
         BufferedReader br = null;
@@ -158,5 +158,5 @@ public class DataLoader {
                 }
             }
         }
-    }
+    }*/
 }

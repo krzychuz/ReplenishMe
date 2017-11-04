@@ -1,34 +1,42 @@
 package calculation;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 public class Forecast {
-    private int location;
-    private int GCAS;
-    private Map <String, Integer> forecastMap = new HashMap<>();
-    public Forecast (int _location, int _GCAS, Map _forecastMap){
-        location = _location;
-        GCAS = _GCAS;
-        forecastMap = _forecastMap;
+
+    private int Location = 0;
+    private int Product = 0;
+    private int Quantity = 0;
+    private String Date = null;
+    private String ForecastDate = null;
+
+    public Forecast (int location, int product, int quantity, String date, String forecastDate){
+        this.Location = location;
+        this.Product = product;
+        this.Quantity = quantity;
+        this.Date = date;
+        this.ForecastDate= forecastDate;
     }
 
-    @Override
-    public String toString(){
-
-        String s1 = "Forecast : "
-                + " Location [" + location + "]"
-                + " GCAS [" + GCAS + "]";
-        String s2 = "";
-
-        for (String s: forecastMap.keySet()){
-            String key =s;
-            String value = forecastMap.get(s).toString();
-            s2+= "[" + key + " " + value + "]";
-        }
-
-        return s1 + s2;
-
+    public int getLocation() {
+        return Location;
     }
 
+    public int getProduct() {
+        return Product;
+    }
+
+    public int getQuantity() {
+        return Quantity;
+    }
+
+    public String getDate() {
+        return Date;
+    }
+
+    public String getForecastDate() {
+        return ForecastDate;
+    }
 }
