@@ -1,5 +1,6 @@
 package gui;
 
+import calculation.Forecast;
 import init.DataLoader;
 import init.DummyDataGenerator;
 
@@ -7,6 +8,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.util.*;
+import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -59,5 +62,9 @@ public class MainMenu extends JFrame {
         DummyDataGenerator.GenerateDummyShipments();
         DummyDataGenerator.GenerateDummyDeliveries();
         DummyDataGenerator.GenerateDummyForecast();
+
+        //DataLoader dl = new DataLoader();
+        //List<Forecast> forecastList = new ArrayList<>();
+        //forecastList = dl.getForecastsPerProductLocation(83732531,2751);
     }
 }

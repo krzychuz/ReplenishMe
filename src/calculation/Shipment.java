@@ -8,16 +8,16 @@ import java.util.Date;
  */
 public class Shipment {
 
-    private int LocationFrom = 0;
-    private int LocationTo = 0;
-    private int ShipmentNumber = 0;
-    private String LoadingTime = null;
-    private String UnloadingTime = null;
-    private String LoadingDate = null;
-    private String UnloadingDate = null;
-    private int Product = 0;
-    private int quantity = 0;
-    private String ShipParty = "";
+    private int LocationFrom;
+    private int LocationTo;
+    private int ShipmentNumber;
+    private String LoadingTime;
+    private String UnloadingTime;
+    private String LoadingDate;
+    private String UnloadingDate;
+    private int Product;
+    private int Quantity;
+    private String ShipParty;
 
     public Shipment (int locationFrom, int locationTo, int shipmentNumber, String loadingDate, String loadingTime,
                      String unloadingDate, String unloadingTime, int product, int quantity, String shipParty){
@@ -29,8 +29,47 @@ public class Shipment {
         this.UnloadingTime = unloadingTime;
         this.UnloadingDate = unloadingDate;
         this.Product = product;
-        this.quantity = quantity;
+        this.Quantity = quantity;
         this.ShipParty = shipParty;
+    }
+    public void setLocationFrom(int locationFrom) {
+        LocationFrom = locationFrom;
+    }
+
+    public void setLocationTo(int locationTo) {
+        LocationTo = locationTo;
+    }
+
+    public void setShipmentNumber(int shipmentNumber) {
+        ShipmentNumber = shipmentNumber;
+    }
+
+    public void setLoadingTime(String loadingTime) {
+        LoadingTime = loadingTime;
+    }
+
+    public void setUnloadingTime(String unloadingTime) {
+        UnloadingTime = unloadingTime;
+    }
+
+    public void setLoadingDate(String loadingDate) {
+        LoadingDate = loadingDate;
+    }
+
+    public void setUnloadingDate(String unloadingDate) {
+        UnloadingDate = unloadingDate;
+    }
+
+    public void setProduct(int product) {
+        Product = product;
+    }
+
+    public void setQuantity(int quantity) {
+        this.Quantity = quantity;
+    }
+
+    public void setShipParty(String shipParty) {
+        ShipParty = shipParty;
     }
 
     public int getLocationFrom() {
@@ -66,7 +105,7 @@ public class Shipment {
     }
 
     public int getQuantity() {
-        return quantity;
+        return Quantity;
     }
 
     public String getShipParty() {
