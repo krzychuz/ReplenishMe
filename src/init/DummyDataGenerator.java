@@ -170,8 +170,9 @@ public class DummyDataGenerator {
             int Quantity = 500;
             String Date = getRandomDate();
             String ForecastDate = "20170411";
+            int ForecastId = 9631736;
 
-            Forecast forecast = new Forecast(Location, Product, Quantity, Date, ForecastDate);
+            Forecast forecast = new Forecast(Location, Product, Quantity, Date, ForecastDate, ForecastId);
 
             forecastList.add(forecast);
         }
@@ -183,12 +184,13 @@ public class DummyDataGenerator {
             stmt.execute("TRUNCATE TABLE FORECAST"); //wyczyszczenie tabeli przed wrzuceniem danych
 
             for (int i=0; i<10; i++){
-                String SQLquery = "INSERT INTO FORECAST (location, product, quantity, date1, fcstdate) " +
+                String SQLquery = "INSERT INTO FORECAST (location, product, quantity, date1, fcstdate, fcstid) " +
                         "VALUES (" + forecastList.get(i).getLocation() + ", " +
                         forecastList.get(i).getProduct() + ", " +
                         forecastList.get(i).getQuantity() + ", '" +
                         forecastList.get(i).getDate() + "', '" +
-                        forecastList.get(i).getForecastDate() + "')";
+                        forecastList.get(i).getForecastDate() + "', " +
+                        forecastList.get(i).getForecastId() + ")";
 
                 System.out.println(SQLquery);
                 stmt.executeUpdate(SQLquery);

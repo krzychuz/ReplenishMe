@@ -2,15 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d18e25b4-7e66-4fc6-b417-5ea4b429a8d1" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/calculation/Stock.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/gui/BrowseMrpList.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ReplenishMe/calculation/Forecast.class" afterPath="$PROJECT_DIR$/out/production/ReplenishMe/calculation/Forecast.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ReplenishMe/gui/MainMenu.class" afterPath="$PROJECT_DIR$/out/production/ReplenishMe/gui/MainMenu.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ReplenishMe/init/DataLoader.class" afterPath="$PROJECT_DIR$/out/production/ReplenishMe/init/DataLoader.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ReplenishMe/init/DummyDataGenerator.class" afterPath="$PROJECT_DIR$/out/production/ReplenishMe/init/DummyDataGenerator.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/create_database.sql" afterPath="$PROJECT_DIR$/create_database.sql" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/calculation/Forecast.java" afterPath="$PROJECT_DIR$/src/calculation/Forecast.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/calculation/Shipment.java" afterPath="$PROJECT_DIR$/src/calculation/Shipment.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/gui/MainMenu.java" afterPath="$PROJECT_DIR$/src/gui/MainMenu.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/init/DataLoader.java" afterPath="$PROJECT_DIR$/src/init/DataLoader.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/init/DummyDataGenerator.java" afterPath="$PROJECT_DIR$/src/init/DummyDataGenerator.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path=".idea/dataSources.local.xml" />
@@ -31,11 +32,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="DataLoader.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="DataLoader.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/init/DataLoader.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="283">
-              <caret line="210" column="5" selection-start-line="210" selection-start-column="5" selection-end-line="210" selection-end-column="5" />
+            <state relative-caret-position="496">
+              <caret line="216" column="33" selection-start-line="216" selection-start-column="33" selection-end-line="216" selection-end-column="33" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="method#loadMaterialMaster#0;class#DataLoader#0" expanded="false" />
@@ -43,11 +44,11 @@
                 <element signature="method#getForecastsPerProductLocation#0;class#DataLoader#0" expanded="false" />
                 <element signature="method#getShipmentPerProductLocation#0;class#DataLoader#0" expanded="false" />
                 <element signature="method#getStockPerProductLocation#0;class#DataLoader#0" expanded="false" />
-                <marker date="1509802087286" expanded="true" signature="2925:3203" ph="INSERT INTO PRODUCT... " />
-                <marker date="1509802087286" expanded="true" signature="3755:3777" ph="SELECT * FRO... PRODUCTS" />
-                <marker date="1509802087286" expanded="true" signature="4301:4371" ph="SELECT * FRO... FORECAST" />
-                <marker date="1509802087286" expanded="true" signature="5413:5486" ph="SELECT * FRO... SHIPM" />
-                <marker date="1509802087286" expanded="true" signature="6837:6904" ph="SELECT * FRO... STOCK" />
+                <marker date="1509881315063" expanded="true" signature="2925:3203" ph="INSERT INTO PRODUCT... " />
+                <marker date="1509881315063" expanded="true" signature="3755:3777" ph="SELECT * FRO... PRODUCTS" />
+                <marker date="1509881315063" expanded="true" signature="4301:4371" ph="SELECT * FRO... FORECAST" />
+                <marker date="1509881315063" expanded="true" signature="5469:5542" ph="SELECT * FRO... SHIPM" />
+                <marker date="1509881315063" expanded="true" signature="6893:6960" ph="SELECT * FRO... STOCK" />
               </folding>
             </state>
           </provider>
@@ -73,13 +74,52 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MainMenu.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="MainMenu.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/gui/MainMenu.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="885">
-              <caret line="67" column="10" selection-start-line="67" selection-start-column="10" selection-end-line="67" selection-end-column="10" />
+            <state relative-caret-position="59">
+              <caret line="34" column="61" selection-start-line="34" selection-start-column="61" selection-end-line="34" selection-end-column="61" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#282#283#0" expanded="true" />
+                <element signature="e#306#307#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="BrowseMrpList.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/gui/BrowseMrpList.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="170">
+              <caret line="10" column="17" selection-start-line="10" selection-start-column="17" selection-end-line="10" selection-end-column="17" />
+              <folding>
+                <element signature="e#154#155#0" expanded="true" />
+                <element signature="e#178#179#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DummyDataGenerator.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/init/DummyDataGenerator.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="246">
+              <caret line="157" column="40" selection-start-line="157" selection-start-column="40" selection-end-line="157" selection-end-column="40" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="method#getRandomDate#0;class#DummyDataGenerator#0" expanded="false" />
+                <element signature="method#getRandomTime#0;class#DummyDataGenerator#0" expanded="false" />
+                <element signature="method#GenerateDummyShipments#0;class#DummyDataGenerator#0" expanded="false" />
+                <element signature="method#GenerateDummyDeliveries#0;class#DummyDataGenerator#0" expanded="false" />
+                <element signature="method#GenerateDummyForecast#0;class#DummyDataGenerator#0" expanded="false" />
+                <marker date="1509881565841" expanded="true" signature="2519:3418" ph="INSERT INTO SHIPMENTS... " />
+                <marker date="1509881565841" expanded="true" signature="4947:5862" ph="INSERT INTO SHIPMENTS... " />
+                <marker date="1509881565841" expanded="true" signature="7089:7379" ph="INSERT INTO FORECAST... " />
+                <marker date="1509881565841" expanded="true" signature="7089:7444" ph="INSERT INTO FORECAST... " />
+                <marker date="1509881565841" expanded="true" signature="7089:7515" ph="INSERT INTO FORECAST... " />
+                <marker date="1509881565841" expanded="true" signature="7089:7516" ph="INSERT INTO FORECAST... " />
+                <marker date="1509881565841" expanded="true" signature="7089:7584" ph="INSERT INTO DELIVERIES... " />
               </folding>
             </state>
           </provider>
@@ -88,8 +128,8 @@
       <file leaf-file-name="Forecast.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/calculation/Forecast.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
-              <caret line="22" column="41" selection-start-line="22" selection-start-column="41" selection-end-line="22" selection-end-column="41" />
+            <state relative-caret-position="293">
+              <caret line="35" column="111" selection-start-line="35" selection-start-column="111" selection-end-line="35" selection-end-column="111" />
               <folding>
                 <element signature="method#Forecast#0;class#Forecast#0" expanded="false" />
               </folding>
@@ -100,8 +140,8 @@
       <file leaf-file-name="GridView.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/gui/GridView.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-16">
-              <caret line="25" column="45" selection-start-line="25" selection-start-column="45" selection-end-line="25" selection-end-column="45" />
+            <state relative-caret-position="178">
+              <caret line="18" column="20" selection-start-line="18" selection-start-column="20" selection-end-line="18" selection-end-column="20" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#646#647#0" expanded="true" />
@@ -161,13 +201,14 @@
         <option value="$PROJECT_DIR$/src/db/Server.java" />
         <option value="$PROJECT_DIR$/src/Main.java" />
         <option value="$PROJECT_DIR$/src/calculation/Delivery.java" />
-        <option value="$PROJECT_DIR$/src/init/DummyDataGenerator.java" />
-        <option value="$PROJECT_DIR$/src/calculation/Forecast.java" />
         <option value="$PROJECT_DIR$/src/gui/GridView.java" />
-        <option value="$PROJECT_DIR$/src/gui/MainMenu.java" />
         <option value="$PROJECT_DIR$/src/calculation/Shipment.java" />
         <option value="$PROJECT_DIR$/src/calculation/Stock.java" />
+        <option value="$PROJECT_DIR$/src/calculation/Forecast.java" />
         <option value="$PROJECT_DIR$/src/init/DataLoader.java" />
+        <option value="$PROJECT_DIR$/src/init/DummyDataGenerator.java" />
+        <option value="$PROJECT_DIR$/src/gui/BrowseMrpList.java" />
+        <option value="$PROJECT_DIR$/src/gui/MainMenu.java" />
       </list>
     </option>
   </component>
@@ -819,12 +860,12 @@
       <workItem from="1508683163621" duration="1807000" />
       <workItem from="1509285399737" duration="625000" />
       <workItem from="1509288597633" duration="5402000" />
-      <workItem from="1509297192002" duration="14652000" />
+      <workItem from="1509297192002" duration="17125000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="64846000" />
+    <option name="totallyTimeSpent" value="67319000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -836,7 +877,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -847,7 +888,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.26971608" sideWeight="0.50292826" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.04258675" sideWeight="0.49707174" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19242902" sideWeight="0.49707174" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.27647716" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -885,7 +926,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="12" />
+      <option name="time" value="14" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="Application">
@@ -898,26 +939,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/init/DataLoader.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="561">
-          <caret line="42" column="38" selection-start-line="42" selection-start-column="38" selection-end-line="42" selection-end-column="38" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#loadMaterialMaster#0;class#DataLoader#0" expanded="false" />
-            <element signature="method#getMaterialMaster#0;class#DataLoader#0" expanded="false" />
-            <element signature="method#getForecastsPerProductLocation#0;class#DataLoader#0" expanded="false" />
-            <element signature="method#getShipmentPerProductLocation#0;class#DataLoader#0" expanded="false" />
-            <element signature="method#getStockPerProductLocation#0;class#DataLoader#0" expanded="false" />
-            <marker date="1509802087286" expanded="true" signature="2925:3203" ph="INSERT INTO PRODUCT... " />
-            <marker date="1509802087286" expanded="true" signature="3755:3777" ph="SELECT * FRO... PRODUCTS" />
-            <marker date="1509802087286" expanded="true" signature="4301:4371" ph="SELECT * FRO... FORECAST" />
-            <marker date="1509802087286" expanded="true" signature="5413:5486" ph="SELECT * FRO... SHIPM" />
-            <marker date="1509802087286" expanded="true" signature="6837:6904" ph="SELECT * FRO... STOCK" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/enums/UoM.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
@@ -994,11 +1015,11 @@
             <element signature="method#getForecastsPerProductLocation#0;class#DataLoader#0" expanded="false" />
             <element signature="method#getShipmentPerProductLocation#0;class#DataLoader#0" expanded="false" />
             <element signature="method#getStockPerProductLocation#0;class#DataLoader#0" expanded="false" />
-            <marker date="1509802087286" expanded="true" signature="2925:3203" ph="INSERT INTO PRODUCT... " />
-            <marker date="1509802087286" expanded="true" signature="3755:3777" ph="SELECT * FRO... PRODUCTS" />
-            <marker date="1509802087286" expanded="true" signature="4301:4371" ph="SELECT * FRO... FORECAST" />
-            <marker date="1509802087286" expanded="true" signature="5413:5486" ph="SELECT * FRO... SHIPM" />
-            <marker date="1509802087286" expanded="true" signature="6837:6904" ph="SELECT * FRO... STOCK" />
+            <marker date="1509881315063" expanded="true" signature="2925:3203" ph="INSERT INTO PRODUCT... " />
+            <marker date="1509881315063" expanded="true" signature="3755:3777" ph="SELECT * FRO... PRODUCTS" />
+            <marker date="1509881315063" expanded="true" signature="4301:4371" ph="SELECT * FRO... FORECAST" />
+            <marker date="1509881315063" expanded="true" signature="5469:5542" ph="SELECT * FRO... SHIPM" />
+            <marker date="1509881315063" expanded="true" signature="6893:6960" ph="SELECT * FRO... STOCK" />
           </folding>
         </state>
       </provider>
@@ -1204,23 +1225,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/init/DummyDataGenerator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="147">
-          <caret line="171" column="43" selection-start-line="171" selection-start-column="43" selection-end-line="171" selection-end-column="43" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#getRandomDate#0;class#DummyDataGenerator#0" expanded="false" />
-            <element signature="method#getRandomTime#0;class#DummyDataGenerator#0" expanded="false" />
-            <element signature="method#GenerateDummyShipments#0;class#DummyDataGenerator#0" expanded="false" />
-            <marker date="1509796053528" expanded="true" signature="2519:3418" ph="INSERT INTO SHIPMENTS... " />
-            <marker date="1509796053528" expanded="true" signature="4947:5862" ph="INSERT INTO SHIPMENTS... " />
-            <marker date="1509796053528" expanded="true" signature="7039:7321" ph="INSERT INTO FORECAST... " />
-            <marker date="1509796053528" expanded="true" signature="7039:7457" ph="INSERT INTO DELIVERIES... " />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/master/BOM.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
@@ -1245,38 +1249,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/gui/GridView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-16">
-          <caret line="25" column="45" selection-start-line="25" selection-start-column="45" selection-end-line="25" selection-end-column="45" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#646#647#0" expanded="true" />
-            <element signature="e#721#722#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/calculation/Forecast.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="22" column="41" selection-start-line="22" selection-start-column="41" selection-end-line="22" selection-end-column="41" />
-          <folding>
-            <element signature="method#Forecast#0;class#Forecast#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/gui/MainMenu.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="885">
-          <caret line="67" column="10" selection-start-line="67" selection-start-column="10" selection-end-line="67" selection-end-column="10" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/calculation/Shipment.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="901">
@@ -1293,10 +1265,42 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/calculation/Forecast.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="293">
+          <caret line="35" column="111" selection-start-line="35" selection-start-column="111" selection-end-line="35" selection-end-column="111" />
+          <folding>
+            <element signature="method#Forecast#0;class#Forecast#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/init/DummyDataGenerator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="246">
+          <caret line="157" column="40" selection-start-line="157" selection-start-column="40" selection-end-line="157" selection-end-column="40" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#getRandomDate#0;class#DummyDataGenerator#0" expanded="false" />
+            <element signature="method#getRandomTime#0;class#DummyDataGenerator#0" expanded="false" />
+            <element signature="method#GenerateDummyShipments#0;class#DummyDataGenerator#0" expanded="false" />
+            <element signature="method#GenerateDummyDeliveries#0;class#DummyDataGenerator#0" expanded="false" />
+            <element signature="method#GenerateDummyForecast#0;class#DummyDataGenerator#0" expanded="false" />
+            <marker date="1509881565841" expanded="true" signature="2519:3418" ph="INSERT INTO SHIPMENTS... " />
+            <marker date="1509881565841" expanded="true" signature="4947:5862" ph="INSERT INTO SHIPMENTS... " />
+            <marker date="1509881565841" expanded="true" signature="7089:7379" ph="INSERT INTO FORECAST... " />
+            <marker date="1509881565841" expanded="true" signature="7089:7444" ph="INSERT INTO FORECAST... " />
+            <marker date="1509881565841" expanded="true" signature="7089:7515" ph="INSERT INTO FORECAST... " />
+            <marker date="1509881565841" expanded="true" signature="7089:7516" ph="INSERT INTO FORECAST... " />
+            <marker date="1509881565841" expanded="true" signature="7089:7584" ph="INSERT INTO DELIVERIES... " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/init/DataLoader.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="283">
-          <caret line="210" column="5" selection-start-line="210" selection-start-column="5" selection-end-line="210" selection-end-column="5" />
+        <state relative-caret-position="496">
+          <caret line="216" column="33" selection-start-line="216" selection-start-column="33" selection-end-line="216" selection-end-column="33" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="method#loadMaterialMaster#0;class#DataLoader#0" expanded="false" />
@@ -1304,11 +1308,46 @@
             <element signature="method#getForecastsPerProductLocation#0;class#DataLoader#0" expanded="false" />
             <element signature="method#getShipmentPerProductLocation#0;class#DataLoader#0" expanded="false" />
             <element signature="method#getStockPerProductLocation#0;class#DataLoader#0" expanded="false" />
-            <marker date="1509802087286" expanded="true" signature="2925:3203" ph="INSERT INTO PRODUCT... " />
-            <marker date="1509802087286" expanded="true" signature="3755:3777" ph="SELECT * FRO... PRODUCTS" />
-            <marker date="1509802087286" expanded="true" signature="4301:4371" ph="SELECT * FRO... FORECAST" />
-            <marker date="1509802087286" expanded="true" signature="5413:5486" ph="SELECT * FRO... SHIPM" />
-            <marker date="1509802087286" expanded="true" signature="6837:6904" ph="SELECT * FRO... STOCK" />
+            <marker date="1509881315063" expanded="true" signature="2925:3203" ph="INSERT INTO PRODUCT... " />
+            <marker date="1509881315063" expanded="true" signature="3755:3777" ph="SELECT * FRO... PRODUCTS" />
+            <marker date="1509881315063" expanded="true" signature="4301:4371" ph="SELECT * FRO... FORECAST" />
+            <marker date="1509881315063" expanded="true" signature="5469:5542" ph="SELECT * FRO... SHIPM" />
+            <marker date="1509881315063" expanded="true" signature="6893:6960" ph="SELECT * FRO... STOCK" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/gui/GridView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="178">
+          <caret line="18" column="20" selection-start-line="18" selection-start-column="20" selection-end-line="18" selection-end-column="20" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#646#647#0" expanded="true" />
+            <element signature="e#721#722#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/gui/BrowseMrpList.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="17" selection-start-line="10" selection-start-column="17" selection-end-line="10" selection-end-column="17" />
+          <folding>
+            <element signature="e#154#155#0" expanded="true" />
+            <element signature="e#178#179#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/gui/MainMenu.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="59">
+          <caret line="34" column="61" selection-start-line="34" selection-start-column="61" selection-end-line="34" selection-end-column="61" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#282#283#0" expanded="true" />
+            <element signature="e#306#307#0" expanded="true" />
           </folding>
         </state>
       </provider>

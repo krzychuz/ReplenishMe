@@ -5,16 +5,8 @@ import init.DataLoader;
 import init.DummyDataGenerator;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-import java.util.*;
-import java.util.List;
-import javax.swing.JFrame;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.tree.ExpandVetoException;
+import javax.swing.*;
 
 /**
  * Created by Krzysiek on 29.10.2017.
@@ -22,7 +14,6 @@ import javax.swing.tree.ExpandVetoException;
 public class MainMenu extends JFrame {
 
     public MainMenu() {
-
         initUI();
     }
 
@@ -40,6 +31,8 @@ public class MainMenu extends JFrame {
 
         JMenuItem newMenuItem = new JMenuItem("Material master", KeyEvent.VK_N);
         DbRecords.add(newMenuItem);
+
+        JButton MrpListButton = new JButton("Browse MRP lists");
 
         newMenuItem.addActionListener( e -> {
             try{

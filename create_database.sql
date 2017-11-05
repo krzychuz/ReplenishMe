@@ -35,7 +35,8 @@ CREATE TABLE FORECAST (
 	product int NOT NULL,
 	quantity int NOT NULL,
 	date1 date NOT NULL,
-	fcstdate date NOT NULL
+	fcstdate date NOT NULL,
+	fcstid int NOT NULL
 );
 
 CREATE TABLE PURCHASEO (

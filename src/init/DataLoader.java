@@ -132,12 +132,13 @@ public class DataLoader {
             rs = stmt.executeQuery(SqlQuery);
 
             while (rs.next()) {
-                Forecast f = new Forecast(0,0,0,"","");
+                Forecast f = new Forecast(0,0,0,"","",0);
                 f.setLocation(rs.getInt("location"));
                 f.setProduct(rs.getInt("product"));
                 f.setQuantity(rs.getInt("quantity"));
                 f.setDate(rs.getString("date1"));
                 f.setForecastDate(rs.getString("fcstdate"));
+                f.setForecastId(rs.getInt("fcstid"));
                 forecastList.add(f);
             }
 
