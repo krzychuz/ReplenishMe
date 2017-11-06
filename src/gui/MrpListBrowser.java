@@ -2,6 +2,8 @@ package gui;
 
 import init.DataLoader;
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,7 +15,7 @@ import java.util.List;
  */
 public class MrpListBrowser extends JFrame {
 
-    JTable MrpTable;
+    JTable MrpTable = new JTable();
 
     public MrpListBrowser(){
         initUI();
@@ -23,7 +25,8 @@ public class MrpListBrowser extends JFrame {
     private void populateGrid(int product, int location) throws Exception {
         DataLoader dl = new DataLoader();
         ResultSet rs = dl.getMrpList(product,location);
-        MrpTable = new JTable(TableModelCreator.buildTableModel(rs));
+        TableModel model = TableModelCreator.buildTableModel(rs);
+        MrpTable.setModel(model);
     }
 
     private void initUI() {

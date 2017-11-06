@@ -36,7 +36,7 @@ public class DummyDataGenerator {
         return time.toString();
     }
 
-    public static void GenerateDummyShipments() {
+    public static void GenerateDummyShipments(int locationFrom, int locationTo,int product, int records) {
 
         // deklaracja zmiennych potrzebnych do obsługi JDBC
         Connection con = null;
@@ -44,15 +44,15 @@ public class DummyDataGenerator {
         ResultSet rs = null;
 
         List <Shipment> shipmentList = new ArrayList<>();
-        for (int i=0; i<10; i++){
-            int LocationFrom = 5053;
-            int LocationTo = 2751;
+        for (int i=0; i<records; i++){
+            int LocationFrom = locationFrom;
+            int LocationTo = locationTo;
             int ShipmentNumber = 2856315;
             String LoadingDate = getRandomDate();
             String UnloadingDate = getRandomDate();
             String LoadingTime = getRandomTime();
             String UnloadingTime = getRandomTime();
-            int Product = 83731531;
+            int Product = product;
             int quantity = 140;
             String ShipParty = "Procter & Gamble";
 
@@ -63,16 +63,13 @@ public class DummyDataGenerator {
         }
 
 
-
-
-
         try {
             SQLServerDataSource ds = Server.getServer();
             con = ds.getConnection();
             stmt = con.createStatement();
             stmt.execute("TRUNCATE TABLE SHIPMENTS"); //wyczyszczenie tabeli przed wrzuceniem danych
 
-            for (int i=0; i<10; i++){
+            for (int i=0; i<records; i++){
                 String SQLquery = "INSERT INTO SHIPMENTS (locationfrom, locationto, shipntnumber, loadingdate, loadingtime, " +
                         "unloadingdate, unloadingtime, product,  quantity, shipparty) " +
                         "VALUES (" + shipmentList.get(i).getLocationFrom() + ", " +
@@ -97,7 +94,7 @@ public class DummyDataGenerator {
         }
     }
 
-    public static void GenerateDummyDeliveries() {
+    public static void GenerateDummyDeliveries(int locationFrom, int locationTo,int product, int records) {
 
         // deklaracja zmiennych potrzebnych do obsługi JDBC
         Connection con = null;
@@ -105,15 +102,15 @@ public class DummyDataGenerator {
         ResultSet rs = null;
 
         List <Delivery> deliveriesList = new ArrayList<>();
-        for (int i=0; i<10; i++){
-            int LocationFrom = 4853;
-            int LocationTo = 2751;
+        for (int i=0; i<records; i++){
+            int LocationFrom = locationFrom;
+            int LocationTo = locationTo;
             int DeliveryNumber = 3784137;
             String LoadingDate = getRandomDate();
             String UnloadingDate = getRandomDate();
             String LoadingTime = getRandomTime();
             String UnloadingTime = getRandomTime();
-            int Product = 83731531;
+            int Product = product;
             int quantity = 132;
             String DlvParty = "Procter & Gamble";
 
@@ -130,7 +127,7 @@ public class DummyDataGenerator {
             stmt = con.createStatement();
             stmt.execute("TRUNCATE TABLE DELIVERIES"); //wyczyszczenie tabeli przed wrzuceniem danych
 
-            for (int i=0; i<10; i++){
+            for (int i=0; i<records; i++){
                 String SQLquery = "INSERT INTO DELIVERIES (locationfrom, locationto, dlvnumber, loadingdate, loadingtime, " +
                         "unloadingdate, unloadingtime, product,  quantity, dlvparty) " +
                         "VALUES (" + deliveriesList.get(i).getLocationFrom() + ", " +
@@ -155,7 +152,7 @@ public class DummyDataGenerator {
         }
     }
 
-    public static void GenerateDummyForecast() {
+    public static void GenerateDummyForecast(int location, int product, int records) {
 
         // deklaracja zmiennych potrzebnych do obsługi JDBC
         Connection con = null;
@@ -164,9 +161,9 @@ public class DummyDataGenerator {
 
         List <Forecast> forecastList = new ArrayList<>();
 
-        for (int i=0; i<10; i++){
-            int Location = 2751;
-            int Product = 83731531;
+        for (int i=0; i<records; i++){
+            int Location = location;
+            int Product = product;
             int Quantity = 500;
             String Date = getRandomDate();
             String ForecastDate = "20170411";
@@ -183,7 +180,7 @@ public class DummyDataGenerator {
             stmt = con.createStatement();
             stmt.execute("TRUNCATE TABLE FORECAST"); //wyczyszczenie tabeli przed wrzuceniem danych
 
-            for (int i=0; i<10; i++){
+            for (int i=0; i<records; i++){
                 String SQLquery = "INSERT INTO FORECAST (location, product, quantity, date1, fcstdate, fcstid) " +
                         "VALUES (" + forecastList.get(i).getLocation() + ", " +
                         forecastList.get(i).getProduct() + ", " +

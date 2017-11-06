@@ -31,5 +31,4 @@ public class GridView extends JFrame {
         JOptionPane.showMessageDialog(null, new JScrollPane(table));
     }
 
-
 }
