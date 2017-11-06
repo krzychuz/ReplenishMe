@@ -117,6 +117,86 @@ public class DataLoader {
         return rs;
     }
 
+    public List<Integer> getProductList() {
+        List<Integer> productList = new ArrayList<>();
+
+        Connection con = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+
+        try {
+            SQLServerDataSource ds = Server.getServer();
+            con = ds.getConnection();
+            stmt = con.createStatement();
+            rs = stmt.executeQuery("SELECT gcas FROM PRODUCTS");
+
+            while (rs.next()) {
+                productList.add(rs.getInt("gcas"));
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return productList;
+    }
+
+    public List<Integer> getPlantList() {
+        List<Integer> plantList = new ArrayList<>();
+
+        Connection con = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+
+        try {
+            SQLServerDataSource ds = Server.getServer();
+            con = ds.getConnection();
+            stmt = con.createStatement();
+            rs = stmt.executeQuery("SELECT plantcode FROM LOCATIONS");
+
+            while (rs.next()) {
+                plantList.add(rs.getInt("plantcode"));
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return plantList;
+    }
+
+    public ResultSet getMrpList(int product, int location){
+        Connection con = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+
+        try {
+            SQLServerDataSource ds = Server.getServer();
+            con = ds.getConnection();
+            stmt = con.createStatement();
+            String SqlQuery = "SELECT loadingdate, dlvnumber, quantity " +
+            "FROM DELIVERIES " +
+            "WHERE locationto = " + location + " AND product = " + product + " " +
+            "UNION " +
+            "SELECT date1, fcstid, quantity " +
+            "FROM FORECAST " +
+            "WHERE location = "+ location + " AND product = " + product + " " +
+            "UNION " +
+            "SELECT unloadingdate, shipntnumber, quantity " +
+            "FROM SHIPMENTS " +
+            "WHERE locationto =" + location + " AND product = " + product + " " +
+            "ORDER BY loadingdate";
+            System.out.println(SqlQuery);
+            rs = stmt.executeQuery(SqlQuery);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return rs;
+
+    }
+
     public List<Forecast> getForecastsPerProductLocation(int product, int location){
         Connection con = null;
         Statement stmt = null;

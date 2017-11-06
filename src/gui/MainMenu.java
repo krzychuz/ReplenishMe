@@ -34,14 +34,15 @@ public class MainMenu extends JFrame {
 
         JButton MrpListButton = new JButton("Browse MRP lists");
 
-        newMenuItem.addActionListener( e -> {
-            try{
-                GridView gv = new GridView();
-            } catch (Exception e1) {
-                e1.printStackTrace();
-            }
-        });
+        newMenuItem.setActionCommand("browseMaterialMaster");
+        MrpListButton.setActionCommand("browseMrpList");
 
+        ActionClass actionEvent = new ActionClass();
+        newMenuItem.addActionListener(actionEvent);
+        MrpListButton.addActionListener(actionEvent);
+
+        this.setLayout(new FlowLayout());
+        this.add(MrpListButton);
         setJMenuBar(menuBar);
     }
 
@@ -55,9 +56,6 @@ public class MainMenu extends JFrame {
         DummyDataGenerator.GenerateDummyShipments();
         DummyDataGenerator.GenerateDummyDeliveries();
         DummyDataGenerator.GenerateDummyForecast();
-
-        //DataLoader dl = new DataLoader();
-        //List<Forecast> forecastList = new ArrayList<>();
-        //forecastList = dl.getForecastsPerProductLocation(83732531,2751);
+        DataLoader dl = new DataLoader();
     }
 }

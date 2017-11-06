@@ -52,7 +52,7 @@ public class DummyDataGenerator {
             String UnloadingDate = getRandomDate();
             String LoadingTime = getRandomTime();
             String UnloadingTime = getRandomTime();
-            int Product = 83732531;
+            int Product = 83731531;
             int quantity = 140;
             String ShipParty = "Procter & Gamble";
 
@@ -113,7 +113,7 @@ public class DummyDataGenerator {
             String UnloadingDate = getRandomDate();
             String LoadingTime = getRandomTime();
             String UnloadingTime = getRandomTime();
-            int Product = 83732531;
+            int Product = 83731531;
             int quantity = 132;
             String DlvParty = "Procter & Gamble";
 
@@ -166,7 +166,7 @@ public class DummyDataGenerator {
 
         for (int i=0; i<10; i++){
             int Location = 2751;
-            int Product = 83732531;
+            int Product = 83731531;
             int Quantity = 500;
             String Date = getRandomDate();
             String ForecastDate = "20170411";
