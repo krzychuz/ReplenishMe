@@ -130,3 +130,38 @@ CREATE TABLE TLANES (
 	duration smallint NOT NULL,
 	distance smallint NOT NULL
 );
+
+CREATE TABLE LASTDOC (
+	docname varchar(50) NOT NULL,
+	docnumber varchar(50) NOT NULL
+)
+
+INSERT INTO LASTDOC (docname, docnumber)
+VALUES ('QMLOT', '0000000');
+
+INSERT INTO LASTDOC (docname, docnumber)
+VALUES ('ORDER', '1000000');
+
+INSERT INTO LASTDOC (docname, docnumber)
+VALUES ('SHIPNT', '2000000');
+
+INSERT INTO LASTDOC (docname, docnumber)
+VALUES ('DELIV', '3000000');
+
+INSERT INTO LASTDOC (docname, docnumber)
+VALUES ('PCHORD', '4000000');
+
+INSERT INTO LASTDOC (docname, docnumber)
+VALUES ('DEPREQ', '5000000');
+
+INSERT INTO LASTDOC (docname, docnumber)
+VALUES ('PRCORD', '6000000');
+
+INSERT INTO LASTDOC (docname, docnumber)
+VALUES ('PLOREL', '7000000');
+
+INSERT INTO LASTDOC (docname, docnumber)
+VALUES ('PLORD', '8000000');
+
+INSERT INTO LASTDOC (docname, docnumber)
+VALUES ('INDREQ', '9000000');

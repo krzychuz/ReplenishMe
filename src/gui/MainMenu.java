@@ -51,6 +51,7 @@ public class MainMenu extends JFrame {
             ex.setVisible(true);
         });
         DataLoader.loadMaterialMaster();
+        DummyDataGenerator.truncateTables();
         DummyDataGenerator.GenerateDummyShipments(5053,2751,83731531,10);
         DummyDataGenerator.GenerateDummyShipments(2751,2621,83731531,10);
         DummyDataGenerator.GenerateDummyDeliveries(4853,2751,83731531,10);

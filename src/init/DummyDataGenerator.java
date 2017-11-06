@@ -16,6 +16,51 @@ import java.util.concurrent.ThreadLocalRandom;
  */
 public class DummyDataGenerator {
 
+    public static void truncateTables(){
+        // deklaracja zmiennych potrzebnych do obsługi JDBC
+        Connection con = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+
+        try {
+            SQLServerDataSource ds = Server.getServer();
+            con = ds.getConnection();
+            stmt = con.createStatement();
+            stmt.execute("TRUNCATE TABLE SHIPMENTS");
+            stmt.execute("TRUNCATE TABLE DELIVERIES");
+            stmt.execute("TRUNCATE TABLE FORECAST");
+            con.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static int incrementAndGetDocumentNumber(String docName){
+        Connection con = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+
+        int lastDocument = 0;
+
+        try {
+            SQLServerDataSource ds = Server.getServer();
+            con = ds.getConnection();
+            stmt = con.createStatement();
+            rs = stmt.executeQuery("SELECT docnumber FROM LASTDOC WHERE docname = '"+ docName + "'");
+            while (rs.next()){
+                lastDocument = Integer.parseInt(rs.getString("docnumber"))+1;
+            }
+            stmt.executeUpdate("UPDATE LASTDOC SET docnumber = '"+ Integer.toString(lastDocument) +
+                    "' WHERE docname = '"+ docName + "'");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return lastDocument;
+    }
+
     private static String getRandomDate() {
         Random r = new Random();
         int year = ThreadLocalRandom.current().nextInt(2015, 2016 + 1); // losowy rok
@@ -47,7 +92,7 @@ public class DummyDataGenerator {
         for (int i=0; i<records; i++){
             int LocationFrom = locationFrom;
             int LocationTo = locationTo;
-            int ShipmentNumber = 2856315;
+            int ShipmentNumber = incrementAndGetDocumentNumber("SHIPNT");
             String LoadingDate = getRandomDate();
             String UnloadingDate = getRandomDate();
             String LoadingTime = getRandomTime();
@@ -67,7 +112,6 @@ public class DummyDataGenerator {
             SQLServerDataSource ds = Server.getServer();
             con = ds.getConnection();
             stmt = con.createStatement();
-            stmt.execute("TRUNCATE TABLE SHIPMENTS"); //wyczyszczenie tabeli przed wrzuceniem danych
 
             for (int i=0; i<records; i++){
                 String SQLquery = "INSERT INTO SHIPMENTS (locationfrom, locationto, shipntnumber, loadingdate, loadingtime, " +
@@ -105,7 +149,7 @@ public class DummyDataGenerator {
         for (int i=0; i<records; i++){
             int LocationFrom = locationFrom;
             int LocationTo = locationTo;
-            int DeliveryNumber = 3784137;
+            int DeliveryNumber = incrementAndGetDocumentNumber("DELIV");
             String LoadingDate = getRandomDate();
             String UnloadingDate = getRandomDate();
             String LoadingTime = getRandomTime();
@@ -125,7 +169,6 @@ public class DummyDataGenerator {
             SQLServerDataSource ds = Server.getServer();
             con = ds.getConnection();
             stmt = con.createStatement();
-            stmt.execute("TRUNCATE TABLE DELIVERIES"); //wyczyszczenie tabeli przed wrzuceniem danych
 
             for (int i=0; i<records; i++){
                 String SQLquery = "INSERT INTO DELIVERIES (locationfrom, locationto, dlvnumber, loadingdate, loadingtime, " +
@@ -167,7 +210,7 @@ public class DummyDataGenerator {
             int Quantity = 500;
             String Date = getRandomDate();
             String ForecastDate = "20170411";
-            int ForecastId = 9631736;
+            int ForecastId = incrementAndGetDocumentNumber("INDREQ");
 
             Forecast forecast = new Forecast(Location, Product, Quantity, Date, ForecastDate, ForecastId);
 
@@ -178,7 +221,6 @@ public class DummyDataGenerator {
             SQLServerDataSource ds = Server.getServer();
             con = ds.getConnection();
             stmt = con.createStatement();
-            stmt.execute("TRUNCATE TABLE FORECAST"); //wyczyszczenie tabeli przed wrzuceniem danych
 
             for (int i=0; i<records; i++){
                 String SQLquery = "INSERT INTO FORECAST (location, product, quantity, date1, fcstdate, fcstid) " +

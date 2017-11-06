@@ -2,7 +2,6 @@ package gui;
 
 import init.DataLoader;
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -38,7 +37,6 @@ public class MrpListBrowser extends JFrame {
         JPanel buttonsPanel = new JPanel(new GridBagLayout());
         JPanel gridPanel = new JPanel(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
-
 
         JComboBox<Integer> productListComboBox = new JComboBox<>();
         JComboBox<Integer> plantListComboBox = new JComboBox<>();
