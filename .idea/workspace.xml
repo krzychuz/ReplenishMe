@@ -2,11 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d18e25b4-7e66-4fc6-b417-5ea4b429a8d1" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/gui/MrpTableModel.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ReplenishMe/calculation/MRPElement.class" afterPath="$PROJECT_DIR$/out/production/ReplenishMe/calculation/MRPElement.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ReplenishMe/init/DataLoader.class" afterPath="$PROJECT_DIR$/out/production/ReplenishMe/init/DataLoader.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ReplenishMe/master/Product.class" afterPath="$PROJECT_DIR$/out/production/ReplenishMe/master/Product.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/compiler.xml" afterPath="$PROJECT_DIR$/.idea/compiler.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/create_database.sql" afterPath="$PROJECT_DIR$/create_database.sql" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/gui/MainMenu.java" afterPath="$PROJECT_DIR$/src/gui/MainMenu.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/calculation/MRPElement.java" afterPath="$PROJECT_DIR$/src/calculation/MRPElement.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/gui/MrpListBrowser.java" afterPath="$PROJECT_DIR$/src/gui/MrpListBrowser.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/init/DummyDataGenerator.java" afterPath="$PROJECT_DIR$/src/init/DummyDataGenerator.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/init/DataLoader.java" afterPath="$PROJECT_DIR$/src/init/DataLoader.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path=".idea/dataSources.local.xml" />
@@ -30,48 +35,49 @@
       <file leaf-file-name="DataLoader.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/init/DataLoader.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="361">
-              <caret line="138" column="9" selection-start-line="126" selection-start-column="7" selection-end-line="138" selection-end-column="9" />
+            <state relative-caret-position="132">
+              <caret line="319" column="0" selection-start-line="319" selection-start-column="0" selection-end-line="319" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="method#loadMaterialMaster#0;class#DataLoader#0" expanded="false" />
                 <element signature="method#getMaterialMaster#0;class#DataLoader#0" expanded="false" />
+                <element signature="method#getProductList#0;class#DataLoader#0" expanded="false" />
                 <element signature="method#getPlantList#0;class#DataLoader#0" expanded="false" />
                 <element signature="method#getMrpList#0;class#DataLoader#0" expanded="false" />
                 <element signature="method#getForecastsPerProductLocation#0;class#DataLoader#0" expanded="false" />
                 <element signature="method#getShipmentPerProductLocation#0;class#DataLoader#0" expanded="false" />
                 <element signature="method#getStockPerProductLocation#0;class#DataLoader#0" expanded="false" />
-                <marker date="1509891017516" expanded="true" signature="2925:3203" ph="INSERT INTO PRODUCT... " />
-                <marker date="1509891017516" expanded="true" signature="3755:3777" ph="SELECT * FRO... PRODUCTS" />
-                <marker date="1509891017516" expanded="true" signature="4263:4288" ph="SELECT gcas PRODUCTS" />
-                <marker date="1509891017516" expanded="true" signature="4878:4900" ph="SELECT gcas PRODUCTS" />
-                <marker date="1509891017516" expanded="true" signature="4878:4909" ph="SELECT plant... LOCATIONS" />
-                <marker date="1509891017516" expanded="true" signature="5459:5498" ph="SELECT loadi... " />
-                <marker date="1509891017516" expanded="true" signature="5459:5531" ph="SELECT loadi... " />
-                <marker date="1509891017516" expanded="true" signature="5459:5583" ph="SELECT loadi... " />
-                <marker date="1509891017516" expanded="true" signature="5459:5599" ph="SELECT loadi... " />
-                <marker date="1509891017516" expanded="true" signature="5459:5637" ph="SELECT loadi... " />
-                <marker date="1509891017516" expanded="true" signature="5459:5781" ph="SELECT loadi... " />
-                <marker date="1509891017516" expanded="true" signature="5459:5819" ph="SELECT loadi... " />
-                <marker date="1509891017516" expanded="true" signature="5459:5881" ph="SELECT loadi... " />
-                <marker date="1509891017516" expanded="true" signature="5459:5913" ph="SELECT loadi... " />
-                <marker date="1509891017516" expanded="true" signature="5459:5996" ph="SELECT loadi... " />
-                <marker date="1509891017516" expanded="true" signature="5459:6033" ph="SELECT loadi... " />
-                <marker date="1509891017516" expanded="true" signature="5459:6035" ph="SELECT loadi... " />
-                <marker date="1509891017516" expanded="true" signature="5655:5781" ph="SELECT date1... FORECAST" />
-                <marker date="1509891017516" expanded="true" signature="6645:6715" ph="SELECT * FRO... FORECAST" />
-                <marker date="1509891017516" expanded="true" signature="7813:7886" ph="SELECT * FRO... SHIPM" />
-                <marker date="1509891017516" expanded="true" signature="9237:9304" ph="SELECT * FRO... STOCK" />
+                <marker date="1510494962355" expanded="true" signature="3015:3293" ph="INSERT INTO PRODUCT... " />
+                <marker date="1510494962355" expanded="true" signature="3845:3867" ph="SELECT * FRO... PRODUCTS" />
+                <marker date="1510494962355" expanded="true" signature="4353:4378" ph="SELECT gcas PRODUCTS" />
+                <marker date="1510494962355" expanded="true" signature="4968:4990" ph="SELECT gcas PRODUCTS" />
+                <marker date="1510494962355" expanded="true" signature="4968:4999" ph="SELECT plant... LOCATIONS" />
+                <marker date="1510494962355" expanded="true" signature="5549:5588" ph="SELECT loadi... " />
+                <marker date="1510494962355" expanded="true" signature="5549:5621" ph="SELECT loadi... " />
+                <marker date="1510494962355" expanded="true" signature="5549:5673" ph="SELECT loadi... " />
+                <marker date="1510494962355" expanded="true" signature="5549:5689" ph="SELECT loadi... " />
+                <marker date="1510494962355" expanded="true" signature="5549:5727" ph="SELECT loadi... " />
+                <marker date="1510494962355" expanded="true" signature="5549:5871" ph="SELECT loadi... " />
+                <marker date="1510494962355" expanded="true" signature="5549:5909" ph="SELECT loadi... " />
+                <marker date="1510494962355" expanded="true" signature="5549:5971" ph="SELECT loadi... " />
+                <marker date="1510494962355" expanded="true" signature="5549:6003" ph="SELECT loadi... " />
+                <marker date="1510494962355" expanded="true" signature="5549:6086" ph="SELECT loadi... " />
+                <marker date="1510494962355" expanded="true" signature="5549:6123" ph="SELECT loadi... " />
+                <marker date="1510494962355" expanded="true" signature="5549:6125" ph="SELECT loadi... " />
+                <marker date="1510494962355" expanded="true" signature="5745:5871" ph="SELECT date1... FORECAST" />
+                <marker date="1510494962355" expanded="true" signature="6735:6805" ph="SELECT * FRO... FORECAST" />
+                <marker date="1510494962355" expanded="true" signature="7903:7976" ph="SELECT * FRO... SHIPM" />
+                <marker date="1510494962355" expanded="true" signature="9327:9394" ph="SELECT * FRO... STOCK" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MainMenu.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/gui/MainMenu.java">
+      <file leaf-file-name="MRPElement.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/calculation/MRPElement.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="521">
-              <caret line="53" column="44" selection-start-line="53" selection-start-column="44" selection-end-line="53" selection-end-column="44" />
+            <state relative-caret-position="132">
+              <caret line="46" column="8" selection-start-line="46" selection-start-column="8" selection-end-line="46" selection-end-column="8" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -79,42 +85,33 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MrpListBrowser.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="MrpTableModel.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/gui/MrpTableModel.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="126">
+              <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#415#416#0" expanded="true" />
+                <element signature="e#455#456#0" expanded="true" />
+                <element signature="e#501#502#0" expanded="true" />
+                <element signature="e#542#543#0" expanded="true" />
+                <element signature="e#591#592#0" expanded="true" />
+                <element signature="e#615#616#0" expanded="true" />
+                <element signature="e#1419#1420#0" expanded="true" />
+                <element signature="e#1454#1455#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MrpListBrowser.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/gui/MrpListBrowser.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="459">
-              <caret line="38" column="66" selection-start-line="38" selection-start-column="66" selection-end-line="38" selection-end-column="66" />
+            <state relative-caret-position="402">
+              <caret line="94" column="0" selection-start-line="94" selection-start-column="0" selection-end-line="94" selection-end-column="0" />
               <folding>
-                <element signature="imports" expanded="true" />
                 <element signature="docComment;class#MrpListBrowser#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="DummyDataGenerator.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/init/DummyDataGenerator.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="356">
-              <caret line="197" column="85" selection-start-line="197" selection-start-column="85" selection-end-line="197" selection-end-column="85" />
-              <folding>
-                <element signature="method#truncateTables#0;class#DummyDataGenerator#0" expanded="false" />
-                <element signature="method#incrementAndGetDocumentNumber#0;class#DummyDataGenerator#0" expanded="false" />
-                <element signature="method#getRandomDate#0;class#DummyDataGenerator#0" expanded="false" />
-                <element signature="method#getRandomTime#0;class#DummyDataGenerator#0" expanded="false" />
-                <element signature="method#GenerateDummyShipments#0;class#DummyDataGenerator#0" expanded="false" />
-                <element signature="method#GenerateDummyDeliveries#0;class#DummyDataGenerator#0" expanded="false" />
-                <element signature="method#GenerateDummyForecast#0;class#DummyDataGenerator#0" expanded="false" />
-                <marker date="1510002277844" expanded="true" signature="1396:1443" ph="SELECT docnu... LASTDOC" />
-                <marker date="1510002277844" expanded="true" signature="1396:1458" ph="SELECT docnu... LASTDOC" />
-                <marker date="1510002277844" expanded="true" signature="1617:1740" ph="UPDATE LASTD... " />
-                <marker date="1510002277844" expanded="true" signature="3982:4881" ph="INSERT INTO SHIPMENTS... " />
-                <marker date="1510002277844" expanded="true" signature="6419:7334" ph="INSERT INTO SHIPMENTS... " />
-                <marker date="1510002277844" expanded="true" signature="8544:8834" ph="INSERT INTO FORECAST... " />
-                <marker date="1510002277844" expanded="true" signature="8544:8899" ph="INSERT INTO FORECAST... " />
-                <marker date="1510002277844" expanded="true" signature="8544:8970" ph="INSERT INTO FORECAST... " />
-                <marker date="1510002277844" expanded="true" signature="8544:8971" ph="INSERT INTO FORECAST... " />
-                <marker date="1510002277844" expanded="true" signature="8544:9039" ph="INSERT INTO DELIVERIES... " />
               </folding>
             </state>
           </provider>
@@ -161,7 +158,6 @@
         <option value="$PROJECT_DIR$/src/enums/Procurement.java" />
         <option value="$PROJECT_DIR$/src/Database.java" />
         <option value="$PROJECT_DIR$/src/enums/MRP.java" />
-        <option value="$PROJECT_DIR$/src/calculation/MRPElement.java" />
         <option value="$PROJECT_DIR$/src/db/Database.java" />
         <option value="$PROJECT_DIR$/src/calculation/MRPList.java" />
         <option value="$PROJECT_DIR$/src/db/Test.java" />
@@ -175,12 +171,14 @@
         <option value="$PROJECT_DIR$/src/calculation/Forecast.java" />
         <option value="$PROJECT_DIR$/src/gui/BrowseMrpList.java" />
         <option value="$PROJECT_DIR$/src/gui/ActionClass.java" />
-        <option value="$PROJECT_DIR$/src/init/DataLoader.java" />
         <option value="$PROJECT_DIR$/src/gui/GridView.java" />
         <option value="$PROJECT_DIR$/src/gui/TableModelCreator.java" />
-        <option value="$PROJECT_DIR$/src/gui/MrpListBrowser.java" />
         <option value="$PROJECT_DIR$/src/gui/MainMenu.java" />
         <option value="$PROJECT_DIR$/src/init/DummyDataGenerator.java" />
+        <option value="$PROJECT_DIR$/src/init/DataLoader.java" />
+        <option value="$PROJECT_DIR$/src/gui/MrpTableModel.java" />
+        <option value="$PROJECT_DIR$/src/calculation/MRPElement.java" />
+        <option value="$PROJECT_DIR$/src/gui/MrpListBrowser.java" />
       </list>
     </option>
   </component>
@@ -193,7 +191,7 @@
   <component name="ProjectFrameBounds">
     <option name="x" value="-8" />
     <option name="y" value="-8" />
-    <option name="width" value="1382" />
+    <option name="width" value="1370" />
     <option name="height" value="744" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
@@ -222,7 +220,6 @@
     </navigator>
     <panes>
       <pane id="PackagesPane" />
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -352,6 +349,7 @@
         </subPane>
       </pane>
       <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="AndroidView" />
     </panes>
   </component>
@@ -359,8 +357,8 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/libs/sqljdbc42.jar!/" />
-    <property name="project.structure.last.edited" value="Libraries" />
-    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
@@ -833,12 +831,13 @@
       <workItem from="1509285399737" duration="625000" />
       <workItem from="1509288597633" duration="5402000" />
       <workItem from="1509297192002" duration="17294000" />
-      <workItem from="1509886245382" duration="17753000" />
+      <workItem from="1509886245382" duration="18512000" />
+      <workItem from="1510486525285" duration="8393000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="85241000" />
+    <option name="totallyTimeSpent" value="94393000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -850,7 +849,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <frame x="-8" y="-8" width="1370" height="744" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -861,18 +860,18 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.19873817" sideWeight="0.5058565" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.10725552" sideWeight="0.4941435" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3280757" sideWeight="0.4941435" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.27647716" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24597365" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24593796" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Statistic" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.38801262" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.36119872" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.6151419" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -899,7 +898,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="25" />
+      <option name="time" value="27" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="Application">
@@ -912,44 +911,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/init/DataLoader.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="561">
-          <caret line="42" column="38" selection-start-line="42" selection-start-column="38" selection-end-line="42" selection-end-column="38" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#loadMaterialMaster#0;class#DataLoader#0" expanded="false" />
-            <element signature="method#getMaterialMaster#0;class#DataLoader#0" expanded="false" />
-            <element signature="method#getPlantList#0;class#DataLoader#0" expanded="false" />
-            <element signature="method#getMrpList#0;class#DataLoader#0" expanded="false" />
-            <element signature="method#getForecastsPerProductLocation#0;class#DataLoader#0" expanded="false" />
-            <element signature="method#getShipmentPerProductLocation#0;class#DataLoader#0" expanded="false" />
-            <element signature="method#getStockPerProductLocation#0;class#DataLoader#0" expanded="false" />
-            <marker date="1509891017516" expanded="true" signature="2925:3203" ph="INSERT INTO PRODUCT... " />
-            <marker date="1509891017516" expanded="true" signature="3755:3777" ph="SELECT * FRO... PRODUCTS" />
-            <marker date="1509891017516" expanded="true" signature="4263:4288" ph="SELECT gcas PRODUCTS" />
-            <marker date="1509891017516" expanded="true" signature="4878:4900" ph="SELECT gcas PRODUCTS" />
-            <marker date="1509891017516" expanded="true" signature="4878:4909" ph="SELECT plant... LOCATIONS" />
-            <marker date="1509891017516" expanded="true" signature="5459:5498" ph="SELECT loadi... " />
-            <marker date="1509891017516" expanded="true" signature="5459:5531" ph="SELECT loadi... " />
-            <marker date="1509891017516" expanded="true" signature="5459:5583" ph="SELECT loadi... " />
-            <marker date="1509891017516" expanded="true" signature="5459:5599" ph="SELECT loadi... " />
-            <marker date="1509891017516" expanded="true" signature="5459:5637" ph="SELECT loadi... " />
-            <marker date="1509891017516" expanded="true" signature="5459:5781" ph="SELECT loadi... " />
-            <marker date="1509891017516" expanded="true" signature="5459:5819" ph="SELECT loadi... " />
-            <marker date="1509891017516" expanded="true" signature="5459:5881" ph="SELECT loadi... " />
-            <marker date="1509891017516" expanded="true" signature="5459:5913" ph="SELECT loadi... " />
-            <marker date="1509891017516" expanded="true" signature="5459:5996" ph="SELECT loadi... " />
-            <marker date="1509891017516" expanded="true" signature="5459:6033" ph="SELECT loadi... " />
-            <marker date="1509891017516" expanded="true" signature="5459:6035" ph="SELECT loadi... " />
-            <marker date="1509891017516" expanded="true" signature="5655:5781" ph="SELECT date1... FORECAST" />
-            <marker date="1509891017516" expanded="true" signature="6645:6715" ph="SELECT * FRO... FORECAST" />
-            <marker date="1509891017516" expanded="true" signature="7813:7886" ph="SELECT * FRO... SHIPM" />
-            <marker date="1509891017516" expanded="true" signature="9237:9304" ph="SELECT * FRO... STOCK" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/enums/UoM.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
@@ -995,45 +956,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/master/Product.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="287">
-          <caret line="29" column="0" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/db/Test.java" />
-    <entry file="file://$PROJECT_DIR$/src/enums/MRP.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/master/TLane.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/enums/UoM.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/enums/Type.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Main.java" />
     <entry file="jar://C:/Program Files/Java/jdk1.8.0_91/src.zip!/java/awt/event/ActionListener.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -1042,36 +965,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/enums/Procurement.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/calculation/MRPElement.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="9" column="25" selection-start-line="9" selection-start-column="25" selection-end-line="9" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/enums/SafetyStrategy.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/calculation/Replenishment.java" />
     <entry file="jar://C:/Program Files/Java/jdk1.8.0_91/src.zip!/java/util/Random.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="159">
           <caret line="103" column="11" selection-start-line="103" selection-start-column="11" selection-end-line="103" selection-end-column="11" />
-          <folding>
-            <element signature="e#3504#3505#0" expanded="false" />
-            <element signature="e#3562#3563#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1079,44 +977,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="374">
           <caret line="309" column="0" selection-start-line="309" selection-start-column="0" selection-end-line="309" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/calculation/MRPList.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="30" column="0" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/calculation/Delivery.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="28" column="33" selection-start-line="28" selection-start-column="33" selection-end-line="28" selection-end-column="33" />
-          <folding>
-            <element signature="e#1107#1108#0" expanded="false" />
-            <element signature="e#1142#1143#0" expanded="false" />
-            <element signature="e#1176#1177#0" expanded="false" />
-            <element signature="e#1209#1210#0" expanded="false" />
-            <element signature="e#1247#1248#0" expanded="false" />
-            <element signature="e#1281#1282#0" expanded="false" />
-            <element signature="e#1321#1322#0" expanded="false" />
-            <element signature="e#1357#1358#0" expanded="false" />
-            <element signature="e#1395#1396#0" expanded="false" />
-            <element signature="e#1432#1433#0" expanded="false" />
-            <element signature="e#1470#1471#0" expanded="false" />
-            <element signature="e#1504#1505#0" expanded="false" />
-            <element signature="e#1544#1545#0" expanded="false" />
-            <element signature="e#1580#1581#0" expanded="false" />
-            <element signature="e#1611#1612#0" expanded="false" />
-            <element signature="e#1641#1642#0" expanded="false" />
-            <element signature="e#1673#1674#0" expanded="false" />
-            <element signature="e#1704#1705#0" expanded="false" />
-            <element signature="e#1739#1740#0" expanded="false" />
-            <element signature="e#1770#1771#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1124,13 +984,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
           <caret line="12" column="65" selection-start-line="12" selection-start-column="4" selection-end-line="12" selection-end-column="65" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/init/DataExporter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="25" selection-start-line="2" selection-start-column="25" selection-end-line="2" selection-end-column="25" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1177,7 +1031,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="348">
           <caret line="67" column="25" selection-start-line="67" selection-start-column="25" selection-end-line="67" selection-end-column="25" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1185,9 +1038,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="200">
           <caret line="26" column="0" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
-          <folding>
-            <element signature="e#647#648#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1195,9 +1045,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="117">
           <caret line="49" column="0" selection-start-line="49" selection-start-column="0" selection-end-line="49" selection-end-column="0" />
-          <folding>
-            <element signature="e#1204#1205#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1205,7 +1052,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="270">
           <caret line="664" column="0" selection-start-line="664" selection-start-column="0" selection-end-line="664" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1213,9 +1059,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="200">
           <caret line="33" column="0" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
-          <folding>
-            <element signature="e#1136#1137#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1223,10 +1066,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="108">
           <caret line="248" column="0" selection-start-line="248" selection-start-column="0" selection-end-line="248" selection-end-column="0" />
-          <folding>
-            <element signature="e#2374#2375#0" expanded="true" />
-            <element signature="e#2418#2419#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1260,7 +1099,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="197">
           <caret line="49" column="17" selection-start-line="49" selection-start-column="17" selection-end-line="49" selection-end-column="17" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1282,70 +1120,23 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/gui/MrpListBrowser.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="38" column="66" selection-start-line="38" selection-start-column="66" selection-end-line="38" selection-end-column="66" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="docComment;class#MrpListBrowser#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/init/DataLoader.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="361">
-          <caret line="138" column="9" selection-start-line="126" selection-start-column="7" selection-end-line="138" selection-end-column="9" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#loadMaterialMaster#0;class#DataLoader#0" expanded="false" />
-            <element signature="method#getMaterialMaster#0;class#DataLoader#0" expanded="false" />
-            <element signature="method#getPlantList#0;class#DataLoader#0" expanded="false" />
-            <element signature="method#getMrpList#0;class#DataLoader#0" expanded="false" />
-            <element signature="method#getForecastsPerProductLocation#0;class#DataLoader#0" expanded="false" />
-            <element signature="method#getShipmentPerProductLocation#0;class#DataLoader#0" expanded="false" />
-            <element signature="method#getStockPerProductLocation#0;class#DataLoader#0" expanded="false" />
-            <marker date="1509891017516" expanded="true" signature="2925:3203" ph="INSERT INTO PRODUCT... " />
-            <marker date="1509891017516" expanded="true" signature="3755:3777" ph="SELECT * FRO... PRODUCTS" />
-            <marker date="1509891017516" expanded="true" signature="4263:4288" ph="SELECT gcas PRODUCTS" />
-            <marker date="1509891017516" expanded="true" signature="4878:4900" ph="SELECT gcas PRODUCTS" />
-            <marker date="1509891017516" expanded="true" signature="4878:4909" ph="SELECT plant... LOCATIONS" />
-            <marker date="1509891017516" expanded="true" signature="5459:5498" ph="SELECT loadi... " />
-            <marker date="1509891017516" expanded="true" signature="5459:5531" ph="SELECT loadi... " />
-            <marker date="1509891017516" expanded="true" signature="5459:5583" ph="SELECT loadi... " />
-            <marker date="1509891017516" expanded="true" signature="5459:5599" ph="SELECT loadi... " />
-            <marker date="1509891017516" expanded="true" signature="5459:5637" ph="SELECT loadi... " />
-            <marker date="1509891017516" expanded="true" signature="5459:5781" ph="SELECT loadi... " />
-            <marker date="1509891017516" expanded="true" signature="5459:5819" ph="SELECT loadi... " />
-            <marker date="1509891017516" expanded="true" signature="5459:5881" ph="SELECT loadi... " />
-            <marker date="1509891017516" expanded="true" signature="5459:5913" ph="SELECT loadi... " />
-            <marker date="1509891017516" expanded="true" signature="5459:5996" ph="SELECT loadi... " />
-            <marker date="1509891017516" expanded="true" signature="5459:6033" ph="SELECT loadi... " />
-            <marker date="1509891017516" expanded="true" signature="5459:6035" ph="SELECT loadi... " />
-            <marker date="1509891017516" expanded="true" signature="5655:5781" ph="SELECT date1... FORECAST" />
-            <marker date="1509891017516" expanded="true" signature="6645:6715" ph="SELECT * FRO... FORECAST" />
-            <marker date="1509891017516" expanded="true" signature="7813:7886" ph="SELECT * FRO... SHIPM" />
-            <marker date="1509891017516" expanded="true" signature="9237:9304" ph="SELECT * FRO... STOCK" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/gui/MainMenu.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="521">
+        <state relative-caret-position="799">
           <caret line="53" column="44" selection-start-line="53" selection-start-column="44" selection-end-line="53" selection-end-column="44" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="e#252#253#0" expanded="false" />
+            <element signature="e#276#277#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/init/DummyDataGenerator.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="356">
+        <state relative-caret-position="357">
           <caret line="197" column="85" selection-start-line="197" selection-start-column="85" selection-end-line="197" selection-end-column="85" />
           <folding>
+            <element signature="imports" expanded="false" />
             <element signature="method#truncateTables#0;class#DummyDataGenerator#0" expanded="false" />
             <element signature="method#incrementAndGetDocumentNumber#0;class#DummyDataGenerator#0" expanded="false" />
             <element signature="method#getRandomDate#0;class#DummyDataGenerator#0" expanded="false" />
@@ -1363,6 +1154,201 @@
             <marker date="1510002277844" expanded="true" signature="8544:8970" ph="INSERT INTO FORECAST... " />
             <marker date="1510002277844" expanded="true" signature="8544:8971" ph="INSERT INTO FORECAST... " />
             <marker date="1510002277844" expanded="true" signature="8544:9039" ph="INSERT INTO DELIVERIES... " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/init/DataExporter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="25" selection-start-line="2" selection-start-column="25" selection-end-line="2" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/master/Product.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="765">
+          <caret line="48" column="20" selection-start-line="48" selection-start-column="20" selection-end-line="48" selection-end-column="20" />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#1511#1512#0" expanded="false" />
+            <element signature="e#1538#1539#0" expanded="false" />
+            <element signature="e#1570#1571#0" expanded="false" />
+            <element signature="e#1601#1602#0" expanded="false" />
+            <element signature="e#1646#1647#0" expanded="false" />
+            <element signature="e#1686#1687#0" expanded="false" />
+            <element signature="e#1723#1724#0" expanded="false" />
+            <element signature="e#1755#1756#0" expanded="false" />
+            <element signature="e#1792#1793#0" expanded="false" />
+            <element signature="e#1828#1829#0" expanded="false" />
+            <element signature="e#1883#1884#0" expanded="false" />
+            <element signature="e#1933#1934#0" expanded="false" />
+            <element signature="e#1963#1964#0" expanded="false" />
+            <element signature="e#1992#1993#0" expanded="false" />
+            <element signature="e#2033#2034#0" expanded="false" />
+            <element signature="e#2069#2070#0" expanded="false" />
+            <element signature="e#2107#2108#0" expanded="false" />
+            <element signature="e#2141#2142#0" expanded="false" />
+            <element signature="e#2195#2196#0" expanded="false" />
+            <element signature="e#2241#2242#0" expanded="false" />
+            <element signature="e#2269#2270#0" expanded="false" />
+            <element signature="e#2296#2297#0" expanded="false" />
+            <element signature="e#2333#2334#0" expanded="false" />
+            <element signature="e#2365#2366#0" expanded="false" />
+            <element signature="e#2394#2395#0" expanded="false" />
+            <element signature="e#2421#2422#0" expanded="false" />
+            <element signature="e#2459#2460#0" expanded="false" />
+            <element signature="e#2491#2492#0" expanded="false" />
+            <element signature="e#2534#2535#0" expanded="false" />
+            <element signature="e#2568#2569#0" expanded="false" />
+            <element signature="e#2627#2628#0" expanded="false" />
+            <element signature="e#2673#2674#0" expanded="false" />
+            <element signature="e#2716#2717#0" expanded="false" />
+            <element signature="e#2747#2748#0" expanded="false" />
+            <element signature="e#2803#2804#0" expanded="false" />
+            <element signature="e#2843#2844#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/master/TLane.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/enums/SafetyStrategy.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="12" selection-start-line="2" selection-start-column="12" selection-end-line="2" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/enums/Type.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/enums/UoM.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/enums/Procurement.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/calculation/Delivery.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="476">
+          <caret line="28" column="33" selection-start-line="28" selection-start-column="33" selection-end-line="28" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/enums/MRP.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="12" selection-start-line="2" selection-start-column="12" selection-end-line="2" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/calculation/MRPList.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="442">
+          <caret line="31" column="28" selection-start-line="31" selection-start-column="28" selection-end-line="31" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/init/DataLoader.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="132">
+          <caret line="319" column="0" selection-start-line="319" selection-start-column="0" selection-end-line="319" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#loadMaterialMaster#0;class#DataLoader#0" expanded="false" />
+            <element signature="method#getMaterialMaster#0;class#DataLoader#0" expanded="false" />
+            <element signature="method#getProductList#0;class#DataLoader#0" expanded="false" />
+            <element signature="method#getPlantList#0;class#DataLoader#0" expanded="false" />
+            <element signature="method#getMrpList#0;class#DataLoader#0" expanded="false" />
+            <element signature="method#getForecastsPerProductLocation#0;class#DataLoader#0" expanded="false" />
+            <element signature="method#getShipmentPerProductLocation#0;class#DataLoader#0" expanded="false" />
+            <element signature="method#getStockPerProductLocation#0;class#DataLoader#0" expanded="false" />
+            <marker date="1510494962355" expanded="true" signature="3015:3293" ph="INSERT INTO PRODUCT... " />
+            <marker date="1510494962355" expanded="true" signature="3845:3867" ph="SELECT * FRO... PRODUCTS" />
+            <marker date="1510494962355" expanded="true" signature="4353:4378" ph="SELECT gcas PRODUCTS" />
+            <marker date="1510494962355" expanded="true" signature="4968:4990" ph="SELECT gcas PRODUCTS" />
+            <marker date="1510494962355" expanded="true" signature="4968:4999" ph="SELECT plant... LOCATIONS" />
+            <marker date="1510494962355" expanded="true" signature="5549:5588" ph="SELECT loadi... " />
+            <marker date="1510494962355" expanded="true" signature="5549:5621" ph="SELECT loadi... " />
+            <marker date="1510494962355" expanded="true" signature="5549:5673" ph="SELECT loadi... " />
+            <marker date="1510494962355" expanded="true" signature="5549:5689" ph="SELECT loadi... " />
+            <marker date="1510494962355" expanded="true" signature="5549:5727" ph="SELECT loadi... " />
+            <marker date="1510494962355" expanded="true" signature="5549:5871" ph="SELECT loadi... " />
+            <marker date="1510494962355" expanded="true" signature="5549:5909" ph="SELECT loadi... " />
+            <marker date="1510494962355" expanded="true" signature="5549:5971" ph="SELECT loadi... " />
+            <marker date="1510494962355" expanded="true" signature="5549:6003" ph="SELECT loadi... " />
+            <marker date="1510494962355" expanded="true" signature="5549:6086" ph="SELECT loadi... " />
+            <marker date="1510494962355" expanded="true" signature="5549:6123" ph="SELECT loadi... " />
+            <marker date="1510494962355" expanded="true" signature="5549:6125" ph="SELECT loadi... " />
+            <marker date="1510494962355" expanded="true" signature="5745:5871" ph="SELECT date1... FORECAST" />
+            <marker date="1510494962355" expanded="true" signature="6735:6805" ph="SELECT * FRO... FORECAST" />
+            <marker date="1510494962355" expanded="true" signature="7903:7976" ph="SELECT * FRO... SHIPM" />
+            <marker date="1510494962355" expanded="true" signature="9327:9394" ph="SELECT * FRO... STOCK" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/calculation/MRPElement.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="132">
+          <caret line="46" column="8" selection-start-line="46" selection-start-column="8" selection-end-line="46" selection-end-column="8" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/gui/MrpTableModel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#415#416#0" expanded="true" />
+            <element signature="e#455#456#0" expanded="true" />
+            <element signature="e#501#502#0" expanded="true" />
+            <element signature="e#542#543#0" expanded="true" />
+            <element signature="e#591#592#0" expanded="true" />
+            <element signature="e#615#616#0" expanded="true" />
+            <element signature="e#1419#1420#0" expanded="true" />
+            <element signature="e#1454#1455#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/gui/MrpListBrowser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="402">
+          <caret line="94" column="0" selection-start-line="94" selection-start-column="0" selection-end-line="94" selection-end-column="0" />
+          <folding>
+            <element signature="docComment;class#MrpListBrowser#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1425,7 +1411,18 @@
             <option name="proportions">
               <list>
                 <option value="0.2" />
-                <option value="0.6" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectJDKs.UI">
+        <settings>
+          <last-edited>1.8</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
               </list>
             </option>
           </splitter-proportions>

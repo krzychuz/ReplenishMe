@@ -5,10 +5,13 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.sql.*;
 
 import calculation.Forecast;
+import calculation.MRPElement;
 import calculation.Shipment;
 import calculation.Stock;
 import com.microsoft.sqlserver.jdbc.*;
@@ -279,16 +282,46 @@ public class DataLoader {
             System.out.println(SqlQuery);
             rs = stmt.executeQuery(SqlQuery);
 
-            stock = new Stock(0,0,0);
-            stock.setProduct(rs.getInt("product"));
-            stock.setQuantity(rs.getInt("quantity"));
-            stock.setLocation(rs.getInt("location"));
+            while (rs.next()){
+                stock = new Stock(0,0,0);
+                stock.setProduct(rs.getInt("product"));
+                stock.setQuantity(rs.getInt("quantity"));
+                stock.setLocation(rs.getInt("location"));
+            }
 
             } catch (Exception e) {
             e.printStackTrace();
         }
 
         return stock;
+    }
+
+    public List<MRPElement> getMrpElementsPerProductLocation(int product, int location){
+        List<MRPElement> MrpElementsList = new ArrayList<>();
+        List<Forecast> ForecastList;
+        List<Shipment> ShipmentsList;
+        Stock Stock;
+
+        ForecastList = getForecastsPerProductLocation(product,location);
+        ShipmentsList = getShipmentPerProductLocation(product,location);
+        Stock = getStockPerProductLocation(product,location);
+
+        for(Forecast f : ForecastList){
+            MRPElement e = new MRPElement(f);
+            MrpElementsList.add(e);
+        }
+
+        for(Shipment s : ShipmentsList){
+            MRPElement e = new MRPElement(s);
+            MrpElementsList.add(e);
+        }
+
+        {
+            MRPElement e = new MRPElement(Stock);
+            MrpElementsList.add(e);
+        }
+
+        return MrpElementsList;
     }
 
     /*public static void loadForecast(){

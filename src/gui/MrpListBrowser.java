@@ -1,7 +1,9 @@
 package gui;
 
+import calculation.MRPElement;
 import init.DataLoader;
 import javax.swing.*;
+import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -23,20 +25,22 @@ public class MrpListBrowser extends JFrame {
 
     private void populateGrid(int product, int location) throws Exception {
         DataLoader dl = new DataLoader();
-        ResultSet rs = dl.getMrpList(product,location);
-        TableModel model = TableModelCreator.buildTableModel(rs);
+        List<MRPElement> MRPList;
+        MRPList = dl.getMrpElementsPerProductLocation(product,location);
+        MrpTableModel model = new MrpTableModel(MRPList);
         MrpTable.setModel(model);
     }
 
     private void initUI() {
         setTitle("ReplenishMe - Browse MRP List");
-        setSize(800, 600);
+        setSize(1000, 800);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
         JPanel buttonsPanel = new JPanel(new GridBagLayout());
         JPanel gridPanel = new JPanel(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
+        JScrollPane gridPane;
 
         JComboBox<Integer> productListComboBox = new JComboBox<>();
         JComboBox<Integer> plantListComboBox = new JComboBox<>();
@@ -66,7 +70,8 @@ public class MrpListBrowser extends JFrame {
         buttonsPanel.add(GenerateButton,constraints);
         constraints.gridx = 1;
         constraints.gridy = 2;
-        gridPanel.add(new JScrollPane(MrpTable),constraints);
+        gridPane = new JScrollPane(MrpTable);
+        gridPanel.add(gridPane,constraints);
 
         this.setLayout(new GridBagLayout());
         constraints.gridx = 0;
@@ -83,7 +88,9 @@ public class MrpListBrowser extends JFrame {
                 int selectedPlant = plantList.get(plantListComboBox.getSelectedIndex());
                 try {
                     populateGrid(selectedProduct,selectedPlant);
-                    gridPanel.add(new JScrollPane(MrpTable),constraints);
+                    gridPane.setSize(800,600);
+                    gridPanel.setSize(800,600);
+                    gridPanel.add(gridPane,constraints);
                     revalidate();
                     repaint();
                 } catch (Exception e1) {
