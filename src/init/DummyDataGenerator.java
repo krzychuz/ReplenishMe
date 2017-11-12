@@ -207,7 +207,7 @@ public class DummyDataGenerator {
         for (int i=0; i<records; i++){
             int Location = location;
             int Product = product;
-            int Quantity = 500;
+            int Quantity = -500;
             String Date = getRandomDate();
             String ForecastDate = "20170411";
             int ForecastId = incrementAndGetDocumentNumber("INDREQ");

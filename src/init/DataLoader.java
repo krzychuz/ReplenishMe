@@ -4,16 +4,10 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 import java.sql.*;
 
-import calculation.Forecast;
-import calculation.MRPElement;
-import calculation.Shipment;
-import calculation.Stock;
+import calculation.*;
 import com.microsoft.sqlserver.jdbc.*;
 import db.Server;
 import enums.Procurement;
@@ -268,6 +262,42 @@ public class DataLoader {
         return shipmentList;
     }
 
+    public List<Delivery> getDeliveryPerProductLocation(int product, int location){
+        Connection con = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+        List <Delivery> deliveryList = new ArrayList<>();
+
+        try {
+            SQLServerDataSource ds = Server.getServer();
+            con = ds.getConnection();
+            stmt = con.createStatement();
+            String SqlQuery = "SELECT * FROM DELIVERIES WHERE product = " + product + " AND locationto = " + location;
+            System.out.println(SqlQuery);
+            rs = stmt.executeQuery(SqlQuery);
+
+            while (rs.next()) {
+                Delivery d = new Delivery(0,0,0,"","","","",0,0,"");
+                d.setLocationFrom(rs.getInt("locationfrom"));
+                d.setLocationTo(rs.getInt("locationto"));
+                d.setDeliveryNumber(rs.getInt("dlvnumber"));
+                d.setLoadingDate(rs.getString("loadingdate"));
+                d.setLoadingTime(rs.getString("loadingtime"));
+                d.setUnloadingDate(rs.getString("unloadingdate"));
+                d.setUnloadingTime(rs.getString("unloadingtime"));
+                d.setProduct(rs.getInt("product"));
+                d.setQuantity(rs.getInt("quantity"));
+                d.setDlvParty(rs.getString("dlvparty"));
+                deliveryList.add(d);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return deliveryList;
+    }
+
     public Stock getStockPerProductLocation(int product, int location){
         Connection con = null;
         Statement stmt = null;
@@ -300,10 +330,12 @@ public class DataLoader {
         List<MRPElement> MrpElementsList = new ArrayList<>();
         List<Forecast> ForecastList;
         List<Shipment> ShipmentsList;
+        List<Delivery> DeliveryList;
         Stock Stock;
 
         ForecastList = getForecastsPerProductLocation(product,location);
         ShipmentsList = getShipmentPerProductLocation(product,location);
+        DeliveryList = getDeliveryPerProductLocation(product,location);
         Stock = getStockPerProductLocation(product,location);
 
         for(Forecast f : ForecastList){
@@ -316,9 +348,16 @@ public class DataLoader {
             MrpElementsList.add(e);
         }
 
+        for(Delivery d : DeliveryList){
+            MRPElement e = new MRPElement(d);
+            MrpElementsList.add(e);
+        }
+
+        Collections.sort(MrpElementsList, (o1, o2) -> o1.getDate().compareTo(o2.getDate()));
+
         {
             MRPElement e = new MRPElement(Stock);
-            MrpElementsList.add(e);
+            MrpElementsList.add(0,e);
         }
 
         return MrpElementsList;

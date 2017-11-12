@@ -68,4 +68,44 @@ public class Delivery {
     public String getDlvParty() {
         return DlvParty;
     }
+
+    public void setLocationFrom(int locationFrom) {
+        LocationFrom = locationFrom;
+    }
+
+    public void setLocationTo(int locationTo) {
+        LocationTo = locationTo;
+    }
+
+    public void setDeliveryNumber(int deliveryNumber) {
+        DeliveryNumber = deliveryNumber;
+    }
+
+    public void setLoadingTime(String loadingTime) {
+        LoadingTime = loadingTime;
+    }
+
+    public void setUnloadingTime(String unloadingTime) {
+        UnloadingTime = unloadingTime;
+    }
+
+    public void setLoadingDate(String loadingDate) {
+        LoadingDate = loadingDate;
+    }
+
+    public void setUnloadingDate(String unloadingDate) {
+        UnloadingDate = unloadingDate;
+    }
+
+    public void setProduct(int product) {
+        Product = product;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public void setDlvParty(String dlvParty) {
+        DlvParty = dlvParty;
+    }
 }

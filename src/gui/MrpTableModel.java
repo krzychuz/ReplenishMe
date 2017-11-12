@@ -1,6 +1,8 @@
 package gui;
 
 import calculation.MRPElement;
+import calculation.MRPList;
+
 import javax.swing.table.AbstractTableModel;
 import java.util.List;
 
@@ -10,10 +12,13 @@ import java.util.List;
 public class MrpTableModel extends AbstractTableModel {
 
     private List<MRPElement> MrpElements;
+    private MRPList MrpList;
     String[] headers = {"Date","MRP Element","MRP Element Data","Receipt/Reqmnt","Available Qty","Plant"};
 
     public MrpTableModel(List<MRPElement> list) {
+        MrpList = new MRPList();
         this.MrpElements  = list;
+        this.MrpElements = MrpList.calculateAvailableQuantity(list);
     }
 
     @Override

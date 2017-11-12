@@ -72,4 +72,8 @@ public class MRPElement {
     public int getPlant() {
         return Plant;
     }
+
+    public void setAvailabileQuantity(int availabileQuantity) {
+        AvailabileQuantity = availabileQuantity;
+    }
 }

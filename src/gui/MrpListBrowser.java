@@ -33,7 +33,7 @@ public class MrpListBrowser extends JFrame {
 
     private void initUI() {
         setTitle("ReplenishMe - Browse MRP List");
-        setSize(1000, 800);
+        setSize(800, 600);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
@@ -88,8 +88,6 @@ public class MrpListBrowser extends JFrame {
                 int selectedPlant = plantList.get(plantListComboBox.getSelectedIndex());
                 try {
                     populateGrid(selectedProduct,selectedPlant);
-                    gridPane.setSize(800,600);
-                    gridPanel.setSize(800,600);
                     gridPanel.add(gridPane,constraints);
                     revalidate();
                     repaint();
