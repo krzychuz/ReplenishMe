@@ -1,6 +1,8 @@
 package calculation;
 
 import enums.MRP;
+import enums.SafetyStrategy;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -9,7 +11,7 @@ public class MRPElement {
     private MRP MRPType;
     private int MRPElementData;
     private int MRPElementQuantity;
-    private int AvailabileQuantity;
+    private int AvailableQuantity;
     private int Plant;
 
     public MRPElement(Delivery d){
@@ -17,7 +19,7 @@ public class MRPElement {
         this.MRPType = MRP.Deliv;
         this.MRPElementData = d.getDeliveryNumber();
         this.MRPElementQuantity = d.getQuantity();
-        this.AvailabileQuantity = 0;
+        this.AvailableQuantity = 0;
         this.Plant = d.getLocationFrom();
     }
 
@@ -26,7 +28,7 @@ public class MRPElement {
         this.MRPType = MRP.IndReq;
         this.MRPElementData = f.getForecastId();
         this.MRPElementQuantity = f.getQuantity();
-        this.AvailabileQuantity = 0;
+        this.AvailableQuantity = 0;
         this.Plant = 0;
     }
 
@@ -35,7 +37,7 @@ public class MRPElement {
         this.MRPType = MRP.ShipNt;
         this.MRPElementData = s.getShipmentNumber();
         this.MRPElementQuantity = s.getQuantity();
-        this.AvailabileQuantity = 0;
+        this.AvailableQuantity = 0;
         this.Plant = s.getLocationFrom();
     }
 
@@ -45,8 +47,65 @@ public class MRPElement {
         this.MRPType = MRP.Stock;
         this.MRPElementData = 0;
         this.MRPElementQuantity = s.getQuantity();
-        this.AvailabileQuantity = s.getQuantity();
+        this.AvailableQuantity = s.getQuantity();
         this.Plant = 0;
+    }
+
+    public MRPElement (Order o) {
+        this.Date = o.getLoadingDate();
+        this.MRPType= MRP.Order;
+        this.MRPElementData = o.getOrderNumber();
+        this.MRPElementQuantity = o.getQuantity();
+        this.MRPElementQuantity = 0;
+        this.Plant = 0;
+    }
+
+    public MRPElement (QualityLot qmlot) {
+        this.Date = qmlot.getReleaseDate();
+        this.MRPType = MRP.QMLot;
+        this.MRPElementData = qmlot.getQualityLotNumber();
+        this.MRPElementQuantity = qmlot.getQuantity();
+        this.AvailableQuantity = 0;
+        this.Plant = 0;
+    }
+
+    public MRPElement (ReplenishmentIn ri) {
+        this.Date = ri.getDate();
+        this.MRPType = MRP.PlOrd;
+        this.MRPElementData = ri.getPlannedOrderNumber();
+        this.MRPElementQuantity = ri.getQuantity();
+        this.AvailableQuantity = 0;
+        this.Plant = ri.getLocationFrom();
+    }
+
+    public MRPElement (ReplenishmentOut ro) {
+        this.Date = ro.getDate();
+        this.MRPType = MRP.PlORel;
+        this.MRPElementData = ro.getPlannedOrderNumber();
+        this.MRPElementQuantity = ro.getQuantity();
+        this.AvailableQuantity = 0;
+        this.Plant = ro.getLocationTo();
+    }
+
+    public MRPElement (Reservation r) {
+        this.Date = r.getUseDate();
+        this.MRPType = MRP.DepReq;
+        this.MRPElementData = r.getReservationNumber();
+        this.MRPElementQuantity = r.getQuantity();
+        this.AvailableQuantity = 0;
+        this.Plant = r.getUsage();
+    }
+
+    public MRPElement (Safety s) {
+        if (s.getStrategy() == SafetyStrategy.SS){
+            LocalDate localDate = LocalDate.now();
+            this.Date = DateTimeFormatter.ofPattern("uuuu-MM-dd").format(localDate);
+            this.MRPType = MRP.SafetyStock;
+            this.MRPElementData = 0;
+            this.MRPElementQuantity = s.getQuantity();
+            this.AvailableQuantity = 0;
+            this.Plant = 0;
+        }
     }
 
     public String getDate() {
@@ -66,14 +125,14 @@ public class MRPElement {
     }
 
     public int getAvailableQuantity() {
-        return AvailabileQuantity;
+        return AvailableQuantity;
     }
 
     public int getPlant() {
         return Plant;
     }
 
-    public void setAvailabileQuantity(int availabileQuantity) {
-        AvailabileQuantity = availabileQuantity;
+    public void setAvailableQuantity(int availableQuantity) {
+        AvailableQuantity = availableQuantity;
     }
 }

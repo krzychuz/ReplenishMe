@@ -12,7 +12,7 @@ public class MRPList {
 
         for (int i = 0; i < list.size(); i++){
             tmp += list.get(i).getMRPElementQuantity();
-            MRPElements.get(i).setAvailabileQuantity(tmp);
+            MRPElements.get(i).setAvailableQuantity(tmp);
         }
 
         return  MRPElements;

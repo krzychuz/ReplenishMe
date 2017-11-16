@@ -54,7 +54,8 @@ CREATE TABLE ORDERS (
 	location smallint NOT NULL,
 	product int NOT NULL,
 	ordernumber int NOT NULL,
-	loadingtime datetime NOT NULL,
+	loadingdate date NOT NULL,
+	loadingtime time NOT NULL,
 	customer varchar(50) NOT NULL,
 	quantity int NOT NULL
 );
@@ -63,16 +64,18 @@ CREATE TABLE RESERVATION (
 	location smallint NOT NULL,
 	depreqnumber int NOT NULL,
 	usage int NOT NULL,
-	usetime datetime NOT NULL,
+	usedate date NOT NULL,
+	usetime time NOT NULL,
 	product int NOT NULL,
 	quantity int NOT NULL
 );
 
 CREATE TABLE QUALITYLOT (
 	location smallint NOT NULL,
-	product int NOT NULL,
 	qmlotnumber int NOT NULL,
-	releasetime datetime NOT NULL,
+	releasedate date NOT NULL,
+	releasetime time NOT NULL,
+	product int NOT NULL,
 	quantity int NOT NULL
 );
 
@@ -165,3 +168,4 @@ VALUES ('PLORD', '8000000');
 
 INSERT INTO LASTDOC (docname, docnumber)
 VALUES ('INDREQ', '9000000');
+
