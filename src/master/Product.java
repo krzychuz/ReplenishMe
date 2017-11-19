@@ -7,14 +7,14 @@ import enums.UoM;
 
 public class Product {
     private int location;
-    private int GCAS; //in PRODUCT
-    private String description; //in PRODUCT
-    private UoM unit; //in PRODUCT
-    private Type type; //in PRODUCT
+    private int GCAS;
+    private String description;
+    private UoM unit;
+    private Type type;
     private Procurement procurement;
     private SafetyStrategy strategy;
     private int target;
-    private int roundingValue; //in PRODUCT
+    private int roundingValue
 
     public Product (int _location, int _gcas, String _description, UoM _unit, Type _type, Procurement _procurement,
                                  SafetyStrategy _strategy, int _target, int _roundingValue){
