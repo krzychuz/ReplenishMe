@@ -42,13 +42,19 @@ public class MRPElement {
     }
 
     public MRPElement (Stock s) {
-        LocalDate localDate = LocalDate.now();
-        this.Date = DateTimeFormatter.ofPattern("uuuu-MM-dd").format(localDate);
-        this.MRPType = MRP.Stock;
-        this.MRPElementData = 0;
-        this.MRPElementQuantity = s.getQuantity();
-        this.AvailableQuantity = s.getQuantity();
-        this.Plant = 0;
+        try {
+            this.MRPElementQuantity = s.getQuantity();
+            this.AvailableQuantity = s.getQuantity();
+        } catch (NullPointerException e) {
+            this.MRPElementQuantity = 0;
+            this.AvailableQuantity = 0;
+        } finally {
+            LocalDate localDate = LocalDate.now();
+            this.Date = DateTimeFormatter.ofPattern("uuuu-MM-dd").format(localDate);
+            this.MRPType = MRP.Stock;
+            this.MRPElementData = 0;
+            this.Plant = 0;
+        }
     }
 
     public MRPElement (Order o) {
@@ -97,12 +103,17 @@ public class MRPElement {
     }
 
     public MRPElement (Safety s) {
-        if (s.getStrategy() == SafetyStrategy.SS){
+        try {
+            if (s.getStrategy() == SafetyStrategy.SS) {
+                this.MRPElementQuantity = s.getQuantity();
+            }
+        } catch (NullPointerException e) {
+            this.MRPElementQuantity = 0;
+        } finally {
             LocalDate localDate = LocalDate.now();
             this.Date = DateTimeFormatter.ofPattern("uuuu-MM-dd").format(localDate);
             this.MRPType = MRP.SafetyStock;
             this.MRPElementData = 0;
-            this.MRPElementQuantity = s.getQuantity();
             this.AvailableQuantity = 0;
             this.Plant = 0;
         }

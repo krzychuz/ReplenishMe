@@ -169,3 +169,29 @@ VALUES ('PLORD', '8000000');
 INSERT INTO LASTDOC (docname, docnumber)
 VALUES ('INDREQ', '9000000');
 
+INSERT INTO LOCATIONS (plantcode, description, type)
+VALUES (5053, 'BORISPOL PLANT', 'P');
+
+INSERT INTO LOCATIONS (plantcode, description, type)
+VALUES (2751, 'YOBULAN DC', 'F');
+
+INSERT INTO LOCATIONS (plantcode, description, type)
+VALUES (2621, 'SEKERPINAR DC', 'F');
+
+INSERT INTO LOCATIONS (plantcode, description, type)
+VALUES (4853, 'CRAILSHEIM PLANT', 'P');
+
+INSERT INTO LOCATIONS (plantcode, description, type)
+VALUES (4850, 'BUDAPEST PLANT', 'P');
+
+INSERT INTO LOCATIONS (plantcode, description, type)
+VALUES (2725, 'GEBZE PLANT', 'P');
+
+INSERT INTO LOCATIONS (plantcode, description, type)
+VALUES (2742, 'ELIT CM', 'P');
+
+INSERT INTO LOCATIONS (plantcode, description, type)
+VALUES (2727, 'BALNAK', 'P');
+
+INSERT INTO LOCATIONS (plantcode, description, type)
+VALUES (9979, 'URLATI DC', 'F');

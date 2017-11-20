@@ -14,7 +14,7 @@ public class Product {
     private Procurement procurement;
     private SafetyStrategy strategy;
     private int target;
-    private int roundingValue
+    private int roundingValue;
 
     public Product (int _location, int _gcas, String _description, UoM _unit, Type _type, Procurement _procurement,
                                  SafetyStrategy _strategy, int _target, int _roundingValue){
