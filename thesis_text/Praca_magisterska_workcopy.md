@@ -245,7 +245,7 @@
 <p>Zaimplementowany w symulacji model odpowiada sieci dystrybucyjnej przedsiębiorstwa X. Składa się z 9 ogniw, które reprezentują fizyczne miejsca składowania dóbr. Przepływ dóbr w sieci pomiędzy parą dwóch dowolnych ogniw jest wyłącznie jednokierunkowy. Wyłącznie jedno ogniwo w całej sieci to tzw. customer facing DC<a href="#fn16" class="footnote-ref" id="fnref16"><sup>16</sup></a> (Rysunek 5, sygnatura 2621). Produkty wytwarzane są w czterech fabrykach (Rysunek 5, sygnatury 5053, 4850, 4853, 2725). Wszystkie dobra importowane poddawane są kontroli celnej i składowane są w magazynie celnym (Rysunek 5, sygnatura 2751). Dodatkowo zasilenia z niektórych fabryk nie odbywają się bezpośrednio, lecz z przeładunkiem w pośrednim centrum dystrybucyjnym (Rysunek 5, sygnatura 9979). Ostatnim elementem w sieci są dwa centra manipulacji (Rysunek 5, sygnatury 2727 oraz 2742), w których świadczone są VAS<a href="#fn17" class="footnote-ref" id="fnref17"><sup>17</sup></a>. Do nich trafiają gotowe produkty, które podlegają manipulacji i wracają do głównego centrum dystrybucyjnego już jako inne dobra.</p>
 <p>Na opisanym w tym rozdziale modelu prowadzone będą wszystkie badania, jednak nie oznacza to w żadnym wypadku, że stworzona aplikacja posiada ten model twardo zapisany w kodzie. Wręcz przeciwnie – wszystko konfigurowalne jest z poziomu użytkownika, a zaimplementowane algorytmy gwarantują poprawność obliczeń dla dowolnego modelu sieci.</p>
 <p><img src="media/image5.png" style="width:5.05208in;height:2.83864in" /></p>
-<p><span id="_Ref498852174" class="anchor"><span id="_Ref498852285" class="anchor"></span></span>Rysunek - Struktura badanego łańcucha dostaw</p>
+<p><span id="_Ref498852285" class="anchor"><span id="_Ref498852174" class="anchor"></span></span>Rysunek - Struktura badanego łańcucha dostaw</p>
 <h3 id="elementy-modelu">Elementy modelu</h3>
 <p>W omawianym modelu można wyróżnić cztery główne elementy:</p>
 <ol type="1">
@@ -262,11 +262,23 @@
 <p>Pomimo, że każda tworzona symulacja komputerowa z natury zakładać powinna implementację modelu pozwalającego na uzyskanie jak najdokładniejszych wyników, niektóre zjawiska istniejące w rzeczywistości są trudne (czy też niemożliwe) do odtworzenia podczas procesu modelowania.</p>
 <p>Jednym z najpoważniejszych problemów występujących w łańcuchach dostaw jest wspominany w rozdziale 2.1 efekt byczego bicza – nawet małe zaburzenia występujące na początku łańcucha dostaw mogą doprowadzić do bardzo dużych zaburzeń na jego końcu. Źródeł takich zaburzeń może być wiele – począwszy od niedokładnej prognozy sprzedaży, poprzez opóźnienia w załadunku/rozładunku pojazdów, uszkodzenie towaru w magazynie, katastrofę naturalną, spóźnienie się auta na prom, skończywszy na promocji dla konsumentów, która nie była komunikowana przez klientów i idące za tym zwiększone zapotrzebowanie materiałowe.</p>
 <p>Choć z technicznego punktu widzenia możliwe jest zasymulowanie dowolnego z tych zjawisk, sporne jest czynienie tego bez określonego kontekstu biznesowego. Dlatego w stworzonym modelu rozpatrywane nie będą elementarne źródła takich zakłóceń. Zebrane one zostaną w grupę np. opóźnionej dostawy towaru, albo niedostępności towaru pomimo wcześniejszej awizacji. Dla tak generycznie określonych problemów badanie będzie zachowanie się modelu. Podobnie również wrażliwość modelu badana będzie dla zgeneralizowanych czynników.</p>
-<p>Kolejnym uproszczeniem jest rozdzielczość czasu. W rzeczywistych przypadkach częstokroć godziny decydują o powodzeniu lub braku powodzenia określonego przedsięwzięcia.</p>
-<h2 id="wybór-technologii-wykorzystanej-do-stworzenia-symulacji">Wybór technologii wykorzystanej do stworzenia symulacji</h2>
+<p>Kolejnym uproszczeniem jest rozdzielczość czasu. W rzeczywistych przypadkach częstokroć godziny decydują o powodzeniu lub braku powodzenia określonego przedsięwzięcia, wpływając jednocześnie na wskaźniki efektywności. Co więcej – istnieją dedykowane systemy takie jak TMS <a href="#fn19" class="footnote-ref" id="fnref19"><sup>19</sup></a>lub YMS<a href="#fn20" class="footnote-ref" id="fnref20"><sup>20</sup></a>, zastosowanie których pozwala z bardzo wysoką precyzją zarządzać poszczególnymi slotami rozładunkowymi/załadunkowymi i planować wykorzystanie infrastruktury magazynowej w oparciu o awizacje. Również i w takim przypadku występować mogą wspomniane wcześniej zaburzenia, które w istotny sposób wpływają na cały łańcuch dostaw. Nietrudno wyobrazić sobie, wcale nierzadką, sytuację, w której magazyn pracuje wyłącznie w trybie dwuzmianowym, a spóźniony transport dociera do magazynu w piątek, poza godzinami pracy, gdzie kierowca będzie zmuszony oczekiwać na rozładunek przez 2 dni. Przełożenie tej sytuacji na dostępność towaru i możliwość realizacji zamówień jest oczywiste. Sytuacje jednak te nie zostały jednak dokładnie odwzorowane w symulacji. Minimalną jednostką czasu, na jakiej operuje symulacja jest pełna godzina. Wszystkie awizacje, procesy produkcyjne, zwolnienia z kontroli jakości itp. są dokładnie opisane przez czas, kiedy występują. Nie jest jednak dokonywana analiza tego czasu na poziomie niższym niż godzinowy. Nie jest to wymagane z perspektywy potencjalnego czasu pojedynczego przebiegu symulacji, który trwać może kilka miesięcy.</p>
+<p>Poczynione uproszczenia wynikają z tego, że przedmiotem tej pracy nie pozostaje optymalizacja wszystkich procesów w łańcuchu dostaw, ani też zasymulowanie wszystkich możliwych rzeczywistych przypadków. Zgodnie z postawionymi w rozdziale 1.4 tezami badany jest wpływ parametrów odpowiedzialnych za planowanie na wybrana wskaźniki efektywności. Oznacza to, że w zakresie rozważań pozostaje odpowiedzenia na pytanie takie jak ‘w którym ogniwie łańcucha dostaw optymalne jest posiadanie zapasu?’, ‘jakie parametry bezpieczeństwa należy utrzymywać, by uzyskać pożądany poziom obsługi klienta?’, ‘jak rozmiar minimalnego wolumenu produkcyjnego wpływa na ilość towaru w łańcuchu dostaw?’, bądź też ‘jakie przełożenie na funkcjonowanie łańcucha dostaw ma prognoza sprzedaży o określonej wartości MAPE<a href="#fn21" class="footnote-ref" id="fnref21"><sup>21</sup></a>?’. Aby znaleźć odpowiedzi na te pytania konieczne jest przeprowadzenie generycznej i wysokopziomowej analizy łańcucha dostaw. Z uwagi na czas tranzytu pomiędzy ogniwami w badanym modelu, który wynosi do kilkunastu dni, często by zaobserwować określone zjawiska konieczne będzie zbadanie długiego odcinka czasu. W takim przypadku wszystkie zjawiska, które istotne są lokalnie, tracą na znaczeniu, kiedy postawione są w szerszym kontekście.</p>
+<h2 id="technologia-wykorzystana-do-stworzenia-symulacji">Technologia wykorzystana do stworzenia symulacji</h2>
 <h3 id="wymagania-dotyczące-technologii">Wymagania dotyczące technologii</h3>
-<h3 id="przegląd-technologii">Przegląd technologii</h3>
+<p>Obiektowość (ORM)</p>
+<p>Łatwość stworzenia GUI</p>
+<p>Łatwe połącznie z bazą danych</p>
+<p>Łatwe operacje IO</p>
+<p>Znajomość języka</p>
+<h3 id="przegląd-i-wybór-technologii">Przegląd i wybór technologii</h3>
+<p>Java + Swing + JDBC</p>
+<p>C# + WPF + .NET Sql Native Client</p>
+<p>C++ + Qt + ODBC</p>
 <h2 id="architektura-aplikacji">Architektura aplikacji</h2>
+<p>Aplikacja</p>
+<p>JDBC</p>
+<p>Serwer MS SQL</p>
 <h1 id="symulacja-komputerowa">Symulacja komputerowa</h1>
 <h2 id="kluczowe-wskaźniki-efektywności">Kluczowe wskaźniki efektywności</h2>
 <h3 id="motywacja-wyboru-określonych-wskaźników">Motywacja wyboru określonych wskaźników</h3>
@@ -458,6 +470,9 @@
 <li id="fn16"><p>customer facing DC – centrum dystrybucyjne, za pośrednictwem którego realizowane są zamówienia klienta<a href="#fnref16" class="footnote-back">↩</a></p></li>
 <li id="fn17"><p>VAS – value added services, manipulacje towarem, usługi które służą dodaniu lub zmianie wartości towaru jak np. umieszczenie naklejek, dodanie darmowej próbki innego produktu, stworzenie paczki wielu produktów oferowanej jako jedno dobro klientowi itd.<a href="#fnref17" class="footnote-back">↩</a></p></li>
 <li id="fn18"><p>EAN – ang. European Article Number, numeryczny modularny kod towaru z zapisaną sumą kontrolną służący do identyfikacji towaru, wykorzystywany najczęściej w logistyce magazynowej i sprzedaży detalicznej<a href="#fnref18" class="footnote-back">↩</a></p></li>
+<li id="fn19"><p>TMS – Transport Management System, elektroniczny system zarządzania transportem, którego główną kompetencją jest śledzenie statusu oraz kontrolowanie pojazdów znajdujących się w tranzycie<a href="#fnref19" class="footnote-back">↩</a></p></li>
+<li id="fn20"><p>YMS – Yard Management System, elektroniczny system zarządzania pojazdami na terenie zakładu przemysłowego, główną kompetencją jest koordynacja dostępu do doków, parkingów i wag<a href="#fnref20" class="footnote-back">↩</a></p></li>
+<li id="fn21"><p>MAPE – Mean Absolute Percentage Error, średni błąd odchylenia standardowego<a href="#fnref21" class="footnote-back">↩</a></p></li>
 </ol>
 </section>
 </body>

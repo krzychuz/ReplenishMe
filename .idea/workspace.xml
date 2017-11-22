@@ -1,15 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d18e25b4-7e66-4fc6-b417-5ea4b429a8d1" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/db/Server.java" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ReplenishMe/calculation/MRPElement.class" afterPath="$PROJECT_DIR$/out/production/ReplenishMe/calculation/MRPElement.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ReplenishMe/db/Server.class" afterPath="$PROJECT_DIR$/out/production/ReplenishMe/db/Server.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/create_database.sql" afterPath="$PROJECT_DIR$/create_database.sql" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/calculation/MRPElement.java" afterPath="$PROJECT_DIR$/src/calculation/MRPElement.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/master/Product.java" afterPath="$PROJECT_DIR$/src/master/Product.java" />
-    </list>
+    <list default="true" id="d18e25b4-7e66-4fc6-b417-5ea4b429a8d1" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path=".idea/dataSources.local.xml" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -31,165 +23,7 @@
     <favorites_list name="ReplenishMe" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="DataLoader.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/init/DataLoader.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="198">
-              <caret line="560" column="0" lean-forward="false" selection-start-line="560" selection-start-column="0" selection-end-line="560" selection-end-column="0" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="method#loadMaterialMaster#0;class#DataLoader#0" expanded="false" />
-                <element signature="method#getMaterialMaster#0;class#DataLoader#0" expanded="false" />
-                <element signature="method#getProductList#0;class#DataLoader#0" expanded="false" />
-                <element signature="method#getPlantList#0;class#DataLoader#0" expanded="false" />
-                <element signature="method#getForecastsPerProductLocation#0;class#DataLoader#0" expanded="false" />
-                <element signature="method#getShipmentPerProductLocation#0;class#DataLoader#0" expanded="false" />
-                <element signature="method#getDeliveryPerProductLocation#0;class#DataLoader#0" expanded="false" />
-                <element signature="method#getStockPerProductLocation#0;class#DataLoader#0" expanded="false" />
-                <element signature="method#getOrderPerProductLocation#0;class#DataLoader#0" expanded="false" />
-                <element signature="method#getQualityLotPerProductLocation#0;class#DataLoader#0" expanded="false" />
-                <element signature="method#getReplenishmentInPerProductLocation#0;class#DataLoader#0" expanded="false" />
-                <element signature="method#getReservationPerProductLocation#0;class#DataLoader#0" expanded="false" />
-                <marker date="1511199872247" expanded="true" signature="2914:3192" ph="INSERT INTO PRODUCTS... " />
-                <marker date="1511199872247" expanded="true" signature="3744:3766" ph="SELECT * FRO... PRODUCTS" />
-                <marker date="1511199872247" expanded="true" signature="4252:4277" ph="SELECT gcas PRODUCTS" />
-                <marker date="1511199872247" expanded="true" signature="4867:4898" ph="SELECT plant... LOCATIONS" />
-                <marker date="1511199872247" expanded="true" signature="5531:5601" ph="SELECT * FRO... FORECAST" />
-                <marker date="1511199872247" expanded="true" signature="6699:6772" ph="SELECT * FRO... SHIPMENTS" />
-                <marker date="1511199872247" expanded="true" signature="8165:8239" ph="SELECT * FRO... DELIVERIES" />
-                <marker date="1511199872247" expanded="true" signature="9585:9652" ph="SELECT * FRO... STOCK" />
-                <marker date="1511199872247" expanded="true" signature="10498:10568" ph="SELECT * FRO... SAFETIES" />
-                <marker date="1511199872247" expanded="true" signature="11639:11707" ph="SELECT * FRO... ORDERS" />
-                <marker date="1511199872247" expanded="true" signature="12881:12953" ph="SELECT * FRO... QUALITYLOT" />
-                <marker date="1511199872247" expanded="true" signature="14143:14218" ph="SELECT * FRO... REPLENISHIN" />
-                <marker date="1511199872247" expanded="true" signature="15398:15476" ph="SELECT * FRO... REPLENISHOUT" />
-                <marker date="1511199872247" expanded="true" signature="16640:16713" ph="SELECT * FRO... RESERVATION" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SafetyStrategy.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/enums/SafetyStrategy.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
-              <caret line="2" column="0" lean-forward="false" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MRPElement.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/calculation/MRPElement.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="271">
-              <caret line="43" column="32" lean-forward="false" selection-start-line="43" selection-start-column="32" selection-end-line="43" selection-end-column="32" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="method#MRPElement#0;class#MRPElement#0" expanded="false" />
-                <element signature="method#MRPElement#1;class#MRPElement#0" expanded="false" />
-                <element signature="method#MRPElement#2;class#MRPElement#0" expanded="false" />
-                <element signature="method#MRPElement#3;class#MRPElement#0" expanded="false" />
-                <element signature="method#MRPElement#4;class#MRPElement#0" expanded="false" />
-                <element signature="method#MRPElement#5;class#MRPElement#0" expanded="false" />
-                <element signature="method#MRPElement#6;class#MRPElement#0" expanded="false" />
-                <element signature="method#MRPElement#7;class#MRPElement#0" expanded="false" />
-                <element signature="method#MRPElement#8;class#MRPElement#0" expanded="false" />
-                <element signature="method#MRPElement#9;class#MRPElement#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Server.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/db/Server.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="8" column="13" lean-forward="false" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="BOM.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/master/BOM.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="4" column="13" lean-forward="false" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Location.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/master/Location.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
-              <caret line="2" column="13" lean-forward="false" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Product.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/master/Product.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="16" column="30" lean-forward="false" selection-start-line="16" selection-start-column="30" selection-end-line="16" selection-end-column="30" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="DummyDataGenerator.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/init/DummyDataGenerator.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1037">
-              <caret line="197" column="85" lean-forward="false" selection-start-line="197" selection-start-column="85" selection-end-line="197" selection-end-column="85" />
-              <folding>
-                <element signature="method#truncateTables#0;class#DummyDataGenerator#0" expanded="false" />
-                <element signature="method#incrementAndGetDocumentNumber#0;class#DummyDataGenerator#0" expanded="false" />
-                <element signature="method#getRandomDate#0;class#DummyDataGenerator#0" expanded="false" />
-                <element signature="method#getRandomTime#0;class#DummyDataGenerator#0" expanded="false" />
-                <element signature="method#GenerateDummyDeliveries#0;class#DummyDataGenerator#0" expanded="false" />
-                <element signature="method#GenerateDummyForecast#0;class#DummyDataGenerator#0" expanded="false" />
-                <marker date="1511199872248" expanded="true" signature="1396:1458" ph="SELECT docnu... LASTDOC" />
-                <marker date="1511199872248" expanded="true" signature="1617:1740" ph="UPDATE LASTD... " />
-                <marker date="1511199872248" expanded="true" signature="3982:4881" ph="INSERT INTO SHIPMENTS... " />
-                <marker date="1511199872248" expanded="true" signature="6419:7334" ph="INSERT INTO DELIVERIES... " />
-                <marker date="1511199872248" expanded="true" signature="8545:9040" ph="INSERT INTO FORECAST... " />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MainMenu.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/gui/MainMenu.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="375">
-              <caret line="54" column="50" lean-forward="true" selection-start-line="54" selection-start-column="50" selection-end-line="54" selection-end-column="50" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MrpTableModel.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/gui/MrpTableModel.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="18" column="32" lean-forward="false" selection-start-line="18" selection-start-column="32" selection-end-line="18" selection-end-column="32" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="method#getValueAt#0;class#MrpTableModel#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -826,12 +660,12 @@
       <workItem from="1510486525285" duration="21916000" />
       <workItem from="1510994640929" duration="2813000" />
       <workItem from="1511200090669" duration="915000" />
-      <workItem from="1511210466101" duration="3250000" />
+      <workItem from="1511210466101" duration="4160000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="114894000" />
+    <option name="totallyTimeSpent" value="115804000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -844,7 +678,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32998884" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -1215,6 +1048,42 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/db/Server.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="8" column="13" lean-forward="false" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/calculation/MRPElement.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="222">
+          <caret line="43" column="32" lean-forward="false" selection-start-line="43" selection-start-column="32" selection-end-line="43" selection-end-column="32" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#MRPElement#0;class#MRPElement#0" expanded="false" />
+            <element signature="method#MRPElement#1;class#MRPElement#0" expanded="false" />
+            <element signature="method#MRPElement#2;class#MRPElement#0" expanded="false" />
+            <element signature="method#MRPElement#3;class#MRPElement#0" expanded="false" />
+            <element signature="method#MRPElement#4;class#MRPElement#0" expanded="false" />
+            <element signature="method#MRPElement#5;class#MRPElement#0" expanded="false" />
+            <element signature="method#MRPElement#6;class#MRPElement#0" expanded="false" />
+            <element signature="method#MRPElement#7;class#MRPElement#0" expanded="false" />
+            <element signature="method#MRPElement#8;class#MRPElement#0" expanded="false" />
+            <element signature="method#MRPElement#9;class#MRPElement#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/enums/SafetyStrategy.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="0" lean-forward="false" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/init/DataLoader.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="198">
@@ -1248,42 +1117,6 @@
             <marker date="1511199872247" expanded="true" signature="15398:15476" ph="SELECT * FRO... REPLENISHOUT" />
             <marker date="1511199872247" expanded="true" signature="16640:16713" ph="SELECT * FRO... RESERVATION" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/enums/SafetyStrategy.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="0" lean-forward="false" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/calculation/MRPElement.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="271">
-          <caret line="43" column="32" lean-forward="false" selection-start-line="43" selection-start-column="32" selection-end-line="43" selection-end-column="32" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#MRPElement#0;class#MRPElement#0" expanded="false" />
-            <element signature="method#MRPElement#1;class#MRPElement#0" expanded="false" />
-            <element signature="method#MRPElement#2;class#MRPElement#0" expanded="false" />
-            <element signature="method#MRPElement#3;class#MRPElement#0" expanded="false" />
-            <element signature="method#MRPElement#4;class#MRPElement#0" expanded="false" />
-            <element signature="method#MRPElement#5;class#MRPElement#0" expanded="false" />
-            <element signature="method#MRPElement#6;class#MRPElement#0" expanded="false" />
-            <element signature="method#MRPElement#7;class#MRPElement#0" expanded="false" />
-            <element signature="method#MRPElement#8;class#MRPElement#0" expanded="false" />
-            <element signature="method#MRPElement#9;class#MRPElement#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/db/Server.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="8" column="13" lean-forward="false" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
