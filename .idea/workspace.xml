@@ -2,11 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d18e25b4-7e66-4fc6-b417-5ea4b429a8d1" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/simulation/ScenarioParser.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/sqljdbc42.xml" afterPath="$PROJECT_DIR$/.idea/libraries/sqljdbc42.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/db/Server.java" afterPath="$PROJECT_DIR$/src/db/Server.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/gui/MainMenu.java" afterPath="$PROJECT_DIR$/src/gui/MainMenu.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/thesis_text/Praca_magisterska_workcopy.docx" afterPath="$PROJECT_DIR$/thesis_text/Praca_magisterska_workcopy.docx" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/thesis_text/Praca_magisterska_workcopy.md" afterPath="$PROJECT_DIR$/thesis_text/Praca_magisterska_workcopy.md" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path=".idea/dataSources.local.xml" />
@@ -821,12 +818,12 @@
       <workItem from="1510994640929" duration="2813000" />
       <workItem from="1511200090669" duration="915000" />
       <workItem from="1511210466101" duration="4160000" />
-      <workItem from="1511699292068" duration="812000" />
+      <workItem from="1511699292068" duration="1405000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="116616000" />
+    <option name="totallyTimeSpent" value="117209000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -838,7 +835,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="0" width="1370" height="735" extended-state="0" />
+    <frame x="-7" y="0" width="1370" height="735" extended-state="1" />
     <editor active="false" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -1188,7 +1185,7 @@
         <state relative-caret-position="198">
           <caret line="560" column="0" selection-start-line="560" selection-start-column="0" selection-end-line="560" selection-end-column="0" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
             <element signature="method#loadMaterialMaster#0;class#DataLoader#0" expanded="false" />
             <element signature="method#getMaterialMaster#0;class#DataLoader#0" expanded="false" />
             <element signature="method#getProductList#0;class#DataLoader#0" expanded="false" />

@@ -282,22 +282,72 @@
 <h1 id="symulacja-komputerowa">Symulacja komputerowa</h1>
 <h2 id="kluczowe-wskaźniki-efektywności">Kluczowe wskaźniki efektywności</h2>
 <h3 id="motywacja-wyboru-określonych-wskaźników">Motywacja wyboru określonych wskaźników</h3>
+<p>Czemu każdy z nich jest istotny i jakie jest ich przełożenie na biznes</p>
 <h3 id="definicje">Definicje</h3>
+<p>OFR (Order Fill Rate)</p>
+<p><br /><span class="math display">$$OFR = \frac{O_{F}}{O_{T}}*100\% = \frac{O_{F}}{O_{F} + O_{\text{NF}}}*100\%\ \lbrack\%\rbrack$$</span><br /></p>
+<p>Gdzie:</p>
+<p><span class="math inline"><em>O</em><sub><em>F</em></sub></span> – zamówienia zrealizowane <span class="math inline">[<em>S</em><em>U</em>]</span></p>
+<p><span class="math inline"><em>O</em><sub><em>T</em></sub></span> – wszystkie zamówienia <span class="math inline">[<em>S</em><em>U</em>]</span></p>
+<p><span class="math inline"><em>O</em><sub>NF</sub></span> – zamówienia niezrealizowane <span class="math inline">[<em>S</em><em>U</em>]</span></p>
+<p>INV (Inventory Level)</p>
+<p><br /><span class="math display"><em>I</em><em>N</em><em>V</em> = <em>I</em><em>N</em><em>V</em><sub><em>A</em></sub> + IN<em>V</em><sub><em>B</em></sub> + … + <em>I</em><em>N</em><em>V</em><sub><em>n</em></sub> [<em>S</em><em>U</em>]</span><br /></p>
+<p>Gdzie:</p>
+<p><span class="math inline">IN<em>V</em><sub><em>n</em></sub></span> – zapas w ogniwie <span class="math inline"><em>n</em></span></p>
+<p>DFC (Days Forward Coverage)</p>
+<p><br /><span class="math display">$$DFC = \frac{\text{IN}V_{P}}{\text{SA}L_{P}}\ \lbrack dni\rbrack$$</span><br /></p>
+<p>Gdzie:</p>
+<p><span class="math inline">IN<em>V</em><sub><em>P</em></sub></span> – aktualny zapas produktu <span class="math inline"><em>P</em></span></p>
+<p><span class="math inline">SA<em>L</em><sub><em>P</em></sub></span> – sprzedaż produktu <span class="math inline"><em>P</em></span> przez ostatnie 30 dni</p>
+<p>IST (Inventory Stock Turn)</p>
+<p><br /><span class="math display">$$IST = \frac{\text{SA}L_{P,T}}{AVG(INV_{P,T})}\ \lbrack 1\rbrack$$</span><br /></p>
+<p>Gdzie:</p>
+<p><span class="math inline">SA<em>L</em><sub><em>P</em>, <em>T</em></sub></span> – sprzedaż produktu <span class="math inline"><em>P</em></span> w czasie <span class="math inline"><em>T</em></span></p>
+<p><span class="math inline"><em>A</em><em>V</em><em>G</em>(<em>I</em><em>N</em><em>V</em><sub><em>P</em>, <em>T</em></sub>)</span> – średni zapas produktu <span class="math inline"><em>P</em></span> w czasie <span class="math inline"><em>T</em></span></p>
+<p>DS (Dead Stock)</p>
+<p><br /><span class="math display"><em>D</em><em>S</em> = <em>M</em><em>I</em><em>N</em>(<em>S</em><sub><em>P</em>, <em>T</em></sub>) [<em>S</em><em>U</em>]</span><br /></p>
+<p>Gdzie:</p>
+<p><span class="math inline"><em>M</em><em>I</em><em>N</em>(<em>S</em><sub><em>T</em></sub>)</span> – minimalny zapas produktu <span class="math inline"><em>P</em></span> w czasie <span class="math inline"><em>T</em></span></p>
+<p>NPI (Non-performing Inventory)</p>
+<p><br /><span class="math display">$$NPI = \frac{DS}{AVG(\text{IN}V_{T})}*100\%\ \lbrack\%\rbrack$$</span><br /></p>
+<p>Gdzie:</p>
+<p><span class="math inline">DS</span> – zapas towaru nierotującego</p>
+<p><span class="math inline"><em>A</em><em>V</em><em>G</em>(<em>I</em><em>N</em><em>V</em><sub><em>T</em></sub>)</span> – średni zapas towaru w czasie <span class="math inline"><em>T</em></span></p>
 <h2 id="scenariusze-testowe">Scenariusze testowe</h2>
 <h3 id="zaburzenia-występujące-w-rzeczywistych-łańcuchach-dostaw">Zaburzenia występujące w rzeczywistych łańcuchach dostaw</h3>
-<h3 id="scenariusz-1">Scenariusz 1</h3>
-<h3 id="scenariusz-2">Scenariusz 2</h3>
-<h3 id="scenariusz-3">Scenariusz 3</h3>
-<h3 id="scenariusz-4">Scenariusz 4</h3>
+<h3 id="scenariusz-1---błędna-prognoza-sprzedaży">Scenariusz 1 - Błędna prognoza sprzedaży</h3>
+<ul>
+<li><p>Metody tworzenia prognoz sprzedaży (SMO, PSC)</p></li>
+<li><p>Badanie wrażliwości łańcucha dostaw – jak zwiększenie się niedokładności prognozy sprzedaży wpływać będzie na wszystkie KPI w łańcuchu dostaw</p></li>
+</ul>
+<h3 id="scenariusz-2-zmiana-progu-replenishmentu-zmiana-strategii-replenishmentu">Scenariusz 2 – Zmiana progu replenishmentu, zmiana strategii replenishmentu</h3>
+<ul>
+<li><p>Dokładne omówienie SS/ST, algorytmy wyznaczania SS, kontrolowanie safety</p></li>
+</ul>
+<ul>
+<li><p>Debata na temat tego, jakich parametrów bezpieczeństwa należy używać</p></li>
+<li><p>Badanie wrażliwości łańcucha dostaw – jak zmniejszenie/zwiększenie parametrów bezpieczeństwa wpływać będzie na wszystkie KPI w łańcuchu dostaw</p></li>
+<li><p>Czy zwiększenie poziomu serwisu o k procent warte jest zwiększenie średniego stanu o l procent?</p></li>
+</ul>
+<h3 id="scenariusz-3-zmiana-minimalnego-wolumenu-produkcji">Scenariusz 3 – Zmiana minimalnego wolumenu produkcji</h3>
+<ul>
+<li><p>Z czego wynikać mogą ograniczenia minimalnego wolumenu produkcji</p></li>
+<li><p>Debata na temat tego, czy zmiana częstości replenishmentów ma wpływ na średni zapas i poziom obsługi klientów</p></li>
+</ul>
+<h3 id="scenariusz-4-fałszywe-dane-w-systemach-planowania">Scenariusz 4 – Fałszywe dane w systemach planowania</h3>
+<ul>
+<li><p>Źródła pochodzenia i potencjalne formy fałszywych danych (PDE)</p></li>
+<li><p>Badanie jak wiele czasu musi upłynąć od momentu wystąpienia zaburzenia do powrotu łańcucha dostaw do stanu wejściowego</p></li>
+</ul>
 <h2 id="dane-testowe">Dane testowe</h2>
 <h3 id="informacje-o-danych-testowych">Informacje o danych testowych</h3>
 <h3 id="pochodzenie-danych-testowych">Pochodzenie danych testowych</h3>
 <h1 id="wyniki">Wyniki</h1>
 <h2 id="omówienie-uzyskanych-rezultatów">Omówienie uzyskanych rezultatów</h2>
-<h3 id="scenariusz-1-1">Scenariusz 1</h3>
-<h3 id="scenariusz-2-1">Scenariusz 2</h3>
-<h3 id="scenariusz-3-1">Scenariusz 3</h3>
-<h3 id="scenariusz-4-1">Scenariusz 4</h3>
+<h3 id="scenariusz-1">Scenariusz 1</h3>
+<h3 id="scenariusz-2">Scenariusz 2</h3>
+<h3 id="scenariusz-3">Scenariusz 3</h3>
+<h3 id="scenariusz-4">Scenariusz 4</h3>
 <h1 id="podsumowanie">Podsumowanie</h1>
 <h2 id="weryfikacja-postawionych-tez">Weryfikacja postawionych tez</h2>
 <h2 id="wnioski">Wnioski</h2>
