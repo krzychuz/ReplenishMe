@@ -2,6 +2,8 @@ package gui;
 
 import init.DataLoader;
 import init.DummyDataGenerator;
+import simulation.ScenarioParser;
+
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import javax.swing.*;
@@ -57,5 +59,6 @@ public class MainMenu extends JFrame {
         DummyDataGenerator.GenerateDummyDeliveries(4853,2751,83731531,10);
         DummyDataGenerator.GenerateDummyDeliveries(2725,2621,83731531,10);
         DummyDataGenerator.GenerateDummyForecast(2751,83731531,10);
+        ScenarioParser.ParseXmlScenario();
     }
 }

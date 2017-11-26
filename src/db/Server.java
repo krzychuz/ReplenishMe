@@ -11,7 +11,8 @@ public class Server {
     public static SQLServerDataSource getServer() {
         SQLServerDataSource ds = new SQLServerDataSource();
         ds.setIntegratedSecurity(false);
-        ds.setServerName("DESKTOP-6CCU8TS");
+        //ds.setServerName("DESKTOP-6CCU8TS");
+        ds.setServerName("DESKTOP-17TH797");
         ds.setPortNumber(1433);
         ds.setDatabaseName("REPLENISHME_DB");
         ds.setUser("replenishme_user");

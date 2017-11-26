@@ -2,6 +2,7 @@
   <library name="sqljdbc42">
     <CLASSES>
       <root url="jar://$PROJECT_DIR$/libs/sqljdbc42.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/w3c-dom.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
