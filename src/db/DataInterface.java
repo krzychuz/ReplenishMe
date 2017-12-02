@@ -1,6 +1,8 @@
 package db;
 
+import calculation.Delivery;
 import calculation.Forecast;
+import calculation.Shipment;
 import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
 import master.Product;
 
@@ -80,6 +82,7 @@ public class DataInterface {
     }
 
     public void InsertProductIntoDb(Product p) {
+
         try {
             Statement stmt = getConnection();
 
@@ -99,5 +102,60 @@ public class DataInterface {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+    }
+
+    public void InsertShipmentIntoDb(Shipment s) {
+
+        try {
+            Statement stmt = getConnection();
+
+            String SQLquery = "INSERT INTO SHIPMENTS (locationfrom, locationto, shipntnumber, loadingdate, loadingtime, " +
+                    "unloadingdate, unloadingtime, product,  quantity, shipparty) " +
+                    "VALUES (" + s.getLocationFrom() + ", " +
+                    s.getLocationTo() + ", " +
+                    s.getShipmentNumber() + ", '" +
+                    s.getLoadingDate() + "', '" +
+                    s.getLoadingTime() + "', '" +
+                    s.getUnloadingDate() + "', '" +
+                    s.getUnloadingTime() + "', " +
+                    s.getProduct() + ", " +
+                    s.getQuantity() + ", '" +
+                    s.getShipParty() + "')";
+
+            System.out.println(SQLquery);
+            stmt.executeUpdate(SQLquery);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void InsertDeliveryIntoDb(Delivery d) {
+
+        try {
+            Statement stmt = getConnection();
+
+            String SQLquery = "INSERT INTO DELIVERIES (locationfrom, locationto, dlvnumber, loadingdate, loadingtime, " +
+                    "unloadingdate, unloadingtime, product,  quantity, dlvparty) " +
+                    "VALUES (" + d.getLocationFrom() + ", " +
+                    d.getLocationTo() + ", " +
+                    d.getDeliveryNumber() + ", '" +
+                    d.getLoadingDate() + "', '" +
+                    d.getLoadingTime() + "', '" +
+                    d.getUnloadingDate() + "', '" +
+                    d.getUnloadingTime() + "', " +
+                    d.getProduct() + ", " +
+                    d.getQuantity() + ", '" +
+                    d.getDlvParty() + "')";
+
+            System.out.println(SQLquery);
+            stmt.executeUpdate(SQLquery);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 }
