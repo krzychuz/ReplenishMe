@@ -8,9 +8,13 @@ import enums.Type;
 import enums.UoM;
 import master.Product;
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Created by Krzysiek on 02.12.2017.
@@ -20,6 +24,26 @@ public class DataImporter extends DataInterface {
 
     private final int limit = 1000;
     private int limiter;
+
+    public String getPreviousDay(String day) throws ParseException {
+        // Create a date formatter using your format string
+        DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
+
+        // Parse the given date string into a Date object.
+        // Note: This can throw a ParseException.
+        Date myDate = dateFormat.parse(day);
+
+        // Use the Calendar class to subtract one day
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(myDate);
+        calendar.add(Calendar.DAY_OF_YEAR, -1);
+
+        // Use the date formatter to produce a formatted date string
+        Date previousDate = calendar.getTime();
+        String result = dateFormat.format(previousDate);
+
+        return result;
+    }
 
     public void loadForecast() {
 
@@ -49,27 +73,27 @@ public class DataImporter extends DataInterface {
                 String Date1 = item[3];
                 int Quantity = (int) Double.parseDouble(item[4].replace(",", "."));
                 if (Quantity > 0) Quantity *= (-1);
-                int ForecastId = incrementAndGetDocumentNumber("INDREQ");
 
-                Forecast f = new Forecast(Location, GCAS, Quantity, Date1, ForecastedDate, ForecastId);
+                String tmpDate = getPreviousDay(Date1);
 
-                InsertForecastIntoDb(f);
+                for (int i = 0; i < 5; i++) {
+                    tmpDate = getPreviousDay(tmpDate);
+                    int ForecastId = incrementAndGetDocumentNumber("INDREQ");
+                    Forecast f = new Forecast(Location, GCAS, Quantity/5, tmpDate, ForecastedDate, ForecastId);
+                    InsertForecastIntoDb(f);
+                }
 
-                if (limiter > limit) break;
+                if (limiter > 10) break;
 
             }
 
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            if (br != null) {
-                try {
-                    br.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+            try {
+                br.close();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
     }
@@ -80,7 +104,7 @@ public class DataImporter extends DataInterface {
         String masterDataFile = "import_data/master_data.csv";
         BufferedReader br = null;
         String line = "";
-        String cvsSplitBy = ";";
+        String CsvSplitBy = ";";
 
         limiter = 0;
 
@@ -96,7 +120,7 @@ public class DataImporter extends DataInterface {
                 limiter++;
 
                 // wykorzystanie przecinka jako separatora
-                String[] item = line.split(cvsSplitBy);
+                String[] item = line.split(CsvSplitBy);
 
                 //castowanie Stringów do odpowiednich typów
                 int location = Integer.parseInt(item[0]);
@@ -114,22 +138,18 @@ public class DataImporter extends DataInterface {
 
                 InsertProductIntoDb(p);
 
-                if (limiter > limit ) break;
+                if (limiter > limit) break;
             }
 
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            if (br != null) {
-                try {
-                    br.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+            try {
+                br.close();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
     }
-
 }
+
