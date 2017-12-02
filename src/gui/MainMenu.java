@@ -1,5 +1,6 @@
 package gui;
 
+import init.DataImporter;
 import init.DataLoader;
 import init.DummyDataGenerator;
 import simulation.ScenarioParser;
@@ -25,20 +26,38 @@ public class MainMenu extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         JMenuBar menuBar = new JMenuBar();
 
-        JMenu DbRecords = new JMenu("DB Records");
-        DbRecords.setMnemonic(KeyEvent.VK_F);
+        JMenu DbRecords = new JMenu("DB Records");;
         menuBar.add(DbRecords);
 
-        JMenuItem newMenuItem = new JMenuItem("Material master", KeyEvent.VK_N);
-        DbRecords.add(newMenuItem);
+        JMenu ImportData = new JMenu("Import data");
+        menuBar.add(ImportData);
+
+        JMenuItem miMaterialMaster = new JMenuItem("Material master");
+        DbRecords.add(miMaterialMaster);
+
+        JMenuItem miImportForecast = new JMenuItem("Import forecast");
+        ImportData.add(miImportForecast);
+
+        JMenuItem miImportMaterialMaster = new JMenuItem("Import material master");
+        ImportData.add(miImportMaterialMaster);
+
+        JMenuItem miGenerateDummyData = new JMenuItem("Generate dummy data");
+        ImportData.add(miGenerateDummyData);
 
         JButton MrpListButton = new JButton("Browse MRP lists");
 
-        newMenuItem.setActionCommand("browseMaterialMaster");
+        miMaterialMaster.setActionCommand("browseMaterialMaster");
+        miImportForecast.setActionCommand("importForecast");
+        miImportMaterialMaster.setActionCommand("importMaterialMaster");
+        miGenerateDummyData.setActionCommand("generateDummyData");
         MrpListButton.setActionCommand("browseMrpList");
 
+
         ActionClass actionEvent = new ActionClass();
-        newMenuItem.addActionListener(actionEvent);
+        miMaterialMaster.addActionListener(actionEvent);
+        miImportForecast.addActionListener(actionEvent);
+        miImportMaterialMaster.addActionListener(actionEvent);
+        miGenerateDummyData.addActionListener(actionEvent);
         MrpListButton.addActionListener(actionEvent);
 
         this.setLayout(new FlowLayout());
@@ -52,13 +71,7 @@ public class MainMenu extends JFrame {
             MainMenu ex = new MainMenu();
             ex.setVisible(true);
         });
-        DataLoader.loadMaterialMaster();
-        DummyDataGenerator.truncateTables();
-        DummyDataGenerator.GenerateDummyShipments(5053,2751,83731531,10);
-        DummyDataGenerator.GenerateDummyShipments(2751,2621,83731531,10);
-        DummyDataGenerator.GenerateDummyDeliveries(4853,2751,83731531,10);
-        DummyDataGenerator.GenerateDummyDeliveries(2725,2621,83731531,10);
-        DummyDataGenerator.GenerateDummyForecast(2751,83731531,10);
+
         ScenarioParser.ParseXmlScenario();
     }
 }

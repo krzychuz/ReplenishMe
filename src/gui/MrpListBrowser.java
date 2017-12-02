@@ -35,7 +35,7 @@ public class MrpListBrowser extends JFrame {
         setTitle("ReplenishMe - Browse MRP List");
         setSize(800, 600);
         setLocationRelativeTo(null);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
         JPanel buttonsPanel = new JPanel(new GridBagLayout());
         JPanel gridPanel = new JPanel(new GridBagLayout());

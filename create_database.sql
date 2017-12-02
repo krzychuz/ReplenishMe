@@ -107,17 +107,21 @@ CREATE TABLE REPLENISHOUT (
 );
 
 CREATE TABLE PRODUCTS (
+	location smallint NOT NULL,
 	gcas int NOT NULL,
 	description varchar(50) NOT NULL,
 	uom char(10) NOT NULL,
 	type char(10) NOT NULL,
+	procurement char(5) NOT NULL,
+	safetystrategy char(5) NOT NULL,
+	target int NOT NULL,
 	roundval smallint NOT NULL
 );
 
 CREATE TABLE SAFETIES (
 	location smallint NOT NULL,
 	product int NOT NULL,
-	strategy char(10) NOT NULL,
+	safetyStrategy char(10) NOT NULL,
 	quantity int NOT NULL
 );
 
@@ -137,6 +141,11 @@ CREATE TABLE TLANES (
 CREATE TABLE LASTDOC (
 	docname varchar(50) NOT NULL,
 	docnumber varchar(50) NOT NULL
+)
+
+CREATE TABLE SUFACTOR (
+	product int NOT NULL,
+	sufactor float NOT NULL
 )
 
 INSERT INTO LASTDOC (docname, docnumber)

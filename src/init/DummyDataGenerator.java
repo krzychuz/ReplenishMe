@@ -4,6 +4,7 @@ import calculation.Delivery;
 import calculation.Forecast;
 import calculation.Shipment;
 import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
+import db.DataInterface;
 import db.Server;
 import java.sql.*;
 import java.sql.Date;
@@ -14,51 +15,12 @@ import java.util.concurrent.ThreadLocalRandom;
 /**
  * Created by Krzysiek on 02.11.2017.
  */
-public class DummyDataGenerator {
+public class DummyDataGenerator extends DataInterface {
 
-    public static void truncateTables(){
-        // deklaracja zmiennych potrzebnych do obsługi JDBC
-        Connection con = null;
-        Statement stmt = null;
-        ResultSet rs = null;
-
-        try {
-            SQLServerDataSource ds = Server.getServer();
-            con = ds.getConnection();
-            stmt = con.createStatement();
-            stmt.execute("TRUNCATE TABLE SHIPMENTS");
-            stmt.execute("TRUNCATE TABLE DELIVERIES");
-            stmt.execute("TRUNCATE TABLE FORECAST");
-            con.close();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    private static int incrementAndGetDocumentNumber(String docName){
-        Connection con = null;
-        Statement stmt = null;
-        ResultSet rs = null;
-
-        int lastDocument = 0;
-
-        try {
-            SQLServerDataSource ds = Server.getServer();
-            con = ds.getConnection();
-            stmt = con.createStatement();
-            rs = stmt.executeQuery("SELECT docnumber FROM LASTDOC WHERE docname = '"+ docName + "'");
-            while (rs.next()){
-                lastDocument = Integer.parseInt(rs.getString("docnumber"))+1;
-            }
-            stmt.executeUpdate("UPDATE LASTDOC SET docnumber = '"+ Integer.toString(lastDocument) +
-                    "' WHERE docname = '"+ docName + "'");
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return lastDocument;
+    public DummyDataGenerator(){
+        truncateTable("SHIPMENTS");
+        truncateTable("DELIVERIES");
+        truncateTable("FORECAST");
     }
 
     private static String getRandomDate() {
@@ -81,12 +43,7 @@ public class DummyDataGenerator {
         return time.toString();
     }
 
-    public static void GenerateDummyShipments(int locationFrom, int locationTo,int product, int records) {
-
-        // deklaracja zmiennych potrzebnych do obsługi JDBC
-        Connection con = null;
-        Statement stmt = null;
-        ResultSet rs = null;
+    public void GenerateDummyShipments(int locationFrom, int locationTo,int product, int records) {
 
         List <Shipment> shipmentList = new ArrayList<>();
         for (int i=0; i<records; i++){
@@ -109,9 +66,7 @@ public class DummyDataGenerator {
 
 
         try {
-            SQLServerDataSource ds = Server.getServer();
-            con = ds.getConnection();
-            stmt = con.createStatement();
+            Statement stmt = getConnection();
 
             for (int i=0; i<records; i++){
                 String SQLquery = "INSERT INTO SHIPMENTS (locationfrom, locationto, shipntnumber, loadingdate, loadingtime, " +
@@ -131,19 +86,12 @@ public class DummyDataGenerator {
                 stmt.executeUpdate(SQLquery);
             }
 
-            con.close();
-
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public static void GenerateDummyDeliveries(int locationFrom, int locationTo,int product, int records) {
-
-        // deklaracja zmiennych potrzebnych do obsługi JDBC
-        Connection con = null;
-        Statement stmt = null;
-        ResultSet rs = null;
+    public void GenerateDummyDeliveries(int locationFrom, int locationTo,int product, int records) {
 
         List <Delivery> deliveriesList = new ArrayList<>();
         for (int i=0; i<records; i++){
@@ -166,9 +114,7 @@ public class DummyDataGenerator {
 
 
         try {
-            SQLServerDataSource ds = Server.getServer();
-            con = ds.getConnection();
-            stmt = con.createStatement();
+            Statement stmt = getConnection();
 
             for (int i=0; i<records; i++){
                 String SQLquery = "INSERT INTO DELIVERIES (locationfrom, locationto, dlvnumber, loadingdate, loadingtime, " +
@@ -188,19 +134,12 @@ public class DummyDataGenerator {
                 stmt.executeUpdate(SQLquery);
             }
 
-            con.close();
-
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public static void GenerateDummyForecast(int location, int product, int records) {
-
-        // deklaracja zmiennych potrzebnych do obsługi JDBC
-        Connection con = null;
-        Statement stmt = null;
-        ResultSet rs = null;
+    public void GenerateDummyForecast(int location, int product, int records) {
 
         List <Forecast> forecastList = new ArrayList<>();
 
@@ -218,9 +157,7 @@ public class DummyDataGenerator {
         }
 
         try {
-            SQLServerDataSource ds = Server.getServer();
-            con = ds.getConnection();
-            stmt = con.createStatement();
+            Statement stmt = getConnection();
 
             for (int i=0; i<records; i++){
                 String SQLquery = "INSERT INTO FORECAST (location, product, quantity, date1, fcstdate, fcstid) " +
@@ -234,8 +171,6 @@ public class DummyDataGenerator {
                 System.out.println(SQLquery);
                 stmt.executeUpdate(SQLquery);
             }
-
-            con.close();
 
         } catch (Exception e) {
             e.printStackTrace();

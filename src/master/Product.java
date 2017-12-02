@@ -6,44 +6,27 @@ import enums.Type;
 import enums.UoM;
 
 public class Product {
-    private int location;
+    private int Location;
     private int GCAS;
-    private String description;
-    private UoM unit;
-    private Type type;
-    private Procurement procurement;
-    private SafetyStrategy strategy;
-    private int target;
-    private int roundingValue;
+    private String Description;
+    private UoM Unit;
+    private Type Type;
+    private Procurement Procurement;
+    private SafetyStrategy SafetyStrategy;
+    private int Target;
+    private int RoundingValue;
 
-    public Product (int _location, int _gcas, String _description, UoM _unit, Type _type, Procurement _procurement,
-                                 SafetyStrategy _strategy, int _target, int _roundingValue){
-        location = _location;
-        GCAS = _gcas;
-        description = _description;
-        unit = _unit;
-        type = _type;
-        procurement = _procurement;
-        strategy = _strategy;
-        target = _target;
-        roundingValue = _roundingValue;
-    }
-
-    @Override
-    public String toString(){
-
-        String s = "Product : "
-                + " Location [" + location + "]"
-                + " GCAS [" + GCAS + "]"
-                + " Description [" + description + "]"
-                + " UoM [" + unit + "]"
-                + " Type [" + type + "]"
-                + " Procurement [" + procurement + "]"
-                + " Safety Strategy [" + strategy + "]"
-                + " Safety Target [" + target + "]"
-                + " Rounding Value [" + roundingValue + "]";
-        return s;
-
+    public Product (int location, int gcas, String description, UoM unit, Type type, Procurement procurement,
+                                 SafetyStrategy strategy, int target, int roundingValue){
+        Location = location;
+        GCAS = gcas;
+        Description = description;
+        Unit = unit;
+        Type = type;
+        Procurement = procurement;
+        SafetyStrategy = strategy;
+        Target = target;
+        RoundingValue = roundingValue;
     }
 
     public int getGCAS (){
@@ -51,11 +34,11 @@ public class Product {
     }
 
     public int getLocation() {
-        return location;
+        return Location;
     }
 
     public void setLocation(int location) {
-        this.location = location;
+        this.Location = location;
     }
 
     public void setGCAS(int GCAS) {
@@ -63,58 +46,58 @@ public class Product {
     }
 
     public int getRoundingValue() {
-        return roundingValue;
+        return RoundingValue;
     }
 
     public void setRoundingValue(int roundingValue) {
-        this.roundingValue = roundingValue;
+        this.RoundingValue = roundingValue;
     }
 
     public int getTarget() {
-        return target;
+        return Target;
     }
 
     public void setTarget(int target) {
-        this.target = target;
+        this.Target = target;
     }
 
     public String getDescription() {
-        return description;
+        return Description;
     }
 
     public void setDescription(String description) {
-        this.description = description;
+        this.Description = description;
     }
 
     public UoM getUnit() {
-        return unit;
+        return Unit;
     }
 
     public void setUnit(UoM unit) {
-        this.unit = unit;
+        this.Unit = unit;
     }
 
     public Type getType() {
-        return type;
+        return Type;
     }
 
     public void setType(Type type) {
-        this.type = type;
+        this.Type = type;
     }
 
     public Procurement getProcurement() {
-        return procurement;
+        return Procurement;
     }
 
     public void setProcurement(Procurement procurement) {
-        this.procurement = procurement;
+        this.Procurement = procurement;
     }
 
-    public SafetyStrategy getStrategy() {
-        return strategy;
+    public SafetyStrategy getSafetyStrategy() {
+        return SafetyStrategy;
     }
 
-    public void setStrategy(SafetyStrategy strategy) {
-        this.strategy = strategy;
+    public void setSafetyStrategy(SafetyStrategy safetyStrategy) {
+        this.SafetyStrategy = safetyStrategy;
     }
 }
