@@ -26,19 +26,13 @@ public class DataImporter extends DataInterface {
     private int limiter;
 
     public String getPreviousDay(String day) throws ParseException {
-        // Create a date formatter using your format string
+
         DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
-
-        // Parse the given date string into a Date object.
-        // Note: This can throw a ParseException.
         Date myDate = dateFormat.parse(day);
-
-        // Use the Calendar class to subtract one day
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(myDate);
         calendar.add(Calendar.DAY_OF_YEAR, -1);
 
-        // Use the date formatter to produce a formatted date string
         Date previousDate = calendar.getTime();
         String result = dateFormat.format(previousDate);
 

@@ -17,4 +17,9 @@ public class MRPList {
 
         return  MRPElements;
     }
+
+    public List<MRPElement> runMRP (List<MRPElement> list) {
+
+        return MRPElements;
+    }
 }

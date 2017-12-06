@@ -1,7 +1,10 @@
 package gui;
 
 import calculation.MRPElement;
+import calculation.MRPList;
 import init.DataLoader;
+import javafx.scene.layout.GridPane;
+
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableModel;
@@ -17,6 +20,8 @@ import java.util.List;
 public class MrpListBrowser extends JFrame {
 
     JTable MrpTable = new JTable();
+    int selectedProduct;
+    int selectedPlant;
 
     public MrpListBrowser(){
         initUI();
@@ -33,11 +38,12 @@ public class MrpListBrowser extends JFrame {
 
     private void initUI() {
         setTitle("ReplenishMe - Browse MRP List");
-        setSize(800, 600);
+        setSize(650, 700);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
-        JPanel buttonsPanel = new JPanel(new GridBagLayout());
+        JPanel upperButtonsPanel = new JPanel(new GridBagLayout());
+        JPanel lowerButtonsPanel = new JPanel(new GridBagLayout());
         JPanel gridPanel = new JPanel(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
         JScrollPane gridPane;
@@ -45,6 +51,7 @@ public class MrpListBrowser extends JFrame {
         JComboBox<Integer> productListComboBox = new JComboBox<>();
         JComboBox<Integer> plantListComboBox = new JComboBox<>();
         JButton GenerateButton = new JButton("Generate MRP list");
+        JButton AdHocMrpButton = new JButton("Ad-hoc MRP run");
 
         DataLoader dl = new DataLoader();
         List<Integer> productList = dl.getProductList();
@@ -58,16 +65,17 @@ public class MrpListBrowser extends JFrame {
             plantListComboBox.addItem(i);
         }
 
+
         constraints.insets = new Insets(10,10,10,10);
         constraints.gridx = 0;
         constraints.gridy = 0;
-        buttonsPanel.add(productListComboBox,constraints);
+        upperButtonsPanel.add(productListComboBox,constraints);
         constraints.gridx = 1;
         constraints.gridy = 0;
-        buttonsPanel.add(plantListComboBox,constraints);
+        upperButtonsPanel.add(plantListComboBox,constraints);
         constraints.gridx = 2;
         constraints.gridy = 0;
-        buttonsPanel.add(GenerateButton,constraints);
+        upperButtonsPanel.add(GenerateButton,constraints);
         constraints.gridx = 1;
         constraints.gridy = 2;
         gridPane = new JScrollPane(MrpTable);
@@ -76,16 +84,23 @@ public class MrpListBrowser extends JFrame {
         this.setLayout(new GridBagLayout());
         constraints.gridx = 0;
         constraints.gridy = 0;
-        this.add(buttonsPanel, constraints);
+        this.add(upperButtonsPanel, constraints);
         constraints.gridx = 0;
         constraints.gridy = 1;
         this.add(gridPanel,constraints);
 
+        constraints.gridx = 0;
+        constraints.gridy = 0;
+        lowerButtonsPanel.add(AdHocMrpButton,constraints);
+        constraints.gridx = 0;
+        constraints.gridy = 2;
+        this.add(lowerButtonsPanel,constraints);
+
         GenerateButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int selectedProduct = productList.get(productListComboBox.getSelectedIndex());
-                int selectedPlant = plantList.get(plantListComboBox.getSelectedIndex());
+                selectedProduct = productList.get(productListComboBox.getSelectedIndex());
+                selectedPlant = plantList.get(plantListComboBox.getSelectedIndex());
                 try {
                     populateGrid(selectedProduct,selectedPlant);
                     gridPanel.add(gridPane,constraints);
@@ -96,5 +111,13 @@ public class MrpListBrowser extends JFrame {
                 }
             }
         });
+
+        AdHocMrpButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+
     }
 }
