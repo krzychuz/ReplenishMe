@@ -284,17 +284,37 @@
 <p>Biorąc pod uwagę aspekt czysto techniczny – wszystkie trzy rozwiązania umożliwią stworzenie aplikacji implementującej zarysowany w rozdziale 3.1. model. Różnią się one jednak od siebie znacząco, dlatego należy dokonać nieco głębszej ich analizy, by wybrać rozwiązanie najbardziej odpowiadające omawianemu problemowi.</p>
 <p>Największą różnicą pomiędzy Javą a C++ jest sposób zarządzania pamięcią. W C++ to programista odpowiedzialny jest za alokowanie pamięci. Również w jego gestii pozostaje jej zwalnianie - poprzez instrukcję <em>delete</em>. Gdy zaalokowana pamięć pozostaje niezwolniona mimo, że nie jest już wykorzystywana, program (np. przy wywoływaniu określonej funkcji) pochłaniać będzie każdorazowo nowe zasoby, nigdy nie zwalniając tych nieużywanych. Doprowadza to wycieku pamięci - spadku wydajności, a w skrajnych wypadkach zawieszania się innych aplikacji, bądź też całego systemu operacyjnego. Problem ten nie jest obecny w najmniejszym nawet stopniu w Javie. Programista nie tylko nie musi martwić się o to, gdzie przechowywane są aktualnie przetwarzane dane, ale również nie ma obowiązku ich zwalniania. Rozwiązaniem tego problemu jest <em>Garbage Collector</em>. Identyfikuje on zasoby pozostające bez referencji i zwalnia je, umożliwiając alokację nowych danych.</p>
 <p>Listing - Przykład wycieku pamięci w kodzie C++</p>
-<p>Kolejną istotną różnicą jest sposób wykonywania samego kodu. C++ kompilowany jest do kodu binarnego, który uruchamiany jest bezpośrednio na procesorze. Java zaś kompilowana jest do kodu bajtowego, który uruchamiany jest następnie w JVM<a href="#fn25" class="footnote-ref" id="fnref25"><sup>25</sup></a>. Każde z tych rozwiązań niesie ze sobą określone zyski i straty. Kod wykonywany bezpośrednio na procesorze z reguły przetwarzany będzie znacznie szybciej niż kod wykonywany na emulowanym procesorze Javy. Problem wydajności był dostrzegalny szczególnie w przeszłości, gdy szybkość procesorów i przepustowość pamięci była znacznie niższa niż obecnie.</p>
-<p><img src="media/image7.png" alt="https://upload.wikimedia.org/wikipedia/commons/d/dd/JvmSpec7.png" style="width:6.3in;height:3.81719in" /></p>
+<p>Kolejną istotną różnicą jest sposób wykonywania samego kodu. C++ kompilowany jest do kodu binarnego, który uruchamiany jest bezpośrednio na procesorze. Java zaś kompilowana jest do kodu bajtowego, który uruchamiany jest następnie w JVM<a href="#fn25" class="footnote-ref" id="fnref25"><sup>25</sup></a>. Każde z tych rozwiązań niesie ze sobą określone zyski i straty. Kod wykonywany bezpośrednio na procesorze z reguły przetwarzany będzie znacznie szybciej niż kod wykonywany na emulowanym procesorze Javy. Problem wydajności był dostrzegalny szczególnie w przeszłości, gdy szybkość procesorów i przepustowość pamięci była znacznie niższa niż obecnie. Obecnie nie stanowi to bardzo dużego problemu, jednak w przypadku gdy wymagane jest szybkie wykonywanie złożonych obliczeń i operowanie na dużych zbiorach danych, natywny kod binarny wykonywany będzie znacząco szybciej niż kod Javy.</p>
 <p>Rysunek - Budowa JVM</p>
+<p>Wykonywanie kodu na maszynie wirtualnej Javy niesie ze sobą jednak inne korzyści. Główną jest kompatybilność kodu bez względu na platformę. Raz napisana aplikacja może być uruchomiona na dowolnej platformie (sprzętowej, aplikacyjnej), jeżeli tylko istnieje odpowiednia dystrybucja JVM. Obecnie zaś trudno znaleźć urządzenie mobilne, czy system, które nie byłby wpierany przez Oracle<a href="#fn26" class="footnote-ref" id="fnref26"><sup>26</sup></a>. Oznacza to łatwość portowania aplikacji, w myśl promowanego przez Sun Microsystems hasła <em>Write once, run anywhere</em>. Nie jest tak niestety w przypadku C++, który skompilowany musi być osobno na każdą platformę uruchomieniową.</p>
+<p>Wieloplatformowość Javy oznacza również, że może być ona wykorzystana do tworzenia web serwisów oraz aplikacji webowych. Biorąc zaś pod uwagę obecne trendy rynkowe, nieuchronne wydaje się stopniowe przenoszenie wszystkich dotychczasowych rozwiązań do chmury. Możliwe jest wykorzystanie frameworków takich jak Wt<a href="#fn27" class="footnote-ref" id="fnref27"><sup>27</sup></a>, aby użyć C++ do tworzenia aplikacji webowych, jednak w porównaniu z Javą lub środowiskiem .NET, wsparcie dla serwisów WWW jest tutaj znikome.</p>
+<p>Ostatnim argumentem przemawiającym za wykorzystaniem Javy jest brak konieczności stosowania wskaźników, które bardzo często przysparzają programistom wielu problemów. Mogą to być chociażby omówione wcześniej wycieki pamięci.</p>
+<p>Pod względem składni języka oraz sposobu zarządzaniem pamięcią C# okazuje się bardzo podobny do Javy. Programista Javy, bez żadnego problemu będzie w stanie zrozumieć kod napisany w C#, jak i odwrotnie. Nie oznacza to jednak, że są to języki bliźniacze, gdyż dzieli je wiele różnic. Pierwszym elementem obecnym w C#, a nieposiadającym żadnego odpowiednika w Javie jest LINQ<a href="#fn28" class="footnote-ref" id="fnref28"><sup>28</sup></a>. W zdecydowany sposób upraszcza on operowanie na kolekcjach – wybieranie obiektów o określonych atrybutach, iterowanie po nich, modyfikowanie obiektów o wybranych cechach itd. Możliwość taka wielokrotnie oznacza oszczędność czasu programisty, a także upraszcza i sprawia bardziej czytelnym sam kod.</p>
+<p>Listing - Przykład użycia LINQ w C#</p>
+<p>Elementem wspólnym Javy i C# jest jednak to, że nie są one komplilowane do natywnego kodu przetwarzanego przez procesor. O ile jednak Java kompilowana jest do kodu bajtowego uruchamianego na maszynie wirtualnej, C# kompilowany jest do języka pośredniego (MSIL/CIL), który kompilowany jest w czasie rzeczywistym (poprzez kompilator JIT) do natywnych instrukcji procesora. Wadą tego rozwiązania w przeszłości była możliwość tworzenia aplikacji wyłącznie na platformę Windows. Obecnie jednak nie stanowi to żadnego problemu. Wraz z przedstawieniem .NET Core oraz Visual Studio Code możliwe jest wykorzystanie C# do tworzenia aplikacji zarówno na platformę Windows, jak i Linux oraz Mac. Zmiana ta wymusiła rzecz jasna otworzenie środowiska .NET Core, które obecnie dostępne jest jako open-source.</p>
+<p>Rysunek - Kompilacja oraz wykonywanie kodu C#</p>
+<p>Należy zwrócić uwagę również na same środowisko, w którym tworzona jest aplikacja. Visual Studio wraz z platformą .NET umożliwia tworzenie zarówno aplikacji webowych (Web API, MVC, SPA), jak i mobilnych (Xamarin, Ionic, Cordova) jak i desktopowych (WPF). Nie oznacza to może to aż takiej kompatybilności wskroś platform, jak w przypadku Javy, jednak ciągle pokrycie potencjalnych platform wymaga odnotowania.</p>
+<p>Kolejną zaletą C# w stosunku do Javy jest obecność NuGet Package Managera. Ułatwia to w znaczącym stopniu zapytania do web serwisów, tworzenie aplikacji MVC, czy nawet wykorzystywanie technologii takich jak TTS<a href="#fn29" class="footnote-ref" id="fnref29"><sup>29</sup></a>. W przypadku Javy w większości wypadków oznacza to konieczność wykorzystywania bibliotek i frameworków podmiotów trzecich. Do tego nieodzowne okazuje się używanie narzędzi do budowania/zarządzania referencjami takich jak Maven. W przypadku C# jest to zwyczajnie prostsze.</p>
+<p>Ostatnią istotną różnicą pomiędzy trzema technologiami jest dziedziczenie klas oraz interfejsów. Zarówno w C++ jak i w C# możliwe jest wielokrotnie dziedziczenie klas, co znacząco ułatwia pracę, gdy programista pragnie wykorzystać wszystkie zalety obiektowego paradygmatu programowania. Zamiast tego Java oferuje wielokrotne dziedziczenie interfejsów, a także wewnętrze klasy anonimowe. Działają one w sposób bardzo podobny do domknięć w Scali. Od wersji Java 8 możliwe jest także wykorzystywanie wyrażeń lambda.</p>
+<p>Podsumowując tę analizę należy dojść do wniosku, że równie prostymi i oferującymi potencjalnie najwięcej możliwości technologiami są równorzędnie Java oraz C#, pozostawiając C++ nieco w tyle jako język starszy i natywnie nie wspierający tak wielu rozszerzeń. Należy przy tym zaznaczyć, że ani Java ani C# nie posiada cech, które jednoznacznie wskazywałyby na wyższość jednego rozwiązania nad drugim w świetle naszkicowanych w rozdziale 3.1. wymagań. Do stworzenia symulacji została jednak wykorzystana Java z uwagi na to, że autor niniejszej pracy bardziej doświadczony jest w pracy z Javą i Swingiem, aniżeli w programowaniu w C# z wykorzystaniem Windows Presentation Foundation.</p>
 <h2 id="architektura-aplikacji">Architektura aplikacji</h2>
-<p>Aplikacja</p>
-<p>JDBC</p>
-<p>Serwer MS SQL</p>
+<p>Symulacja podzielona została na dwa zasadnicze elementy: aplikację oraz serwer bazodanowy. Dodatkowo pomiędzy aplikacją a serwerem MS SQL występuje dodatkowa warstwa w postaci interfejsu dostępu do danych.</p>
+<p>Warstwa aplikacji odpowiedzialna jest za wszelkie manipulacje danych – począwszy od ich importowania, poprzez parsowanie, skończywszy na zasilaniu nimi bazy danych. Również tutaj przeprowadzana jest sama kalkulacja MRP, stąd też (za pośrednictwem mechanizmu do interpretacji scenariuszy testowych) sterowany jest przebieg samej symulacji. W samej aplikacji nie są jednak przechowywane żadne dane poza tymi, które są aktualnie przetwarzane. Wynik każdej przeprowadzonej symulacji (który stanowi zbiór elementów MRP) przechowywany jest w bazie danych.</p>
+<p>Istotnym elementem jest wyodrębniony interfejs wymiany danych pomiędzy aplikacją a serwerem danych. Z uwagi na wygodę oraz czytelność kodu sama aplikacja operuje na generycznych obiektach takich jak <em>Shipment</em> czy <em>Delivery.</em> Przechowywane są one jako rekordy w bazie danych. By jednak możliwe było swobodne operowanie nimi na potrzeby kalkulacji/symulacji, a także z uwagi na potencjalnie wysoką powtarzalność kodu związanego z komunikacją z serwerem, wszelkie operacje bazodanowe zostały wydzielone. Interfejs danych (w oparciu o sterownik JDBC) odpowiedzialny jest za tłumaczenie danych na drodze z/do bazy, a także zbiorcze dokonywanie operacji bazodanowych. Jest to pośrednia realizacja mapowania obiektowo-relacyjnego, ale w uproszczonej formie, odpowiedniej dla tworzonej symulacji.</p>
+<p>Rysunek - Architektura aplikacji</p>
+<p>Ostatnią warstwą architektury jest serwer bazy danych. Wykorzystany został Microsoft SQL Server w wersji 2017. Częścią aplikacji są skrypty budujące niezbędne tabele oraz zasilające bazę danych danymi niezbędnymi do uruchomienia aplikacji. Każda z tabel posiada unikalny klucz główny lub kompozytowy klucz główny złożony z unikalnej kombinacji dwóch kolumn. Tabele w bazie danych podzielić można na trzy grupy:</p>
+<ol type="1">
+<li><p>Dane związane bezpośrednio z kalkulacją i przechowujące aktualny stan elementów MRP per ogniwo</p></li>
+<li><p><em>Master data</em>, dane stałe analizowanej sieci dystrybucyjnej</p></li>
+<li><p>Dane statystyczne generowane po każdej kalkulacji MRP, służące do analizy przebiegu symulacji - obliczania KPI czy tworzenia graficznych reprezentacji procesów takich jak zmiana zapasu magazynowego w czasie</p></li>
+</ol>
+<blockquote>
+<p>Diagram encji użytej bazy danych znajduje się w załączniku 7.4.</p>
+</blockquote>
 <h1 id="symulacja-komputerowa">Symulacja komputerowa</h1>
 <h2 id="kluczowe-wskaźniki-efektywności">Kluczowe wskaźniki efektywności</h2>
 <h3 id="motywacja-wyboru-określonych-wskaźników">Motywacja wyboru określonych wskaźników</h3>
-<p>Czemu każdy z nich jest istotny i jakie jest ich przełożenie na biznes</p>
+<p>TODO: Czemu każdy z nich jest istotny i jakie jest ich przełożenie na biznes</p>
 <h3 id="definicje">Definicje</h3>
 <p>OFR (Order Fill Rate)</p>
 <p><br /><span class="math display">$$OFR = \frac{O_{F}}{O_{T}}*100\% = \frac{O_{F}}{O_{F} + O_{\text{NF}}}*100\%\ \lbrack\%\rbrack$$</span><br /></p>
@@ -440,6 +460,7 @@
 </tbody>
 </table>
 <h2 id="standard-tworzenia-znaczników-czasu-elementów-mrp-w-symulacji">Standard tworzenia znaczników czasu elementów MRP w symulacji</h2>
+<p>Tabela - Spis znaczników czasu elementów MRP</p>
 <table>
 <thead>
 <tr class="header">
@@ -452,65 +473,71 @@
 <tr class="odd">
 <td>Stock</td>
 <td>Stock</td>
-<td></td>
+<td>TODO</td>
 </tr>
 <tr class="even">
 <td>ShipNt</td>
 <td>Shipment Notification</td>
-<td></td>
+<td>TODO</td>
 </tr>
 <tr class="odd">
 <td>PchOrd</td>
 <td>Purchase Order</td>
-<td></td>
+<td>TODO</td>
 </tr>
 <tr class="even">
 <td>PrcOrd</td>
 <td>Process Order</td>
-<td></td>
+<td>TODO</td>
 </tr>
 <tr class="odd">
 <td>PlOrd</td>
 <td>Planned Order</td>
-<td></td>
+<td>TODO</td>
 </tr>
 <tr class="even">
 <td>QMLot</td>
 <td>Quality Inspection Lot</td>
-<td></td>
+<td>TODO</td>
 </tr>
 <tr class="odd">
 <td>Safety Stock</td>
 <td>Safety Stock</td>
-<td></td>
+<td>TODO</td>
 </tr>
 <tr class="even">
 <td>Order</td>
 <td>Order</td>
-<td></td>
+<td>TODO</td>
 </tr>
 <tr class="odd">
 <td>Deliv</td>
 <td>Delivery</td>
-<td></td>
+<td>TODO</td>
 </tr>
 <tr class="even">
 <td>DepReq</td>
 <td>Dependent Requirement</td>
-<td></td>
+<td>TODO</td>
 </tr>
 <tr class="odd">
 <td>PlORel</td>
 <td>Planned Order Release</td>
-<td></td>
+<td>TODO</td>
 </tr>
 <tr class="even">
 <td>IndReq</td>
 <td>Independent Requirement</td>
-<td></td>
+<td>TODO</td>
 </tr>
 </tbody>
 </table>
+<h2 id="standard-tworzenia-plików-xml-ze-scenariuszami-testowymi">Standard tworzenia plików XML ze scenariuszami testowymi</h2>
+<p>TODO: Opracować standard plików XML ze scenariuszami testowymi</p>
+<h2 id="tabele-w-bazie-danych">Tabele w bazie danych</h2>
+<p><img src="media/image12.png" style="width:6.3in;height:5.01528in" /></p>
+<p><img src="media/image13.png" style="width:3.26042in;height:3.05517in" /></p>
+<p>TODO: Uzupełnić bibliografię o przeczytane I przejrzane pozycje</p>
 <section class="footnotes">
 <hr />
 <ol>
@@ -539,6 +566,10 @@
 <li id="fn23"><p>ORM – Object-Relational Mapping, sposób odwzorowania obiektowej architektury systemu informatycznego na bazę danych (lub inny element systemu) o relacyjnym charakterze<a href="#fnref23" class="footnote-back">↩</a></p></li>
 <li id="fn24"><p>framework – ramy służące do budowy aplikacji, dostarczają szkielet aplikacji oraz definiują mechanizm jej funkcjonowania, zawierają zestaw generycznych komponentów oraz bibliotek ułatwiających implementację określonych działań<a href="#fnref24" class="footnote-back">↩</a></p></li>
 <li id="fn25"><p>JVM – Java Virtual Machine, maszyna wirtualna Javy wyposażona w środowisko uruchomieniowe kodu bajtowego Javy, rozróżniane są dwie główne dystrybucje: JRE (Java Runtime Environment) będąca jedynie środowiskiem uruchomieniowym oraz JDK (Java Development Kit) zawierająca narzędzia dla programistów<a href="#fnref25" class="footnote-back">↩</a></p></li>
+<li id="fn26"><p>Oracle – amerykańskie przedsiębiorstwo, które przejęło Sun Microsystems odpowiedzialne za stworzenie języka Java<a href="#fnref26" class="footnote-back">↩</a></p></li>
+<li id="fn27"><p>Wt, Witty, framework C++ umożliwiający tworzenie web serwisów, posiada zintegrowany serwer aplikacji, http://www.webtoolkit.eu/<a href="#fnref27" class="footnote-back">↩</a></p></li>
+<li id="fn28"><p>LINQ – Language Integrated Query – technologia .NET umożliwiająca zadawanie zapytań na obiektach, przeglądanie kolekcji w prosty sposób przypominający język zapytań SQL<a href="#fnref28" class="footnote-back">↩</a></p></li>
+<li id="fn29"><p>TTS – ang. Text To Speech, synteza mowy, przetwarzanie teksu na mowę<a href="#fnref29" class="footnote-back">↩</a></p></li>
 </ol>
 </section>
 </body>
