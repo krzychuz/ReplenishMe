@@ -44,12 +44,16 @@ public class MainMenu extends JFrame {
         JMenuItem miGenerateDummyData = new JMenuItem("Generate dummy data");
         ImportData.add(miGenerateDummyData);
 
+        JMenuItem miTruncateMrpTables = new JMenuItem("Truncate MRP tables");
+        ImportData.add(miTruncateMrpTables);
+
         JButton MrpListButton = new JButton("Browse MRP lists");
 
         miMaterialMaster.setActionCommand("browseMaterialMaster");
         miImportForecast.setActionCommand("importForecast");
         miImportMaterialMaster.setActionCommand("importMaterialMaster");
         miGenerateDummyData.setActionCommand("generateDummyData");
+        miTruncateMrpTables.setActionCommand("truncateMrpTables");
         MrpListButton.setActionCommand("browseMrpList");
 
 
@@ -58,6 +62,7 @@ public class MainMenu extends JFrame {
         miImportForecast.addActionListener(actionEvent);
         miImportMaterialMaster.addActionListener(actionEvent);
         miGenerateDummyData.addActionListener(actionEvent);
+        miTruncateMrpTables.addActionListener(actionEvent);;
         MrpListButton.addActionListener(actionEvent);
 
         this.setLayout(new FlowLayout());

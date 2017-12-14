@@ -18,7 +18,8 @@ public class ActionClass implements ActionListener  {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        String action = (e.getActionCommand());
+                String action = (e.getActionCommand());
+        DummyDataGenerator dummyDataGenerator = new DummyDataGenerator();
         switch (action) {
             case "browseMaterialMaster":
                 try{
@@ -37,12 +38,13 @@ public class ActionClass implements ActionListener  {
                 dataImporter.loadMaterialMaster();
                 break;
             case "generateDummyData":
-                DummyDataGenerator dummyDataGenerator = new DummyDataGenerator();
-                dummyDataGenerator.GenerateDummyShipments(5053,2751,83731531,10);
-                dummyDataGenerator.GenerateDummyShipments(2751,2621,83731531,10);
-                dummyDataGenerator.GenerateDummyDeliveries(4853,2751,83731531,10);
-                dummyDataGenerator.GenerateDummyDeliveries(2725,2621,83731531,10);
-                dummyDataGenerator.GenerateDummyForecast(2751,83731531,10);
+                dummyDataGenerator.GenerateDummyShipments(5053,2751,83732410,10);
+                dummyDataGenerator.GenerateDummyShipments(2751,2621,83732410,10);
+                dummyDataGenerator.GenerateDummyDeliveries(4853,2751,83732410,10);
+                dummyDataGenerator.GenerateDummyDeliveries(2725,2621,83732410,10);
+                break;
+            case "truncateMrpTables":
+                dummyDataGenerator.TruncateMrpTables();
                 break;
             default:
                 break;

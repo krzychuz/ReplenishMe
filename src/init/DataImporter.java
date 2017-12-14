@@ -118,17 +118,18 @@ public class DataImporter extends DataInterface {
 
                 //castowanie Stringów do odpowiednich typów
                 int location = Integer.parseInt(item[0]);
-                int GCAS = Integer.parseInt(item[1]);
-                String description = item[2].trim();
-                UoM unit = UoM.valueOf(item[3]);
-                Type type = Type.valueOf(item[4]);
-                Procurement procurement = Procurement.valueOf(item[5]);
-                SafetyStrategy strategy = SafetyStrategy.valueOf(item[6]);
-                int target = Integer.parseInt(item[7]);
-                int roundingValue = Integer.parseInt(item[8]);
+                int locationfrom = Integer.parseInt(item[1]);
+                int GCAS = Integer.parseInt(item[2]);
+                String description = item[3].trim();
+                UoM unit = UoM.valueOf(item[4]);
+                Type type = Type.valueOf(item[5]);
+                Procurement procurement = Procurement.valueOf(item[6]);
+                SafetyStrategy strategy = SafetyStrategy.valueOf(item[7]);
+                int target = Integer.parseInt(item[8]);
+                int roundingValue = Integer.parseInt(item[9]);
 
                 //tworzenie obiektu produktu
-                p = new Product(location, GCAS, description, unit, type, procurement, strategy, target, roundingValue);
+                p = new Product(location, locationfrom, GCAS, description, unit, type, procurement, strategy, target, roundingValue);
 
                 InsertProductIntoDb(p);
 

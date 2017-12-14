@@ -7,6 +7,7 @@ import enums.UoM;
 
 public class Product {
     private int Location;
+    private int LocationFrom;
     private int GCAS;
     private String Description;
     private UoM Unit;
@@ -16,9 +17,10 @@ public class Product {
     private int Target;
     private int RoundingValue;
 
-    public Product (int location, int gcas, String description, UoM unit, Type type, Procurement procurement,
+    public Product (int location, int locationFrom, int gcas, String description, UoM unit, Type type, Procurement procurement,
                                  SafetyStrategy strategy, int target, int roundingValue){
         Location = location;
+        LocationFrom = locationFrom;
         GCAS = gcas;
         Description = description;
         Unit = unit;
@@ -99,5 +101,13 @@ public class Product {
 
     public void setSafetyStrategy(SafetyStrategy safetyStrategy) {
         this.SafetyStrategy = safetyStrategy;
+    }
+
+    public int getLocationFrom() {
+        return LocationFrom;
+    }
+
+    public void setLocationFrom(int locationFrom) {
+        LocationFrom = locationFrom;
     }
 }

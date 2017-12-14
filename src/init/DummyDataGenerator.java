@@ -19,9 +19,19 @@ import java.util.concurrent.ThreadLocalRandom;
 public class DummyDataGenerator extends DataInterface {
 
     public DummyDataGenerator() {
+    }
+
+    public void TruncateMrpTables() {
         truncateTable("SHIPMENTS");
         truncateTable("DELIVERIES");
         truncateTable("FORECAST");
+        truncateTable("ORDERS");
+        truncateTable("PROCESSO");
+        truncateTable("PURCHASEO");
+        truncateTable("QUALITYLOT");
+        truncateTable("REPLENISHIN");
+        truncateTable("REPLENISHOUT");
+        truncateTable("RESERVATION");
     }
 
     private static String getRandomDate() {
@@ -107,7 +117,7 @@ public class DummyDataGenerator extends DataInterface {
             int Product = product;
             int Quantity = -500;
             String Date = getRandomDate();
-            String ForecastDate = "20170212";
+            String ForecastDate = "20171412";
             int ForecastId = incrementAndGetDocumentNumber("INDREQ");
 
             Forecast forecast = new Forecast(Location, Product, Quantity, Date, ForecastDate, ForecastId);

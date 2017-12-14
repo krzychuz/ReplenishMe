@@ -108,6 +108,7 @@ CREATE TABLE REPLENISHOUT (
 
 CREATE TABLE PRODUCTS (
 	location smallint NOT NULL,
+	locationfrom smallint NOT NULL,
 	gcas int NOT NULL,
 	description varchar(50) NOT NULL,
 	uom char(10) NOT NULL,

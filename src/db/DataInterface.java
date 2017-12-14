@@ -86,9 +86,10 @@ public class DataInterface {
         try {
             Statement stmt = getConnection();
 
-            String SQLquery = "INSERT INTO PRODUCTS(location, gcas, description, uom, type, procurement, " +
+            String SQLquery = "INSERT INTO PRODUCTS(location, locationfrom, gcas, description, uom, type, procurement, " +
                     "safetystrategy, target, roundval) VALUES (" +
                     p.getLocation() + ", " +
+                    p.getLocationFrom() + ", " +
                     p.getGCAS() + ", '" +
                     p.getDescription() + "', '" +
                     p.getUnit() + "', '" +
