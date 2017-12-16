@@ -8,6 +8,6 @@ public class InitParameters {
 
     public InitParameters() {
         parametersReader = new ParametersReader("import_data/parameters.txt");
-        parametersReader.getDate("start_date");
+        GlobalParameters.currentDate = parametersReader.getDate("start_date");
     }
 }

@@ -4,6 +4,6 @@ import java.util.Date;
 
 public class GlobalParameters {
 
-    public Date currentDate;
+    public static Date currentDate;
 
 }
