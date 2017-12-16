@@ -1,12 +1,23 @@
 package calculation;
 
+import init.DataLoader;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class MRPList {
 
-    private List<MRPElement> MRPElements;
+    public List<MRPElement> MRPElements;
+    private DataLoader dl;
+    private int product;
+    private int location;
 
-    public List<MRPElement> calculateAvailableQuantity (List<MRPElement> list){
+    public MRPList() {
+        MRPElements = new ArrayList<>();
+        dl = new DataLoader();
+    }
+
+    private List<MRPElement> calculateAvailableQuantity (List<MRPElement> list){
         this.MRPElements = list;
         int tmp = 0;
 
@@ -18,8 +29,22 @@ public class MRPList {
         return  MRPElements;
     }
 
-    public List<MRPElement> runMRP (List<MRPElement> list) {
+    public void setMRPList (int product, int location) {
+        this.product = product;
+        this.location = location;
+        MRPElements = dl.getMrpElementsPerProductLocation(product,location);
+    }
 
+    public List<MRPElement> getMRPList () {
+        calculateAvailableQuantity(MRPElements);
         return MRPElements;
+    }
+
+    public void runMRP () {
+
+        int sourcePlant = dl.getProductMaster(product).getLocationFrom();
+        int replenishmentLeadTime = (dl.getTLaneDetails(sourcePlant,location).getDuration())/(24);
+
+        calculateAvailableQuantity(MRPElements);
     }
 }

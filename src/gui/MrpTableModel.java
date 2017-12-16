@@ -18,7 +18,6 @@ public class MrpTableModel extends AbstractTableModel {
     public MrpTableModel(List<MRPElement> list) {
         MrpList = new MRPList();
         this.MrpElements  = list;
-        this.MrpElements = MrpList.calculateAvailableQuantity(list);
     }
 
     @Override

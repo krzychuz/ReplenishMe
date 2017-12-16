@@ -3,6 +3,8 @@ package gui;
 import init.DataImporter;
 import init.DataLoader;
 import init.DummyDataGenerator;
+import simulation.InitParameters;
+import simulation.ParametersReader;
 import simulation.ScenarioParser;
 
 import java.awt.*;
@@ -78,5 +80,6 @@ public class MainMenu extends JFrame {
         });
 
         ScenarioParser.ParseXmlScenario();
+        InitParameters i = new InitParameters();
     }
 }

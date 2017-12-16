@@ -16,12 +16,22 @@ import enums.SafetyStrategy;
 import enums.Type;
 import enums.UoM;
 import master.Product;
+import master.TLane;
 
 public class DataLoader extends DataInterface{
 
-    public ResultSet getMaterialMaster() {
+    ResultSet rs = null;
+    Statement stmt;
 
-        ResultSet rs = null;
+    public DataLoader() {
+        try {
+            Statement stmt = getConnection();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public ResultSet getMaterialMaster() {
 
         try {
             Statement stmt  = getConnection();
@@ -35,18 +45,14 @@ public class DataLoader extends DataInterface{
     }
 
     public List<Integer> getProductList() {
+
         List<Integer> productList = new ArrayList<>();
 
-        ResultSet rs = null;
-
         try {
-            Statement stmt = getConnection();
             rs = stmt.executeQuery("SELECT DISTINCT gcas FROM PRODUCTS ORDER BY gcas");
-
             while (rs.next()) {
                 productList.add(rs.getInt("gcas"));
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -54,13 +60,65 @@ public class DataLoader extends DataInterface{
         return productList;
     }
 
-    public List<Integer> getPlantList() {
+    public Product getProductMaster(int product) {
 
-        List<Integer> plantList = new ArrayList<>();
-        ResultSet rs = null;
+        Product p = null;
 
         try {
             Statement stmt = getConnection();
+            rs = stmt.executeQuery("SELECT * FROM PRODUCTS WHERE gcas='" + product + "'");
+
+            while (rs.next()) {
+                p = new Product(0,0,0,"",null,null,
+                        null,null,0,0);
+                p.setGCAS(rs.getInt("gcas"));
+                p.setLocationFrom(rs.getInt("locationfrom"));
+                p.setLocation(rs.getInt("location"));
+                p.setDescription(rs.getString("description"));
+                p.setUnit(UoM.valueOf(rs.getString("unit")));
+                p.setType(Type.valueOf(rs.getString("type")));
+                p.setProcurement(Procurement.valueOf(rs.getString("procurement")));
+                p.setSafetyStrategy(SafetyStrategy.valueOf(rs.getString("strategy")));
+                p.setTarget(rs.getInt("target"));
+                p.setRoundingValue(rs.getInt("roundingvalue"));
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return p;
+    }
+
+    public TLane getTLaneDetails(int startloc, int endloc){
+
+        TLane t = null;
+
+        try {
+            Statement stmt = getConnection();
+            rs = stmt.executeQuery("SELECT * FROM TLANES WHERE startloc='" + startloc +
+                    "' AND endloc = '" + endloc + "'");
+
+            while (rs.next()) {
+                t = new TLane(0,0,0,0);
+                t.setStartLocation(rs.getInt("startloc"));
+                t.setEndLocation(rs.getInt("endloc"));
+                t.setDuration(rs.getInt("duration"));
+                t.setDistance(rs.getInt("distance"));
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return t;
+    }
+
+    public List<Integer> getPlantList() {
+
+        List<Integer> plantList = new ArrayList<>();
+
+        try {
             rs = stmt.executeQuery("SELECT plantcode FROM LOCATIONS");
 
             while (rs.next()) {
@@ -76,11 +134,9 @@ public class DataLoader extends DataInterface{
 
     public List<Forecast> getForecastsPerProductLocation(int product, int location){
 
-        ResultSet rs = null;
         List <Forecast> forecastList = new ArrayList<>();
 
         try {
-            Statement stmt = getConnection();
             String SqlQuery = "SELECT * FROM FORECAST WHERE product = " + product + " AND location = " + location;
             System.out.println(SqlQuery);
             rs = stmt.executeQuery(SqlQuery);
@@ -105,11 +161,9 @@ public class DataLoader extends DataInterface{
 
     public List<Shipment> getShipmentPerProductLocation(int product, int location){
 
-        ResultSet rs = null;
         List <Shipment> shipmentList = new ArrayList<>();
 
         try {
-            Statement stmt = getConnection();
             String SqlQuery = "SELECT * FROM SHIPMENTS WHERE product = " + product + " AND locationto = " + location;
             System.out.println(SqlQuery);
             rs = stmt.executeQuery(SqlQuery);
@@ -170,15 +224,10 @@ public class DataLoader extends DataInterface{
     }
 
     public Stock getStockPerProductLocation(int product, int location){
-        Connection con = null;
-        Statement stmt = null;
-        ResultSet rs = null;
+
         Stock stock = null;
 
         try {
-            SQLServerDataSource ds = Server.getServer();
-            con = ds.getConnection();
-            stmt = con.createStatement();
             String SqlQuery = "SELECT * FROM STOCK WHERE product = " + product + " AND location = " + location;
             System.out.println(SqlQuery);
             rs = stmt.executeQuery(SqlQuery);
@@ -199,11 +248,9 @@ public class DataLoader extends DataInterface{
 
     public Safety getSafetyPerProductLocation(int product, int location){
 
-        ResultSet rs = null;
         Safety safety = null;
 
         try {
-            Statement stmt = getConnection();
             String SqlQuery = "SELECT * FROM SAFETIES WHERE product = " + product + " AND location = " + location;
             System.out.println(SqlQuery);
             rs = stmt.executeQuery(SqlQuery);
@@ -227,11 +274,9 @@ public class DataLoader extends DataInterface{
 
     public List<Order> getOrderPerProductLocation(int product, int location){
 
-        ResultSet rs = null;
         List <Order> orderList = new ArrayList<>();
 
         try {
-            Statement stmt = getConnection();
             String SqlQuery = "SELECT * FROM ORDERS WHERE product = " + product + " AND location = " + location;
             System.out.println(SqlQuery);
             rs = stmt.executeQuery(SqlQuery);
@@ -257,11 +302,9 @@ public class DataLoader extends DataInterface{
 
     public List<QualityLot> getQualityLotPerProductLocation(int product, int location){
 
-        ResultSet rs = null;
         List <QualityLot> qualityLotList = new ArrayList<>();
 
         try {
-            Statement stmt = getConnection();
             String SqlQuery = "SELECT * FROM QUALITYLOT WHERE product = " + product + " AND location = " + location;
             System.out.println(SqlQuery);
             rs = stmt.executeQuery(SqlQuery);
@@ -286,11 +329,9 @@ public class DataLoader extends DataInterface{
 
     public List<ReplenishmentIn> getReplenishmentInPerProductLocation(int product, int location){
 
-        ResultSet rs = null;
         List<ReplenishmentIn> replenishmentInList = new ArrayList<>();
 
         try {
-            Statement stmt = getConnection();
             String SqlQuery = "SELECT * FROM REPLENISHIN WHERE product = " + product + " AND locationto = " + location;
             System.out.println(SqlQuery);
             rs = stmt.executeQuery(SqlQuery);
@@ -315,11 +356,9 @@ public class DataLoader extends DataInterface{
 
     public List<ReplenishmentOut> getReplenishmentOutPerProductLocation(int product, int location){
 
-        ResultSet rs = null;
         List<ReplenishmentOut> replenishmentOutList = new ArrayList<>();
 
         try {
-            Statement stmt = getConnection();
             String SqlQuery = "SELECT * FROM REPLENISHOUT WHERE product = " + product + " AND locationfrom = " + location;
             System.out.println(SqlQuery);
             rs = stmt.executeQuery(SqlQuery);
@@ -344,11 +383,9 @@ public class DataLoader extends DataInterface{
 
     public List<Reservation> getReservationPerProductLocation(int product, int location){
 
-        ResultSet rs = null;
         List<Reservation> reservationList = new ArrayList<>();
 
         try {
-            Statement stmt = getConnection();
             String SqlQuery = "SELECT * FROM RESERVATION WHERE product = " + product + " AND location = " + location;
             System.out.println(SqlQuery);
             rs = stmt.executeQuery(SqlQuery);

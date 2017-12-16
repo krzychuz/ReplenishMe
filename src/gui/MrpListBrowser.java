@@ -20,21 +20,31 @@ import java.util.List;
 public class MrpListBrowser extends JFrame {
 
     JTable MrpTable = new JTable();
-    int selectedProduct;
-    int selectedPlant;
+    private int selectedProduct;
+    private int selectedPlant;
+    private List<Integer> productList;
+    private List<Integer> plantList;
+    private DataLoader dl;
 
     public MrpListBrowser(){
+        dl = new DataLoader();
         initUI();
         setVisible(true);
     }
 
-    private void populateGrid(int product, int location) throws Exception {
-        DataLoader dl = new DataLoader();
-        List<MRPElement> MRPList;
-        MRPList = dl.getMrpElementsPerProductLocation(product,location);
-        MrpTableModel model = new MrpTableModel(MRPList);
+    private void populateGrid(List<MRPElement> mrpElements) throws Exception {
+        MrpTableModel model = new MrpTableModel(mrpElements);
         MrpTable.setModel(model);
     }
+
+    private void getProductList(){
+        productList = dl.getProductList();
+    }
+
+    private void  getPlantList(){
+        plantList = dl.getPlantList();
+    }
+
 
     private void initUI() {
         setTitle("ReplenishMe - Browse MRP List");
@@ -53,9 +63,8 @@ public class MrpListBrowser extends JFrame {
         JButton GenerateButton = new JButton("Generate MRP list");
         JButton AdHocMrpButton = new JButton("Ad-hoc MRP run");
 
-        DataLoader dl = new DataLoader();
-        List<Integer> productList = dl.getProductList();
-        List<Integer> plantList = dl.getPlantList();
+        getPlantList();
+        getProductList();
 
         for(int i : productList) {
             productListComboBox.addItem(i);
@@ -102,7 +111,9 @@ public class MrpListBrowser extends JFrame {
                 selectedProduct = productList.get(productListComboBox.getSelectedIndex());
                 selectedPlant = plantList.get(plantListComboBox.getSelectedIndex());
                 try {
-                    populateGrid(selectedProduct,selectedPlant);
+                    MRPList mrpList = new MRPList();
+                    mrpList.setMRPList(selectedProduct,selectedPlant);
+                    populateGrid(mrpList.getMRPList());
                     gridPanel.add(gridPane,constraints);
                     revalidate();
                     repaint();
@@ -115,7 +126,19 @@ public class MrpListBrowser extends JFrame {
         AdHocMrpButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                selectedProduct = productList.get(productListComboBox.getSelectedIndex());
+                selectedPlant = plantList.get(plantListComboBox.getSelectedIndex());
+                try {
+                    MRPList mrpList = new MRPList();
+                    mrpList.setMRPList(selectedProduct,selectedPlant);
+                    mrpList.runMRP();
+                    populateGrid(mrpList.getMRPList());
+                    gridPanel.add(gridPane,constraints);
+                    revalidate();
+                    repaint();
+                } catch (Exception e1) {
+                    e1.printStackTrace();
+                }
             }
         });
 
