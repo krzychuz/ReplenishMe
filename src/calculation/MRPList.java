@@ -1,6 +1,7 @@
 package calculation;
 
 import init.DataLoader;
+import master.TLane;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,9 +43,11 @@ public class MRPList {
 
     public void runMRP () {
 
-        int sourcePlant = dl.getProductMaster(product).getLocationFrom();
-        int replenishmentLeadTime = (dl.getTLaneDetails(sourcePlant,location).getDuration())/(24);
+        System.out.println("\nBeginning MRP run for product: " + product + " at plant: " + location);
 
+        int sourcePlant = dl.getProductMaster(product, location).getLocationFrom();
+        TLane t = dl.getTLaneDetails(sourcePlant,location);
+        int replenishmentLeadTime = (t.getDuration())/(24);
         calculateAvailableQuantity(MRPElements);
     }
 }

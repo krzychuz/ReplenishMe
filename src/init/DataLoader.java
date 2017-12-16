@@ -20,12 +20,12 @@ import master.TLane;
 
 public class DataLoader extends DataInterface{
 
-    ResultSet rs = null;
+    ResultSet rs;
     Statement stmt;
 
     public DataLoader() {
         try {
-            Statement stmt = getConnection();
+            stmt = getConnection();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -34,7 +34,6 @@ public class DataLoader extends DataInterface{
     public ResultSet getMaterialMaster() {
 
         try {
-            Statement stmt  = getConnection();
             rs = stmt.executeQuery("SELECT * FROM PRODUCTS");
 
         } catch (Exception e) {
@@ -60,13 +59,13 @@ public class DataLoader extends DataInterface{
         return productList;
     }
 
-    public Product getProductMaster(int product) {
+    public Product getProductMaster(int product, int location) {
 
         Product p = null;
 
         try {
-            Statement stmt = getConnection();
-            rs = stmt.executeQuery("SELECT * FROM PRODUCTS WHERE gcas='" + product + "'");
+            rs = stmt.executeQuery("SELECT * FROM PRODUCTS WHERE gcas='" + product
+                    + "' AND location ='" + location + "'");
 
             while (rs.next()) {
                 p = new Product(0,0,0,"",null,null,
@@ -75,12 +74,12 @@ public class DataLoader extends DataInterface{
                 p.setLocationFrom(rs.getInt("locationfrom"));
                 p.setLocation(rs.getInt("location"));
                 p.setDescription(rs.getString("description"));
-                p.setUnit(UoM.valueOf(rs.getString("unit")));
-                p.setType(Type.valueOf(rs.getString("type")));
-                p.setProcurement(Procurement.valueOf(rs.getString("procurement")));
-                p.setSafetyStrategy(SafetyStrategy.valueOf(rs.getString("strategy")));
+                p.setUnit(UoM.valueOf(rs.getString("uom").trim()));
+                p.setType(Type.valueOf(rs.getString("type").trim()));
+                p.setProcurement(Procurement.valueOf(rs.getString("procurement").trim()));
+                p.setSafetyStrategy(SafetyStrategy.valueOf(rs.getString("safetystrategy").trim()));
                 p.setTarget(rs.getInt("target"));
-                p.setRoundingValue(rs.getInt("roundingvalue"));
+                p.setRoundingValue(rs.getInt("roundval"));
             }
 
         } catch (Exception e) {
@@ -95,7 +94,6 @@ public class DataLoader extends DataInterface{
         TLane t = null;
 
         try {
-            Statement stmt = getConnection();
             rs = stmt.executeQuery("SELECT * FROM TLANES WHERE startloc='" + startloc +
                     "' AND endloc = '" + endloc + "'");
 
@@ -196,7 +194,6 @@ public class DataLoader extends DataInterface{
         List <Delivery> deliveryList = new ArrayList<>();
 
         try {
-            Statement stmt = getConnection();
             String SqlQuery = "SELECT * FROM DELIVERIES WHERE product = " + product + " AND locationto = " + location;
             System.out.println(SqlQuery);
             rs = stmt.executeQuery(SqlQuery);
