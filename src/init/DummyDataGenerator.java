@@ -3,9 +3,11 @@ package init;
 import calculation.Delivery;
 import calculation.Forecast;
 import calculation.Shipment;
+import calculation.Stock;
 import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
 import db.DataInterface;
 import db.Server;
+import master.Product;
 
 import java.sql.*;
 import java.sql.Date;
@@ -18,7 +20,11 @@ import java.util.concurrent.ThreadLocalRandom;
  */
 public class DummyDataGenerator extends DataInterface {
 
-    public DummyDataGenerator() {
+    DataLoader dl;
+
+    public DummyDataGenerator() throws SQLException {
+        super();
+        dl = new DataLoader();
     }
 
     public void TruncateMrpTables() {
@@ -129,6 +135,25 @@ public class DummyDataGenerator extends DataInterface {
             InsertForecastIntoDb(forecastList.get(i));
         }
 
+    }
+
+    public void GenerateDummyStocksForAllProducts() {
+        truncateTable("STOCK");
+
+        List <Integer> ProductListInteger = new ArrayList<>();
+        List <Product> ProductList = new ArrayList<>();
+        ProductListInteger = dl.getProductList();
+
+        for (int i : ProductListInteger) {
+            ProductList.add(dl.getProductMaster(i,2621));
+        }
+
+        for (Product p : ProductList) {
+            int target = p.getTarget();
+            int stock = ThreadLocalRandom.current().nextInt(0, target + 1);
+            Stock s = new Stock(2621,p.getGCAS(),stock);
+            InsertStockIntoDb(s);
+        }
     }
 
 }

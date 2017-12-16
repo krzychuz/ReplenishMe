@@ -1,9 +1,8 @@
 package db;
 
-import calculation.Delivery;
-import calculation.Forecast;
-import calculation.Shipment;
+import calculation.*;
 import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
+import com.microsoft.sqlserver.jdbc.SQLServerException;
 import master.Product;
 
 import java.sql.Connection;
@@ -17,14 +16,17 @@ import java.util.Collection;
  */
 public class DataInterface {
 
-    private Statement stmt;
-    private Connection con;
-    private ResultSet rs;
+    public Statement stmt;
+    public Connection con;
+    public ResultSet rs;
 
-    public Statement getConnection() throws SQLException {
+    public DataInterface() throws SQLException {
         SQLServerDataSource ds = Server.getServer();
         con = ds.getConnection();
         stmt = con.createStatement();
+    }
+
+    public Statement getConnection() throws SQLException {
         return stmt;
     }
 
@@ -33,7 +35,6 @@ public class DataInterface {
         rs = null;
         int lastDocument = 0;
         try {
-            Statement stmt = getConnection();
             rs = stmt.executeQuery("SELECT docnumber FROM LASTDOC WHERE docname = '" + docName + "'");
             while (rs.next()) {
                 lastDocument = Integer.parseInt(rs.getString("docnumber")) + 1;
@@ -149,4 +150,57 @@ public class DataInterface {
         }
 
     }
+
+    public void InsertReplenishmentInIntoDb (ReplenishmentIn ri) {
+        try {
+            String SQLquery = "INSERT INTO REPLENISHIN (locationfrom, locationto, plordnumber, date, product,  quantity) " +
+                    "VALUES (" + ri.getLocationFrom() + ", " +
+                    ri.getLocationTo() + ", " +
+                    ri.getPlannedOrderNumber() + ", '" +
+                    ri.getDate() + "', " +
+                    ri.getProduct() + ", " +
+                    ri.getQuantity() + ")";
+
+            System.out.println(SQLquery);
+            stmt.executeUpdate(SQLquery);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void InsertReplenishmentOutIntoDb (ReplenishmentOut ro) {
+        try {
+            String SQLquery = "INSERT INTO REPLENISHOUT (locationfrom, locationto, plordnumber, date, product,  quantity) " +
+                    "VALUES (" + ro.getLocationFrom() + ", " +
+                    ro.getLocationTo() + ", " +
+                    ro.getPlannedOrderNumber() + ", '" +
+                    ro.getDate() + "', " +
+                    ro.getProduct() + ", " +
+                    ro.getQuantity() + ")";
+
+            System.out.println(SQLquery);
+            stmt.executeUpdate(SQLquery);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void InsertStockIntoDb (Stock s) {
+        try {
+            String SQLquery = "INSERT INTO STOCK (location, product, quantity) " +
+                    "VALUES (" + s.getLocation() + ", " +
+                    s.getProduct() + ", " +
+                    s.getQuantity() + ")";
+
+            System.out.println(SQLquery);
+            stmt.executeUpdate(SQLquery);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
 }

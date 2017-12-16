@@ -20,15 +20,7 @@ import master.TLane;
 
 public class DataLoader extends DataInterface{
 
-    ResultSet rs;
-    Statement stmt;
-
-    public DataLoader() {
-        try {
-            stmt = getConnection();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+    public DataLoader() throws SQLException{
     }
 
     public ResultSet getMaterialMaster() {

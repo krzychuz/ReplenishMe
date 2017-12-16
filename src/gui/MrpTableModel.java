@@ -4,6 +4,7 @@ import calculation.MRPElement;
 import calculation.MRPList;
 
 import javax.swing.table.AbstractTableModel;
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -16,7 +17,11 @@ public class MrpTableModel extends AbstractTableModel {
     String[] headers = {"Date","MRP Element","MRP Element Data","Receipt/Reqmnt","Available Qty","Plant"};
 
     public MrpTableModel(List<MRPElement> list) {
-        MrpList = new MRPList();
+        try {
+            MrpList = new MRPList();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         this.MrpElements  = list;
     }
 

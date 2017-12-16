@@ -6,6 +6,10 @@ import master.Product;
 import master.TLane;
 import simulation.GlobalParameters;
 
+import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -20,7 +24,7 @@ public class MRPList {
     private DataInterface di;
     private boolean isMRPListChanged;
 
-    public MRPList() {
+    public MRPList() throws SQLException {
         MRPElements = new ArrayList<>();
         dl = new DataLoader();
         di = new DataInterface();
@@ -70,22 +74,34 @@ public class MRPList {
 
         calculateAvailableQuantity(MRPElements);
 
-        int endStock = -1;
+        int endStock = MRPElements.get(MRPElements.size() - 1).getAvailableQuantity();
 
-        while (endStock < 0){
+        while (endStock < safetyTarget){
+            if (MRPElements.size() == 2) break;
             for (int i = 0; i < MRPElements.size(); i++) {
-                endStock = MRPElements.get(i).getMRPElementQuantity();
-                if (endStock < 0 ) {
+                if (endStock < safetyTarget ) {
                     int gap = safetyTarget - endStock;
+                    int Quantity = 0;
                     if (gap < roundingValue) {
-                        // replenishment = 1 RV
-                        isMRPListChanged = true;
+                        Quantity = roundingValue;
                     } else {
-                        // replenishment
+                        Quantity = gap/roundingValue + roundingValue;
                     }
+                    int Product = product;
+                    int LocationFrom = sourcePlant;
+                    int LocationTo = location;
+                    int PlannedOrderNumber = di.incrementAndGetDocumentNumber("PLORD");
+                    java.sql.Date fecha = new java.sql.Date(earliestReplenishmentDate.getTime());
+                    String Date = fecha.toString();
+                    ReplenishmentIn ri = new ReplenishmentIn(LocationFrom, LocationTo, PlannedOrderNumber, Date,
+                            Product, Quantity);
+                    di.InsertReplenishmentInIntoDb(ri);
+                    isMRPListChanged = true;
                 }
+                endStock = MRPElements.get(MRPElements.size()-1).getMRPElementQuantity();
                 calculateAvailableQuantity(MRPElements);
             }
+            endStock = MRPElements.get(MRPElements.size()-1).getMRPElementQuantity();
         }
 
     }

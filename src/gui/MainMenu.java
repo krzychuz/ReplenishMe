@@ -9,6 +9,7 @@ import simulation.ScenarioParser;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.sql.SQLException;
 import javax.swing.*;
 
 /**
@@ -46,6 +47,9 @@ public class MainMenu extends JFrame {
         JMenuItem miGenerateDummyData = new JMenuItem("Generate dummy data");
         ImportData.add(miGenerateDummyData);
 
+        JMenuItem miGenerateDummyStocks = new JMenuItem("Generate dummy stocks");
+        ImportData.add(miGenerateDummyStocks);
+
         JMenuItem miTruncateMrpTables = new JMenuItem("Truncate MRP tables");
         ImportData.add(miTruncateMrpTables);
 
@@ -55,16 +59,23 @@ public class MainMenu extends JFrame {
         miImportForecast.setActionCommand("importForecast");
         miImportMaterialMaster.setActionCommand("importMaterialMaster");
         miGenerateDummyData.setActionCommand("generateDummyData");
+        miGenerateDummyStocks.setActionCommand("generateDummyStocks");
         miTruncateMrpTables.setActionCommand("truncateMrpTables");
         MrpListButton.setActionCommand("browseMrpList");
 
 
-        ActionClass actionEvent = new ActionClass();
+        ActionClass actionEvent = null;
+        try {
+            actionEvent = new ActionClass();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         miMaterialMaster.addActionListener(actionEvent);
         miImportForecast.addActionListener(actionEvent);
         miImportMaterialMaster.addActionListener(actionEvent);
         miGenerateDummyData.addActionListener(actionEvent);
-        miTruncateMrpTables.addActionListener(actionEvent);;
+        miGenerateDummyStocks.addActionListener(actionEvent);
+        miTruncateMrpTables.addActionListener(actionEvent);
         MrpListButton.addActionListener(actionEvent);
 
         this.setLayout(new FlowLayout());

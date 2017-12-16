@@ -10,6 +10,7 @@ import master.Product;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -19,11 +20,14 @@ import java.util.Date;
 /**
  * Created by Krzysiek on 02.12.2017.
  */
-public class DataImporter extends DataInterface {
+public class DataImporter extends DataInterface{
 
 
     private final int limit = 1000;
     private int limiter;
+
+    public DataImporter() throws SQLException {
+    }
 
     public String getPreviousDay(String day) throws ParseException {
 
