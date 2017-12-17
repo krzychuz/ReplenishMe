@@ -30,31 +30,31 @@ public class MRPList {
         di = new DataInterface();
     }
 
-    private List<MRPElement> calculateAvailableQuantity (List<MRPElement> list){
-        if (isMRPListChanged) list = dl.getMrpElementsPerProductLocation(product,location);
+    private List<MRPElement> calculateAvailableQuantity(List<MRPElement> list) {
+        if (isMRPListChanged) list = dl.getMrpElementsPerProductLocation(product, location);
         this.MRPElements = list;
         int tmp = 0;
 
-        for (int i = 0; i < list.size(); i++){
+        for (int i = 0; i < list.size(); i++) {
             tmp += list.get(i).getMRPElementQuantity();
             MRPElements.get(i).setAvailableQuantity(tmp);
         }
 
-        return  MRPElements;
+        return MRPElements;
     }
 
-    public void setMRPList (int product, int location) {
+    public void setMRPList(int product, int location) {
         this.product = product;
         this.location = location;
-        MRPElements = dl.getMrpElementsPerProductLocation(product,location);
+        MRPElements = dl.getMrpElementsPerProductLocation(product, location);
     }
 
-    public List<MRPElement> getMRPList () {
+    public List<MRPElement> getMRPList() {
         calculateAvailableQuantity(MRPElements);
         return MRPElements;
     }
 
-    public void runMRP () {
+    public void runMRP() {
 
         System.out.println("\nBeginning MRP run for product: " + product + " at plant: " + location);
 
@@ -62,46 +62,56 @@ public class MRPList {
 
         int sourcePlant = p.getLocationFrom();
         int safetyTarget = p.getTarget();
-        int currentStock = dl.getStockPerProductLocation(product,location).getQuantity();
         int roundingValue = p.getRoundingValue();
-        TLane t = dl.getTLaneDetails(sourcePlant,location);
-        int replenishmentLeadTime = (t.getDuration())/(24);
+        TLane t = dl.getTLaneDetails(sourcePlant, location);
+        int replenishmentLeadTime = (t.getDuration()) / (24);
 
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(GlobalParameters.currentDate);
         calendar.add(Calendar.DAY_OF_YEAR, +replenishmentLeadTime);
-        Date earliestReplenishmentDate = calendar.getTime();
+        Date earliestReplenishmentInDate = calendar.getTime();
 
         calculateAvailableQuantity(MRPElements);
 
         int endStock = MRPElements.get(MRPElements.size() - 1).getAvailableQuantity();
 
-        while (endStock < safetyTarget){
-            if (MRPElements.size() == 2) break;
+        while (endStock < safetyTarget) {
+            if (MRPElements.size() == 2) break; // empty MRP List
             for (int i = 0; i < MRPElements.size(); i++) {
-                if (endStock < safetyTarget ) {
-                    int gap = safetyTarget - endStock;
-                    int Quantity = 0;
+                if (endStock < safetyTarget) {
+                    int gap = safetyTarget - MRPElements.get(i).getAvailableQuantity();
+                    int Quantity;
                     if (gap < roundingValue) {
                         Quantity = roundingValue;
                     } else {
-                        Quantity = gap/roundingValue + roundingValue;
+                        Quantity = (gap / roundingValue) * roundingValue;
                     }
                     int Product = product;
                     int LocationFrom = sourcePlant;
                     int LocationTo = location;
-                    int PlannedOrderNumber = di.incrementAndGetDocumentNumber("PLORD");
-                    java.sql.Date fecha = new java.sql.Date(earliestReplenishmentDate.getTime());
-                    String Date = fecha.toString();
-                    ReplenishmentIn ri = new ReplenishmentIn(LocationFrom, LocationTo, PlannedOrderNumber, Date,
+                    int PlannedOrderNumberRi = di.incrementAndGetDocumentNumber("PLORD");
+                    String DateIn = new java.sql.Date(earliestReplenishmentInDate.getTime()).toString();
+                    ReplenishmentIn ri = new ReplenishmentIn(LocationFrom, LocationTo, PlannedOrderNumberRi, DateIn,
                             Product, Quantity);
                     di.InsertReplenishmentInIntoDb(ri);
+
+                    int PlannedOrderNumberRo = di.incrementAndGetDocumentNumber("PLOREL");
+                    calendar.setTime(earliestReplenishmentInDate);
+                    calendar.add(Calendar.DAY_OF_YEAR, -replenishmentLeadTime);
+                    Date earliestReplenishmentOutDate = calendar.getTime();
+                    String DateOut = new java.sql.Date(earliestReplenishmentOutDate.getTime()).toString();
+                    ReplenishmentOut ro = new ReplenishmentOut(LocationFrom,LocationTo,PlannedOrderNumberRo,DateOut,
+                            Product, -Quantity);
+                    di.InsertReplenishmentOutIntoDb(ro);
+
                     isMRPListChanged = true;
+                    calculateAvailableQuantity(MRPElements);
+                    endStock = MRPElements.get(MRPElements.size() - 1).getAvailableQuantity();
+                    calendar.setTime(earliestReplenishmentInDate);
+                    calendar.add(Calendar.DAY_OF_YEAR, +1);
+                    earliestReplenishmentInDate = calendar.getTime();
                 }
-                endStock = MRPElements.get(MRPElements.size()-1).getMRPElementQuantity();
-                calculateAvailableQuantity(MRPElements);
             }
-            endStock = MRPElements.get(MRPElements.size()-1).getMRPElementQuantity();
         }
 
     }

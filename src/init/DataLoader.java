@@ -356,7 +356,7 @@ public class DataLoader extends DataInterface{
                 ReplenishmentOut ro = new ReplenishmentOut(0,0,0,"",0,0);
                 ro.setLocationFrom(rs.getInt("locationfrom"));
                 ro.setLocationTo(rs.getInt("locationto"));
-                ro.setPlannedOrderNumber(rs.getInt("plordnumber"));
+                ro.setPlannedOrderNumber(rs.getInt("plorelnumber"));
                 ro.setDate(rs.getString("date"));
                 ro.setProduct(rs.getInt("product"));
                 ro.setQuantity(rs.getInt("quantity"));

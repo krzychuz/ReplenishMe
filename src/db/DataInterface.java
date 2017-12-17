@@ -171,7 +171,7 @@ public class DataInterface {
 
     public void InsertReplenishmentOutIntoDb (ReplenishmentOut ro) {
         try {
-            String SQLquery = "INSERT INTO REPLENISHOUT (locationfrom, locationto, plordnumber, date, product,  quantity) " +
+            String SQLquery = "INSERT INTO REPLENISHOUT (locationfrom, locationto, plorelnumber, date, product,  quantity) " +
                     "VALUES (" + ro.getLocationFrom() + ", " +
                     ro.getLocationTo() + ", " +
                     ro.getPlannedOrderNumber() + ", '" +
