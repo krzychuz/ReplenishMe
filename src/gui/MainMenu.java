@@ -1,14 +1,9 @@
 package gui;
 
-import init.DataImporter;
-import init.DataLoader;
-import init.DummyDataGenerator;
 import simulation.InitParameters;
-import simulation.ParametersReader;
 import simulation.ScenarioParser;
 
 import java.awt.*;
-import java.awt.event.KeyEvent;
 import java.sql.SQLException;
 import javax.swing.*;
 

@@ -1,13 +1,9 @@
 package gui;
 
-import init.DataLoader;
+import db.DataLoader;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-import java.sql.SQLException;
-import java.util.Vector;
 
 /**
  * Created by Krzysiek on 29.10.2017.

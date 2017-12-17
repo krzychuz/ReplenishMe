@@ -187,6 +187,25 @@ public class DataInterface {
         }
     }
 
+    public void DeleteReplenishmentInFromDb (int location, int product) {
+        try {
+            String SQLQuery = "DELETE FROM REPLENISHIN WHERE locationto = " + location + "AND product = " + product;
+            System.out.println(SQLQuery);
+            stmt.executeUpdate(SQLQuery);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    public void DeleteReplenishmentOutFromDb (int location, int product) {
+        try {
+            String SQLQuery = "DELETE FROM REPLENISHOUT WHERE locationto = " + location + "AND product = " + product;
+            System.out.println(SQLQuery);
+            stmt.executeUpdate(SQLQuery);
+        } catch (Exception e ) {
+            e.printStackTrace();
+        }
+    }
+
     public void InsertStockIntoDb (Stock s) {
         try {
             String SQLquery = "INSERT INTO STOCK (location, product, quantity) " +

@@ -1,4 +1,4 @@
-package init;
+package db;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;

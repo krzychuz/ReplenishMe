@@ -1,15 +1,12 @@
 package calculation;
 
 import db.DataInterface;
-import init.DataLoader;
+import db.DataLoader;
 import master.Product;
 import master.TLane;
 import simulation.GlobalParameters;
 
 import java.sql.SQLException;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -54,65 +51,80 @@ public class MRPList {
         return MRPElements;
     }
 
+    private Date getRelativeDate (Date initDate, int relativeDays) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(initDate);
+        calendar.add(Calendar.DAY_OF_YEAR, +relativeDays);
+        return calendar.getTime();
+    }
+
+    private String getStringDate (Date date) {
+        return new java.sql.Date(date.getTime()).toString();
+    }
+
     public void runMRP() {
 
         System.out.println("\nBeginning MRP run for product: " + product + " at plant: " + location);
 
         Product p = dl.getProductMaster(product, location);
+        int sourcePlant = p.getLocationFrom();
 
+        if (location == sourcePlant && MRPElements.size() > 2) {
+            generateProduction();
+        } else if (location != sourcePlant && MRPElements.size() > 2) {
+            generateReplenishment();
+        }
+
+    }
+
+    private void generateReplenishment() {
+
+        Product p = dl.getProductMaster(product, location);
         int sourcePlant = p.getLocationFrom();
         int safetyTarget = p.getTarget();
         int roundingValue = p.getRoundingValue();
         TLane t = dl.getTLaneDetails(sourcePlant, location);
         int replenishmentLeadTime = (t.getDuration()) / (24);
 
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(GlobalParameters.currentDate);
-        calendar.add(Calendar.DAY_OF_YEAR, +replenishmentLeadTime);
-        Date earliestReplenishmentInDate = calendar.getTime();
+        Date earliestReplenishmentInDate = getRelativeDate(GlobalParameters.currentDate, replenishmentLeadTime);
 
+        di.DeleteReplenishmentInFromDb(location,product);
+        di.DeleteReplenishmentOutFromDb(sourcePlant,product);
         calculateAvailableQuantity(MRPElements);
 
         int endStock = MRPElements.get(MRPElements.size() - 1).getAvailableQuantity();
 
         while (endStock < safetyTarget) {
-            if (MRPElements.size() == 2) break; // empty MRP List
-            for (int i = 0; i < MRPElements.size(); i++) {
-                if (endStock < safetyTarget) {
-                    int gap = safetyTarget - MRPElements.get(i).getAvailableQuantity();
+            for (int i = 2; i < MRPElements.size(); i++) {
+                int gap = safetyTarget - MRPElements.get(i).getAvailableQuantity();
+                if (endStock < safetyTarget && gap > 0) {
                     int Quantity;
                     if (gap < roundingValue) {
                         Quantity = roundingValue;
                     } else {
-                        Quantity = (gap / roundingValue) * roundingValue;
+                        Quantity = (gap / roundingValue) * roundingValue + roundingValue;
                     }
-                    int Product = product;
-                    int LocationFrom = sourcePlant;
-                    int LocationTo = location;
-                    int PlannedOrderNumberRi = di.incrementAndGetDocumentNumber("PLORD");
-                    String DateIn = new java.sql.Date(earliestReplenishmentInDate.getTime()).toString();
-                    ReplenishmentIn ri = new ReplenishmentIn(LocationFrom, LocationTo, PlannedOrderNumberRi, DateIn,
-                            Product, Quantity);
+                    int RiDocNumber = di.incrementAndGetDocumentNumber("PLORD");
+                    ReplenishmentIn ri = new ReplenishmentIn(sourcePlant, location, RiDocNumber,
+                            getStringDate(earliestReplenishmentInDate), product, Quantity);
                     di.InsertReplenishmentInIntoDb(ri);
 
-                    int PlannedOrderNumberRo = di.incrementAndGetDocumentNumber("PLOREL");
-                    calendar.setTime(earliestReplenishmentInDate);
-                    calendar.add(Calendar.DAY_OF_YEAR, -replenishmentLeadTime);
-                    Date earliestReplenishmentOutDate = calendar.getTime();
-                    String DateOut = new java.sql.Date(earliestReplenishmentOutDate.getTime()).toString();
-                    ReplenishmentOut ro = new ReplenishmentOut(LocationFrom,LocationTo,PlannedOrderNumberRo,DateOut,
-                            Product, -Quantity);
+                    int RoDocNumber = di.incrementAndGetDocumentNumber("PLOREL");
+                    Date earliestReplenishmentOutDate = getRelativeDate(earliestReplenishmentInDate,-replenishmentLeadTime);
+                    ReplenishmentOut ro = new ReplenishmentOut(sourcePlant,location,RoDocNumber,
+                            getStringDate(earliestReplenishmentOutDate), product, -Quantity);
                     di.InsertReplenishmentOutIntoDb(ro);
 
                     isMRPListChanged = true;
                     calculateAvailableQuantity(MRPElements);
                     endStock = MRPElements.get(MRPElements.size() - 1).getAvailableQuantity();
-                    calendar.setTime(earliestReplenishmentInDate);
-                    calendar.add(Calendar.DAY_OF_YEAR, +1);
-                    earliestReplenishmentInDate = calendar.getTime();
                 }
+                earliestReplenishmentInDate = getRelativeDate(earliestReplenishmentInDate,1);
             }
         }
+    }
 
+    private void generateProduction() {
+        //TODO: production implementation
     }
 }

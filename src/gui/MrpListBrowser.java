@@ -2,17 +2,12 @@ package gui;
 
 import calculation.MRPElement;
 import calculation.MRPList;
-import calculation.Safety;
-import init.DataLoader;
-import javafx.scene.layout.GridPane;
+import db.DataLoader;
 
 import javax.swing.*;
-import javax.swing.table.AbstractTableModel;
-import javax.swing.table.TableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
