@@ -81,14 +81,8 @@ public class MRPList {
 
     public void runMRP() {
 
-        System.out.println("\nBeginning MRP run for product: " + product + " at plant: " + location);
-
-        Product p = dl.getProductMaster(product, location);
-        int sourcePlant = p.getLocationFrom();
-
-        if (location == sourcePlant && MRPElements.size() > 2) {
-            generateReplenishment();
-        } else if (location != sourcePlant && MRPElements.size() > 2) {
+        if (MRPElements.size() > 2) {
+            System.out.println("\nBeginning MRP run for product: " + product + " at plant: " + location);
             generateReplenishment();
         }
 
