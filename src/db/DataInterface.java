@@ -198,7 +198,7 @@ public class DataInterface {
     }
     public void DeleteReplenishmentOutFromDb (int location, int product) {
         try {
-            String SQLQuery = "DELETE FROM REPLENISHOUT WHERE locationto = " + location + "AND product = " + product;
+            String SQLQuery = "DELETE FROM REPLENISHOUT WHERE locationfrom = " + location + "AND product = " + product;
             System.out.println(SQLQuery);
             stmt.executeUpdate(SQLQuery);
         } catch (Exception e ) {
