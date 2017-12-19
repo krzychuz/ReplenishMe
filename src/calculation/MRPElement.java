@@ -12,7 +12,7 @@ public class MRPElement {
     private int MRPElementData;
     private int MRPElementQuantity;
     private int AvailableQuantity;
-    private int Plant;
+    private String  Plant;
 
     public MRPElement(Delivery d){
         this.Date = d.getUnloadingDate();
@@ -20,7 +20,7 @@ public class MRPElement {
         this.MRPElementData = d.getDeliveryNumber();
         this.MRPElementQuantity = d.getQuantity();
         this.AvailableQuantity = 0;
-        this.Plant = d.getLocationFrom();
+        this.Plant = String.valueOf(d.getLocationTo());
     }
 
     public MRPElement (Forecast f) {
@@ -29,7 +29,7 @@ public class MRPElement {
         this.MRPElementData = f.getForecastId();
         this.MRPElementQuantity = f.getQuantity();
         this.AvailableQuantity = 0;
-        this.Plant = 0;
+        this.Plant = "";
     }
 
     public MRPElement (Shipment s) {
@@ -38,7 +38,7 @@ public class MRPElement {
         this.MRPElementData = s.getShipmentNumber();
         this.MRPElementQuantity = s.getQuantity();
         this.AvailableQuantity = 0;
-        this.Plant = s.getLocationFrom();
+        this.Plant = String.valueOf(s.getLocationFrom());
     }
 
     public MRPElement (Stock s) {
@@ -53,7 +53,7 @@ public class MRPElement {
             this.Date = DateTimeFormatter.ofPattern("uuuu-MM-dd").format(localDate);
             this.MRPType = MRP.Stock;
             this.MRPElementData = 0;
-            this.Plant = 0;
+            this.Plant = "";
         }
     }
 
@@ -62,8 +62,8 @@ public class MRPElement {
         this.MRPType= MRP.Order;
         this.MRPElementData = o.getOrderNumber();
         this.MRPElementQuantity = o.getQuantity();
-        this.MRPElementQuantity = 0;
-        this.Plant = 0;
+        this.AvailableQuantity = 0;
+        this.Plant = o.getCustomer();
     }
 
     public MRPElement (QualityLot qmlot) {
@@ -72,7 +72,7 @@ public class MRPElement {
         this.MRPElementData = qmlot.getQualityLotNumber();
         this.MRPElementQuantity = qmlot.getQuantity();
         this.AvailableQuantity = 0;
-        this.Plant = 0;
+        this.Plant = "";
     }
 
     public MRPElement (ReplenishmentIn ri) {
@@ -81,7 +81,7 @@ public class MRPElement {
         this.MRPElementData = ri.getPlannedOrderNumber();
         this.MRPElementQuantity = ri.getQuantity();
         this.AvailableQuantity = 0;
-        this.Plant = ri.getLocationFrom();
+        this.Plant = String.valueOf(ri.getLocationFrom());
     }
 
     public MRPElement (ReplenishmentOut ro) {
@@ -90,7 +90,7 @@ public class MRPElement {
         this.MRPElementData = ro.getPlannedOrderNumber();
         this.MRPElementQuantity = ro.getQuantity();
         this.AvailableQuantity = 0;
-        this.Plant = ro.getLocationTo();
+        this.Plant = String.valueOf(ro.getLocationTo());
     }
 
     public MRPElement (Reservation r) {
@@ -99,7 +99,7 @@ public class MRPElement {
         this.MRPElementData = r.getReservationNumber();
         this.MRPElementQuantity = r.getQuantity();
         this.AvailableQuantity = 0;
-        this.Plant = r.getUsage();
+        this.Plant = String.valueOf(r.getUsage());
     }
 
     public MRPElement (Safety s) {
@@ -115,7 +115,7 @@ public class MRPElement {
             this.MRPType = MRP.SafetyStock;
             this.MRPElementData = 0;
             this.AvailableQuantity = 0;
-            this.Plant = 0;
+            this.Plant = "";
         }
     }
 
@@ -139,7 +139,7 @@ public class MRPElement {
         return AvailableQuantity;
     }
 
-    public int getPlant() {
+    public String getPlant() {
         return Plant;
     }
 

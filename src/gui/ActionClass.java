@@ -50,6 +50,9 @@ public class ActionClass implements ActionListener  {
             case "importMaterialMaster":
                 dataImporter.loadMaterialMaster();
                 break;
+            case "importCustomerOrders":
+                dataImporter.loadCustomerOrders();
+                break;
             case "generateDummyData":
                 dummyDataGenerator.GenerateDummyShipments(5053,2751,83732410,10);
                 dummyDataGenerator.GenerateDummyShipments(2751,2621,83732410,10);

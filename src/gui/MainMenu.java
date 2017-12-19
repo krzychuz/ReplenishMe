@@ -39,6 +39,9 @@ public class MainMenu extends JFrame {
         JMenuItem miImportMaterialMaster = new JMenuItem("Import material master");
         ImportData.add(miImportMaterialMaster);
 
+        JMenuItem miImportCustomerOrders = new JMenuItem("Import customer orders");
+        ImportData.add(miImportCustomerOrders);
+
         JMenuItem miGenerateDummyData = new JMenuItem("Generate dummy data");
         ImportData.add(miGenerateDummyData);
 
@@ -53,6 +56,7 @@ public class MainMenu extends JFrame {
         miMaterialMaster.setActionCommand("browseMaterialMaster");
         miImportForecast.setActionCommand("importForecast");
         miImportMaterialMaster.setActionCommand("importMaterialMaster");
+        miImportCustomerOrders.setActionCommand("importCustomerOrders");
         miGenerateDummyData.setActionCommand("generateDummyData");
         miGenerateDummyStocks.setActionCommand("generateDummyStocks");
         miTruncateMrpTables.setActionCommand("truncateMrpTables");
@@ -68,6 +72,7 @@ public class MainMenu extends JFrame {
         miMaterialMaster.addActionListener(actionEvent);
         miImportForecast.addActionListener(actionEvent);
         miImportMaterialMaster.addActionListener(actionEvent);
+        miImportCustomerOrders.addActionListener(actionEvent);
         miGenerateDummyData.addActionListener(actionEvent);
         miGenerateDummyStocks.addActionListener(actionEvent);
         miTruncateMrpTables.addActionListener(actionEvent);

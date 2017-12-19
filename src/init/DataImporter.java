@@ -1,6 +1,7 @@
 package init;
 
 import calculation.Forecast;
+import calculation.Order;
 import db.DataInterface;
 import enums.Procurement;
 import enums.SafetyStrategy;
@@ -11,11 +12,13 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.sql.Time;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Random;
 
 /**
  * Created by Krzysiek on 02.12.2017.
@@ -41,6 +44,13 @@ public class DataImporter extends DataInterface{
         String result = dateFormat.format(previousDate);
 
         return result;
+    }
+
+    private static String getRandomTime() {
+        final Random random = new Random();
+        final int millisInDay = 24 * 60 * 60 * 1000;
+        Time time = new Time((long) random.nextInt(millisInDay));
+        return time.toString();
     }
 
     public void loadForecast() {
@@ -136,6 +146,53 @@ public class DataImporter extends DataInterface{
                 p = new Product(location, locationfrom, GCAS, description, unit, type, procurement, strategy, target, roundingValue);
 
                 InsertProductIntoDb(p);
+
+                if (limiter > limit) break;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                br.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void loadCustomerOrders() {
+
+        // deklaracja zmiennych potrzebnych do wczytywania pliku CSV
+        truncateTable("ORDERS");
+        String masterDataFile = "import_data/shipments.csv";
+        BufferedReader br = null;
+        String line = "";
+        String CsvSplitBy = ";";
+
+        //wczytywanie pliksu CSV i tworzenie obiektu
+        try {
+            Order o;
+            br = new BufferedReader(new FileReader(masterDataFile));
+            br.readLine();
+            while ((line = br.readLine()) != null) {
+
+                // wykorzystanie przecinka jako separatora
+                String[] item = line.split(CsvSplitBy);
+
+                //castowanie Stringów do odpowiednich typów
+                int location = Integer.parseInt(item[0]);
+                int product = Integer.parseInt(item[1]);
+                int orderNumber = incrementAndGetDocumentNumber("ORDER");
+                String loadingDate = item[2];
+                String loadingTime = getRandomTime();
+                String customer = item[3].trim();
+                int quantity = (int)Double.parseDouble(item[4].replaceAll(",","."));
+                if (quantity > 0) quantity *= (-1);
+                //tworzenie obiektu produktu
+                o = new Order(location,product,orderNumber,loadingDate,loadingTime,customer,quantity);
+
+                InsertOrderIntoDb(o);
 
                 if (limiter > limit) break;
             }

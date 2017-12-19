@@ -26,10 +26,6 @@ public class DataInterface {
         stmt = con.createStatement();
     }
 
-    public Statement getConnection() throws SQLException {
-        return stmt;
-    }
-
     public int incrementAndGetDocumentNumber(String docName) {
 
         rs = null;
@@ -212,6 +208,25 @@ public class DataInterface {
                     "VALUES (" + s.getLocation() + ", " +
                     s.getProduct() + ", " +
                     s.getQuantity() + ")";
+
+            System.out.println(SQLquery);
+            stmt.executeUpdate(SQLquery);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void InsertOrderIntoDb (Order o) {
+        try {
+            String SQLquery = "INSERT INTO ORDERS (ordernumber, location, product, loadingdate, loadingtime, customer, quantity) " +
+                    "VALUES (" + o.getOrderNumber() + ", " +
+                    o.getLocation() + ", " +
+                    o.getProduct() + ", '" +
+                    o.getLoadingDate() + "' , '" +
+                    o.getLoadingTime() + "', '" +
+                    o.getCustomer() + "', " +
+                    o.getQuantity() + ")";
 
             System.out.println(SQLquery);
             stmt.executeUpdate(SQLquery);
