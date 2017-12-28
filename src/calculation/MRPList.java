@@ -84,6 +84,7 @@ public class MRPList {
         if (MRPElements.size() > 2) {
             System.out.println("\nBeginning MRP run for product: " + product + " at plant: " + location);
             generateReplenishment();
+            System.out.println("\nMRP run for product: " + product + " at plant: " + location + " is finished");
         }
 
     }
@@ -109,27 +110,32 @@ public class MRPList {
             replenishmentLeadTime = 0;
         } else {
             replenishmentLeadTime = (t.getDuration()) / (24);
-            di.DeleteReplenishmentInFromDb(location,product);
-            di.DeleteReplenishmentOutFromDb(sourcePlant,product);
         }
 
         final Date replenishmentHorizon = getRelativeDate(GlobalParameters.currentDate, replenishmentLeadTime);
 
+        di.DeleteReplenishmentInFromDb(location,product);
+        di.DeleteReplenishmentOutFromDb(sourcePlant,product);
         calculateAvailableQuantity(MRPElements);
 
         for (int i = 2; i < MRPElements.size(); i++) {
             int gap = safetyTarget - MRPElements.get(i).getAvailableQuantity();
             if (gap > 0) {
                 if(IsWithinReplenishmentLeadTime(replenishmentHorizon,
-                        getDateFromString(MRPElements.get(i).getDate()))) {
-                    continue;
+                        getDateFromString(MRPElements.get(i).getDate()))) continue;
+                try {
+                    if (MRPElements.get(i).getDate().equals(MRPElements.get(i+1).getDate())) continue;
+                } catch (IndexOutOfBoundsException e) {
+                    // End of the list, do nothing
                 }
+
                 int Quantity;
                 if (gap < roundingValue) {
                     Quantity = roundingValue;
                 } else {
                     Quantity = (gap / roundingValue) * roundingValue + roundingValue;
                 }
+
                 int RiDocNumber = di.incrementAndGetDocumentNumber("PLORD");
                 ReplenishmentIn ri = new ReplenishmentIn(sourcePlant, location, RiDocNumber,
                         MRPElements.get(i).getDate(), product, Quantity);

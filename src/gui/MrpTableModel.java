@@ -14,7 +14,7 @@ public class MrpTableModel extends AbstractTableModel {
 
     private List<MRPElement> MrpElements;
     private MRPList MrpList;
-    String[] headers = {"Date","MRP Element","MRP Element Data","Receipt/Reqmnt","Available Qty","Plant"};
+    String[] headers = {"Date","MRP Element","MRP Element Data","Receipt/Reqmnt","Available Qty","Plant/Customer"};
 
     public MrpTableModel(List<MRPElement> list) {
         try {
