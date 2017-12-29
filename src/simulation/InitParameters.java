@@ -1,8 +1,6 @@
 package simulation;
 
 
-import org.apache.log4j.PropertyConfigurator;
-
 public class InitParameters {
 
     private ParametersReader parametersReader;
@@ -14,6 +12,5 @@ public class InitParameters {
         GlobalParameters.FwForecastConsumption = parametersReader.getInt("fw_fcst_consumption");
         GlobalParameters.Tick = parametersReader.getInt("tick");;
         GlobalParameters.LoggingLevel = parametersReader.getInt("logging_level");
-        PropertyConfigurator.configure("libs/log4j.properties");
     }
 }

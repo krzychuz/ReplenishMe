@@ -1,5 +1,7 @@
 package simulation;
 
+import org.apache.log4j.Logger;
+
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -12,15 +14,17 @@ import java.util.Properties;
 public class ParametersReader {
 
     private Properties p;
+    private static Logger logger;
 
     public ParametersReader (String fileName) {
 
         p = new Properties();
+        logger = Logger.getLogger("iodata");
 
         try {
             p.load(new FileReader(fileName));
         } catch (FileNotFoundException e){
-            System.out.println("Error while opening file: " + fileName);
+            LogToFile("Error while opening file: " + fileName);
             System.exit(1);
         } catch (IOException e) {
             e.printStackTrace();
@@ -29,7 +33,7 @@ public class ParametersReader {
     }
 
     private void log (String key, Object output) {
-        System.out.println("\nParameter: " + key + " successfully loaded with value: " + output);
+        LogToFile("Parameter: " + key + " successfully loaded with value: " + output);
     }
 
     public int getInt(String key) {
@@ -64,5 +68,12 @@ public class ParametersReader {
 
         return myDate;
     }
+
+    public void LogToFile (String parameter){
+        if(logger.isDebugEnabled()){
+            logger.debug(parameter);
+        }
+    }
+
 
 }

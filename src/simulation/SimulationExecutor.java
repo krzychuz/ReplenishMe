@@ -3,10 +3,11 @@ package simulation;
 import calculation.MRPList;
 import db.DataInterface;
 import db.DataLoader;
+import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
 
 import java.sql.SQLException;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 public class SimulationExecutor {
@@ -15,9 +16,12 @@ public class SimulationExecutor {
     private DataInterface di;
     private DataLoader dl;
     private int TickCounter;
+    private static Logger logger;
 
     public SimulationExecutor () throws SQLException {
+        PropertyConfigurator.configure("libs/log4j.properties");
         new InitParameters();
+        logger = Logger.getLogger("simlog");
         //ScenarioParser.ParseXmlScenario();
         IsSimulationRunning = false;
         di = new DataInterface();
@@ -40,9 +44,7 @@ public class SimulationExecutor {
         }
 
         UpdateSimulationTime();
-        System.out.println("TICK: " + GlobalParameters.currentTime);
-
-
+        LogToFile("TICK: " + GlobalParameters.currentTime);
 
         UnloadShipments();
         UpdateProduction();
@@ -86,7 +88,7 @@ public class SimulationExecutor {
     private void RunMrpInWholeNetwork() throws SQLException {
         int PlantsTable[] = new int[]{2621, 2751, 9979, 4850, 4853, 5053, 2725};
         // TODO: Implement mechanism for automatic hierarchy recognizing within given network
-        System.out.println("\n*** Global MRP run ***\n");
+        LogToFile("*** Global MRP run ***");
 
         for (int plant : PlantsTable) {
             List<Integer> productList = dl.getProductsPerPlant(plant);
@@ -104,6 +106,12 @@ public class SimulationExecutor {
         cal.setTime(GlobalParameters.currentTime);
         cal.add(Calendar.HOUR_OF_DAY, tick);
         GlobalParameters.currentTime = cal.getTime();
+    }
+
+    public void LogToFile (String parameter){
+        if(logger.isDebugEnabled()){
+            logger.debug(parameter);
+        }
     }
 
 }

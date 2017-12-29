@@ -4,6 +4,7 @@ import db.DataInterface;
 import db.DataLoader;
 import master.Product;
 import master.TLane;
+import org.apache.log4j.Logger;
 import simulation.GlobalParameters;
 
 import java.sql.SQLException;
@@ -23,11 +24,13 @@ public class MRPList {
     private int location;
     private DataInterface di;
     private boolean isMRPListChanged;
+    private static Logger logger;
 
     public MRPList() throws SQLException {
         MRPElements = new ArrayList<>();
         dl = new DataLoader();
         di = new DataInterface();
+        logger = Logger.getLogger("simlog");
     }
 
     private List<MRPElement> calculateAvailableQuantity(List<MRPElement> list) {
@@ -82,18 +85,18 @@ public class MRPList {
     public void runMRP() {
 
         if (MRPElements.size() > 2) {
-            System.out.println("\nBeginning MRP run for product: " + product + " at plant: " + location);
+            LogToFile("MRP run for product: " + product + " at plant: " + location);
             generateReplenishment();
-            System.out.println("\nMRP run for product: " + product + " at plant: " + location + " is finished");
+            LogToFile("MRP run finished");
         }
 
     }
 
-    private boolean IsWithinReplenishmentLeadTime (Date earliestReplenishment, Date mrpElemenntDate) {
+    private boolean IsWithinReplenishmentLeadTime (Date earliestReplenishment, Date mrpElementDate) {
         boolean result = false;
-        if (earliestReplenishment.after(mrpElemenntDate)) result = true;
-        else if (earliestReplenishment.before(mrpElemenntDate)) result = false;
-        else if (earliestReplenishment.equals(mrpElemenntDate)) result = false;
+        if (earliestReplenishment.after(mrpElementDate)) result = true;
+        else if (earliestReplenishment.before(mrpElementDate)) result = false;
+        else if (earliestReplenishment.equals(mrpElementDate)) result = false;
         return result;
     }
 
@@ -153,6 +156,12 @@ public class MRPList {
                 isMRPListChanged = true;
                 calculateAvailableQuantity(MRPElements);
             }
+        }
+    }
+
+    public void LogToFile (String SimulationStep){
+        if(logger.isDebugEnabled()){
+            logger.debug(SimulationStep);
         }
     }
 

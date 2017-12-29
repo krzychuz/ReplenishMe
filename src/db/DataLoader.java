@@ -11,7 +11,6 @@ import enums.Type;
 import enums.UoM;
 import master.Product;
 import master.TLane;
-import org.apache.log4j.Logger;
 import simulation.GlobalParameters;
 
 public class DataLoader extends DataInterface{

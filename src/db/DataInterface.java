@@ -21,12 +21,13 @@ public class DataInterface {
     public Statement stmt;
     public Connection con;
     public ResultSet rs;
-    final static Logger logger = Logger.getLogger(DataLoader.class);
+    public static Logger logger;
 
     public DataInterface() throws SQLException {
         SQLServerDataSource ds = Server.getServer();
         con = ds.getConnection();
         stmt = con.createStatement();
+        logger = Logger.getLogger("sqllog");
     }
 
     public int incrementAndGetDocumentNumber(String docName) {
