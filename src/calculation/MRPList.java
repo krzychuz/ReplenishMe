@@ -112,7 +112,7 @@ public class MRPList {
             replenishmentLeadTime = (t.getDuration()) / (24);
         }
 
-        final Date replenishmentHorizon = getRelativeDate(GlobalParameters.currentDate, replenishmentLeadTime);
+        final Date replenishmentHorizon = getRelativeDate(GlobalParameters.currentTime, replenishmentLeadTime);
 
         di.DeleteReplenishmentInFromDb(location,product);
         di.DeleteReplenishmentOutFromDb(sourcePlant,product);

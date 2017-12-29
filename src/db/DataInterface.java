@@ -4,6 +4,8 @@ import calculation.*;
 import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import master.Product;
+import org.apache.log4j.Logger;
+import simulation.GlobalParameters;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -19,6 +21,7 @@ public class DataInterface {
     public Statement stmt;
     public Connection con;
     public ResultSet rs;
+    final static Logger logger = Logger.getLogger(DataLoader.class);
 
     public DataInterface() throws SQLException {
         SQLServerDataSource ds = Server.getServer();
@@ -31,12 +34,16 @@ public class DataInterface {
         rs = null;
         int lastDocument = 0;
         try {
-            rs = stmt.executeQuery("SELECT docnumber FROM LASTDOC WHERE docname = '" + docName + "'");
+            String SqlQuery = "SELECT docnumber FROM LASTDOC WHERE docname = '" + docName + "'";
+            if( GlobalParameters.LoggingLevel > 2) LogToFile(SqlQuery);
+            rs = stmt.executeQuery(SqlQuery);
             while (rs.next()) {
                 lastDocument = Integer.parseInt(rs.getString("docnumber")) + 1;
             }
-            stmt.executeUpdate("UPDATE LASTDOC SET docnumber = '" + Integer.toString(lastDocument) +
-                    "' WHERE docname = '" + docName + "'");
+            SqlQuery = "UPDATE LASTDOC SET docnumber = '" + Integer.toString(lastDocument) +
+                    "' WHERE docname = '" + docName + "'";
+            if( GlobalParameters.LoggingLevel > 2) LogToFile(SqlQuery);
+            stmt.executeUpdate(SqlQuery);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -77,7 +84,7 @@ public class DataInterface {
     public void InsertProductIntoDb(Product p) {
 
         try {
-            String SQLquery = "INSERT INTO PRODUCTS(location, locationfrom, gcas, description, uom, type, procurement, " +
+            String SqlQuery = "INSERT INTO PRODUCTS(location, locationfrom, gcas, description, uom, type, procurement, " +
                     "safetystrategy, target, roundval) VALUES (" +
                     p.getLocation() + ", " +
                     p.getLocationFrom() + ", " +
@@ -89,8 +96,9 @@ public class DataInterface {
                     p.getSafetyStrategy() + "', " +
                     p.getTarget() + ", " +
                     p.getRoundingValue() + ")";
-            System.out.println(SQLquery);
-            stmt.executeUpdate(SQLquery);
+
+            if( GlobalParameters.LoggingLevel > 2) LogToFile(SqlQuery);
+            stmt.executeUpdate(SqlQuery);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -100,7 +108,7 @@ public class DataInterface {
     public void InsertShipmentIntoDb(Shipment s) {
 
         try {
-            String SQLquery = "INSERT INTO SHIPMENTS (locationfrom, locationto, shipntnumber, loadingdate, loadingtime, " +
+            String SqlQuery = "INSERT INTO SHIPMENTS (locationfrom, locationto, shipntnumber, loadingdate, loadingtime, " +
                     "unloadingdate, unloadingtime, product,  quantity, shipparty) " +
                     "VALUES (" + s.getLocationFrom() + ", " +
                     s.getLocationTo() + ", " +
@@ -113,8 +121,8 @@ public class DataInterface {
                     s.getQuantity() + ", '" +
                     s.getShipParty() + "')";
 
-            System.out.println(SQLquery);
-            stmt.executeUpdate(SQLquery);
+            if( GlobalParameters.LoggingLevel > 2) LogToFile(SqlQuery);
+            stmt.executeUpdate(SqlQuery);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -125,7 +133,7 @@ public class DataInterface {
     public void InsertDeliveryIntoDb(Delivery d) {
 
         try {
-            String SQLquery = "INSERT INTO DELIVERIES (locationfrom, locationto, dlvnumber, loadingdate, loadingtime, " +
+            String SqlQuery = "INSERT INTO DELIVERIES (locationfrom, locationto, dlvnumber, loadingdate, loadingtime, " +
                     "unloadingdate, unloadingtime, product,  quantity, dlvparty) " +
                     "VALUES (" + d.getLocationFrom() + ", " +
                     d.getLocationTo() + ", " +
@@ -138,8 +146,8 @@ public class DataInterface {
                     d.getQuantity() + ", '" +
                     d.getDlvParty() + "')";
 
-            System.out.println(SQLquery);
-            stmt.executeUpdate(SQLquery);
+            if( GlobalParameters.LoggingLevel > 2) LogToFile(SqlQuery);
+            stmt.executeUpdate(SqlQuery);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -149,7 +157,7 @@ public class DataInterface {
 
     public void InsertReplenishmentInIntoDb (ReplenishmentIn ri) {
         try {
-            String SQLquery = "INSERT INTO REPLENISHIN (locationfrom, locationto, plordnumber, date, product,  quantity) " +
+            String SqlQuery = "INSERT INTO REPLENISHIN (locationfrom, locationto, plordnumber, date, product,  quantity) " +
                     "VALUES (" + ri.getLocationFrom() + ", " +
                     ri.getLocationTo() + ", " +
                     ri.getPlannedOrderNumber() + ", '" +
@@ -157,8 +165,8 @@ public class DataInterface {
                     ri.getProduct() + ", " +
                     ri.getQuantity() + ")";
 
-            System.out.println(SQLquery);
-            stmt.executeUpdate(SQLquery);
+            if( GlobalParameters.LoggingLevel > 2) LogToFile(SqlQuery);
+            stmt.executeUpdate(SqlQuery);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -167,7 +175,7 @@ public class DataInterface {
 
     public void InsertReplenishmentOutIntoDb (ReplenishmentOut ro) {
         try {
-            String SQLquery = "INSERT INTO REPLENISHOUT (locationfrom, locationto, plorelnumber, date, product,  quantity) " +
+            String SqlQuery = "INSERT INTO REPLENISHOUT (locationfrom, locationto, plorelnumber, date, product,  quantity) " +
                     "VALUES (" + ro.getLocationFrom() + ", " +
                     ro.getLocationTo() + ", " +
                     ro.getPlannedOrderNumber() + ", '" +
@@ -175,8 +183,8 @@ public class DataInterface {
                     ro.getProduct() + ", " +
                     ro.getQuantity() + ")";
 
-            System.out.println(SQLquery);
-            stmt.executeUpdate(SQLquery);
+            if( GlobalParameters.LoggingLevel > 2) LogToFile(SqlQuery);
+            stmt.executeUpdate(SqlQuery);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -185,18 +193,19 @@ public class DataInterface {
 
     public void DeleteReplenishmentInFromDb (int location, int product) {
         try {
-            String SQLQuery = "DELETE FROM REPLENISHIN WHERE locationto = " + location + "AND product = " + product;
-            System.out.println(SQLQuery);
-            stmt.executeUpdate(SQLQuery);
+            String SqlQuery = "DELETE FROM REPLENISHIN WHERE locationto = " + location + "AND product = " + product;
+            if( GlobalParameters.LoggingLevel > 2) LogToFile(SqlQuery);
+            stmt.executeUpdate(SqlQuery);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
     public void DeleteReplenishmentOutFromDb (int location, int product) {
         try {
-            String SQLQuery = "DELETE FROM REPLENISHOUT WHERE locationfrom = " + location + "AND product = " + product;
-            System.out.println(SQLQuery);
-            stmt.executeUpdate(SQLQuery);
+            String SqlQuery = "DELETE FROM REPLENISHOUT WHERE locationfrom = " + location + "AND product = " + product;
+            if( GlobalParameters.LoggingLevel > 2) LogToFile(SqlQuery);
+            stmt.executeUpdate(SqlQuery);
         } catch (Exception e ) {
             e.printStackTrace();
         }
@@ -204,13 +213,13 @@ public class DataInterface {
 
     public void InsertStockIntoDb (Stock s) {
         try {
-            String SQLquery = "INSERT INTO STOCK (location, product, quantity) " +
+            String SqlQuery = "INSERT INTO STOCK (location, product, quantity) " +
                     "VALUES (" + s.getLocation() + ", " +
                     s.getProduct() + ", " +
                     s.getQuantity() + ")";
 
-            System.out.println(SQLquery);
-            stmt.executeUpdate(SQLquery);
+            System.out.println(SqlQuery);
+            stmt.executeUpdate(SqlQuery);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -228,11 +237,17 @@ public class DataInterface {
                     o.getCustomer() + "', " +
                     o.getQuantity() + ")";
 
-            System.out.println(SQLquery);
+            if( GlobalParameters.LoggingLevel > 2) LogToFile(SQLquery);
             stmt.executeUpdate(SQLquery);
 
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    public void LogToFile (String SqlQuery){
+        if(logger.isDebugEnabled()){
+            logger.debug(SqlQuery);
         }
     }
 

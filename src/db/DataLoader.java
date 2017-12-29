@@ -1,22 +1,18 @@
 package db;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+
 import java.util.*;
 import java.sql.*;
 
 import calculation.*;
-import com.microsoft.sqlserver.jdbc.*;
-import db.DataInterface;
-import db.Server;
 import enums.Procurement;
 import enums.SafetyStrategy;
 import enums.Type;
 import enums.UoM;
 import master.Product;
 import master.TLane;
+import org.apache.log4j.Logger;
+import simulation.GlobalParameters;
 
 public class DataLoader extends DataInterface{
 
@@ -26,7 +22,9 @@ public class DataLoader extends DataInterface{
     public ResultSet getMaterialMaster() {
 
         try {
-            rs = stmt.executeQuery("SELECT * FROM PRODUCTS");
+            String SqlQuery = "SELECT * FROM PRODUCTS";
+            if( GlobalParameters.LoggingLevel > 2) LogToFile(SqlQuery);
+            rs = stmt.executeQuery(SqlQuery);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -40,7 +38,27 @@ public class DataLoader extends DataInterface{
         List<Integer> productList = new ArrayList<>();
 
         try {
-            rs = stmt.executeQuery("SELECT DISTINCT gcas FROM PRODUCTS ORDER BY gcas");
+            String SqlQuery = "SELECT DISTINCT gcas FROM PRODUCTS ORDER BY gcas";
+            if( GlobalParameters.LoggingLevel > 2) LogToFile(SqlQuery);
+            rs = stmt.executeQuery(SqlQuery);
+            while (rs.next()) {
+                productList.add(rs.getInt("gcas"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return productList;
+    }
+
+    public List<Integer> getProductsPerPlant(int plant) {
+
+        List<Integer> productList = new ArrayList<>();
+
+        try {
+            String SqlQuery = "SELECT DISTINCT gcas FROM PRODUCTS WHERE location = " + plant +" ORDER BY gcas";
+            if( GlobalParameters.LoggingLevel > 2) LogToFile(SqlQuery);
+            rs = stmt.executeQuery(SqlQuery);
             while (rs.next()) {
                 productList.add(rs.getInt("gcas"));
             }
@@ -56,8 +74,10 @@ public class DataLoader extends DataInterface{
         Product p = null;
 
         try {
-            rs = stmt.executeQuery("SELECT * FROM PRODUCTS WHERE gcas='" + product
-                    + "' AND location ='" + location + "'");
+            String SqlQuery = "SELECT * FROM PRODUCTS WHERE gcas='" + product
+                    + "' AND location ='" + location + "'";
+            if( GlobalParameters.LoggingLevel > 2) LogToFile(SqlQuery);
+            rs = stmt.executeQuery(SqlQuery);
 
             while (rs.next()) {
                 p = new Product(0,0,0,"",null,null,
@@ -86,8 +106,10 @@ public class DataLoader extends DataInterface{
         TLane t = null;
 
         try {
-            rs = stmt.executeQuery("SELECT * FROM TLANES WHERE startloc='" + startloc +
-                    "' AND endloc = '" + endloc + "'");
+            String SqlQuery = "SELECT * FROM TLANES WHERE startloc='" + startloc +
+                    "' AND endloc = '" + endloc + "'";
+            if( GlobalParameters.LoggingLevel > 2) LogToFile(SqlQuery);
+            rs = stmt.executeQuery(SqlQuery);
 
             while (rs.next()) {
                 t = new TLane(0,0,0,0);
@@ -109,7 +131,9 @@ public class DataLoader extends DataInterface{
         List<Integer> plantList = new ArrayList<>();
 
         try {
-            rs = stmt.executeQuery("SELECT plantcode FROM LOCATIONS");
+            String SqlQuery = "SELECT plantcode FROM LOCATIONS";
+            if( GlobalParameters.LoggingLevel > 2) LogToFile(SqlQuery);
+            rs = stmt.executeQuery(SqlQuery);
 
             while (rs.next()) {
                 plantList.add(rs.getInt("plantcode"));
@@ -128,7 +152,7 @@ public class DataLoader extends DataInterface{
 
         try {
             String SqlQuery = "SELECT * FROM FORECAST WHERE product = " + product + " AND location = " + location;
-            System.out.println(SqlQuery);
+            if( GlobalParameters.LoggingLevel > 2) LogToFile(SqlQuery);
             rs = stmt.executeQuery(SqlQuery);
 
             while (rs.next()) {
@@ -155,7 +179,7 @@ public class DataLoader extends DataInterface{
 
         try {
             String SqlQuery = "SELECT * FROM SHIPMENTS WHERE product = " + product + " AND locationto = " + location;
-            System.out.println(SqlQuery);
+            if( GlobalParameters.LoggingLevel > 2) LogToFile(SqlQuery);
             rs = stmt.executeQuery(SqlQuery);
 
             while (rs.next()) {
@@ -187,7 +211,7 @@ public class DataLoader extends DataInterface{
 
         try {
             String SqlQuery = "SELECT * FROM DELIVERIES WHERE product = " + product + " AND locationto = " + location;
-            System.out.println(SqlQuery);
+            if( GlobalParameters.LoggingLevel > 2) LogToFile(SqlQuery);
             rs = stmt.executeQuery(SqlQuery);
 
             while (rs.next()) {
@@ -218,7 +242,7 @@ public class DataLoader extends DataInterface{
 
         try {
             String SqlQuery = "SELECT * FROM STOCK WHERE product = " + product + " AND location = " + location;
-            System.out.println(SqlQuery);
+            if( GlobalParameters.LoggingLevel > 2) LogToFile(SqlQuery);
             rs = stmt.executeQuery(SqlQuery);
 
             while (rs.next()){
@@ -241,7 +265,7 @@ public class DataLoader extends DataInterface{
 
         try {
             String SqlQuery = "SELECT * FROM SAFETIES WHERE product = " + product + " AND location = " + location;
-            System.out.println(SqlQuery);
+            if( GlobalParameters.LoggingLevel > 2) LogToFile(SqlQuery);
             rs = stmt.executeQuery(SqlQuery);
 
             while (rs.next()){
@@ -267,7 +291,7 @@ public class DataLoader extends DataInterface{
 
         try {
             String SqlQuery = "SELECT * FROM ORDERS WHERE product = " + product + " AND location = " + location;
-            System.out.println(SqlQuery);
+            if( GlobalParameters.LoggingLevel > 2) LogToFile(SqlQuery);
             rs = stmt.executeQuery(SqlQuery);
 
             while (rs.next()){
@@ -295,7 +319,7 @@ public class DataLoader extends DataInterface{
 
         try {
             String SqlQuery = "SELECT * FROM QUALITYLOT WHERE product = " + product + " AND location = " + location;
-            System.out.println(SqlQuery);
+            if( GlobalParameters.LoggingLevel >2 ) LogToFile(SqlQuery);
             rs = stmt.executeQuery(SqlQuery);
 
             while (rs.next()){
@@ -322,7 +346,7 @@ public class DataLoader extends DataInterface{
 
         try {
             String SqlQuery = "SELECT * FROM REPLENISHIN WHERE product = " + product + " AND locationto = " + location;
-            System.out.println(SqlQuery);
+            if( GlobalParameters.LoggingLevel > 2) LogToFile(SqlQuery);
             rs = stmt.executeQuery(SqlQuery);
 
             while (rs.next()){
@@ -349,7 +373,7 @@ public class DataLoader extends DataInterface{
 
         try {
             String SqlQuery = "SELECT * FROM REPLENISHOUT WHERE product = " + product + " AND locationfrom = " + location;
-            System.out.println(SqlQuery);
+            if( GlobalParameters.LoggingLevel > 2) LogToFile(SqlQuery);
             rs = stmt.executeQuery(SqlQuery);
 
             while (rs.next()){
@@ -376,7 +400,7 @@ public class DataLoader extends DataInterface{
 
         try {
             String SqlQuery = "SELECT * FROM RESERVATION WHERE product = " + product + " AND location = " + location;
-            System.out.println(SqlQuery);
+            if( GlobalParameters.LoggingLevel > 2) LogToFile(SqlQuery);
             rs = stmt.executeQuery(SqlQuery);
 
             while (rs.next()){

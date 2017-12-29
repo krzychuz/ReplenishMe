@@ -1,7 +1,6 @@
 package gui;
 
-import simulation.InitParameters;
-import simulation.ScenarioParser;
+import simulation.SimulationExecutor;
 
 import java.awt.*;
 import java.sql.SQLException;
@@ -83,14 +82,15 @@ public class MainMenu extends JFrame {
         setJMenuBar(menuBar);
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
 
         EventQueue.invokeLater(() -> {
             MainMenu ex = new MainMenu();
             ex.setVisible(true);
         });
 
-        ScenarioParser.ParseXmlScenario();
-        InitParameters i = new InitParameters();
+        SimulationExecutor simulationExecutor = new SimulationExecutor();
+        simulationExecutor.runSimulation();
+
     }
 }

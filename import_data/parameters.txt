@@ -1,1 +1,15 @@
+# Date when simulation starts
 start_date=20170417
+
+# How many hours passes between simulation ticks, can be set to: 1, 2, 4, 6, 8, 12, 24
+tick=2
+
+# How many days back and in the future we want to consume forecast
+bw_fcst_consumption=5
+fw_fcst_consumption=5
+
+# Logging level setup
+# 1 - Generic simulation information
+# 2 - As above + simulation ticks
+# 3 - As above + SQL queries
+logging_level=3
