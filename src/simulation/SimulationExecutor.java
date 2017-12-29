@@ -1,13 +1,16 @@
 package simulation;
 
+import calculation.Delivery;
 import calculation.MRPList;
+import calculation.Shipment;
+import calculation.Stock;
 import db.DataInterface;
 import db.DataLoader;
 import org.apache.log4j.Logger;
-import org.apache.log4j.PropertyConfigurator;
 
 import java.sql.SQLException;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class SimulationExecutor {
@@ -19,7 +22,6 @@ public class SimulationExecutor {
     private static Logger logger;
 
     public SimulationExecutor () throws SQLException {
-        PropertyConfigurator.configure("libs/log4j.properties");
         new InitParameters();
         logger = Logger.getLogger("simlog");
         //ScenarioParser.ParseXmlScenario();
@@ -46,58 +48,86 @@ public class SimulationExecutor {
         UpdateSimulationTime();
         LogToFile("TICK: " + GlobalParameters.currentTime);
 
-        UnloadShipments();
-        UpdateProduction();
-        ReleaseQmLots();
-        DeployStock();
-        ShipDeliveries();
-        InsertOrders();
-        CreateDeliveries();
-
-        if(DayPassed) RunMrpInWholeNetwork();
-    }
-
-    private void UnloadShipments() {
-        // TODO: Implementation
-    }
-
-    private void UpdateProduction() {
-        // TODO: Implementation
-    }
-
-    private void ReleaseQmLots() {
-        // TODO: Implementation
-    }
-
-    private void DeployStock() {
-        // TODO: Implementation
-    }
-
-    private void ShipDeliveries() {
-        // TODO: Implementation
-    }
-
-    private void InsertOrders() {
-        // TODO: Implementation
-    }
-
-    private void CreateDeliveries() {
-        // TODO: Implementation
-    }
-
-    private void RunMrpInWholeNetwork() throws SQLException {
         int PlantsTable[] = new int[]{2621, 2751, 9979, 4850, 4853, 5053, 2725};
-        // TODO: Implement mechanism for automatic hierarchy recognizing within given network
-        LogToFile("*** Global MRP run ***");
-
         for (int plant : PlantsTable) {
             List<Integer> productList = dl.getProductsPerPlant(plant);
             for (int product : productList) {
-                MRPList mrpList = new MRPList();
-                mrpList.setMRPList(product,plant);
-                mrpList.runMRP();
+                UnloadShipments(product, plant);
+                UpdateProduction(product, plant);
+                ReleaseQmLots(product, plant);
+                DeployStock(product, plant);
+                ShipDeliveries(product, plant);
+                InsertOrders(product, plant);
+                CreateDeliveries(product, plant);
+                if(DayPassed) RunMrp(product, plant);
             }
         }
+    }
+
+    private void UnloadShipments(int Product, int Plant) {
+        List<Shipment> ShipmentList = dl.getShipmentPerProductLocation(Product, Plant);
+        for (Shipment s : ShipmentList) {
+            Date ShipmentDate = GetDate(s.getUnloadingDate(), s.getUnloadingTime());
+            if (ShipmentDate.before(GlobalParameters.currentTime)) {
+                Stock CurrentStock = dl.getStockPerProductLocation(Product, Plant);
+                CurrentStock.setQuantity(CurrentStock.getQuantity() + s.getQuantity());
+                di.DeleteShipmentFromDb(s);
+                di.UpdateStockInDb(CurrentStock);
+            }
+        }
+    }
+
+    private void UpdateProduction(int Product, int Plant) {
+        // TODO: Implementation
+    }
+
+    private void ReleaseQmLots(int Product, int Plant) {
+        // TODO: Implementation
+    }
+
+    private void DeployStock(int Product, int Plant) {
+        // TODO: Implementation
+    }
+
+    private void ShipDeliveries(int Product, int Plant) {
+        List<Delivery> DeliveryList = dl.getDeliveryPerProductLocation(Product, Plant);
+        for(Delivery d : DeliveryList) {
+            Date DeliveryDate = GetDate(d.getLoadingDate(), d.getLoadingTime());
+            if(DeliveryDate.before(GlobalParameters.currentTime)) {
+
+                int LocationFrom = d.getLocationFrom();
+                int LocationTo = d.getLocationTo();
+                int ShipmentNumber = di.incrementAndGetDocumentNumber("SHIPNT");
+                String LoadingTime = d.getLoadingTime();
+                String UnloadingTime = d.getUnloadingTime();
+                String LoadingDate = d.getLoadingDate();
+                String UnloadingDate = d.getUnloadingDate();
+                int Product_ = d.getProduct();
+                int  Quantity = -d.getQuantity();
+                String ShipParty = d.getDlvParty();
+
+                Shipment s = new Shipment(LocationFrom, LocationTo, ShipmentNumber, LoadingDate, LoadingTime,
+                        UnloadingDate, UnloadingTime, Product_, Quantity, ShipParty);
+
+                di.InsertShipmentIntoDb(s);
+                di.DeleteDeliveryFromDb(d);
+            }
+        }
+    }
+
+    private void InsertOrders(int Product, int Plant) {
+        // TODO: Implementation
+    }
+
+    private void CreateDeliveries(int Product, int Plant) {
+        // TODO: Implementation
+    }
+
+    private void RunMrp(int Product, int Plant) throws SQLException {
+        // TODO: Implement mechanism for automatic hierarchy recognizing within given network
+        MRPList mrpList = new MRPList();
+        mrpList.setMRPList(Product,Plant);
+        mrpList.runMRP();
     }
 
     private void UpdateSimulationTime() {
@@ -112,6 +142,30 @@ public class SimulationExecutor {
         if(logger.isDebugEnabled()){
             logger.debug(parameter);
         }
+    }
+
+    private static Date GetDate(String Day, String Hour) {
+        String[] DayTab = Day.split("-");
+        String[] HourTab = Hour.split(":");
+
+        int year = Integer.parseInt(DayTab[0]);
+        int month = Integer.parseInt(DayTab[1]);
+        int day = Integer.parseInt(DayTab[2]);
+        int hour = Integer.parseInt(HourTab[0]);
+        int minute = Integer.parseInt(HourTab[1]);
+        // int second = Integer.parseInt(TmpTab[0]);
+        // TODO: Check why splitting string does not work in this case
+
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.YEAR, year);
+        cal.set(Calendar.MONTH, month);
+        cal.set(Calendar.DAY_OF_MONTH, day);
+        cal.set(Calendar.HOUR_OF_DAY, hour);
+        cal.set(Calendar.MINUTE, minute);
+        cal.set(Calendar.SECOND, 0);
+        cal.set(Calendar.MILLISECOND, 0);
+
+        return cal.getTime();
     }
 
 }

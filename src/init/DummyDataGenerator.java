@@ -97,7 +97,7 @@ public class DummyDataGenerator extends DataInterface {
             String LoadingTime = getRandomTime();
             String UnloadingTime = getRandomTime();
             int Product = product;
-            int quantity = 132;
+            int quantity = -132;
             String DlvParty = "Procter & Gamble";
 
             Delivery delivery = new Delivery(LocationFrom, LocationTo, DeliveryNumber, LoadingDate, LoadingTime,

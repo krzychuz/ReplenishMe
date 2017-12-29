@@ -56,8 +56,9 @@ public class DataInterface {
     public void truncateTable(String TableName) {
 
         try {
-            System.out.println("TRUNCATE TABLE " + TableName);
-            stmt.execute("TRUNCATE TABLE " + TableName);
+            String SqlQuery = "TRUNCATE TABLE " + TableName;
+            LogToFile(SqlQuery);
+            stmt.execute(SqlQuery);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -66,7 +67,7 @@ public class DataInterface {
     public void InsertForecastIntoDb(Forecast f) {
 
         try {
-            String SQLquery = "INSERT INTO FORECAST (location, product, quantity, date1, fcstdate, fcstid) " +
+            String SqlQuery = "INSERT INTO FORECAST (location, product, quantity, date1, fcstdate, fcstid) " +
                     "VALUES (" + f.getLocation() + ", " +
                     f.getProduct() + ", " +
                     f.getQuantity() + ", '" +
@@ -74,8 +75,8 @@ public class DataInterface {
                     f.getForecastDate() + "', " +
                     f.getForecastId() + ")";
 
-            System.out.println(SQLquery);
-            stmt.executeUpdate(SQLquery);
+            LogToFile(SqlQuery);
+            stmt.executeUpdate(SqlQuery);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -212,6 +213,39 @@ public class DataInterface {
         }
     }
 
+    public void DeleteShipmentFromDb (Shipment s) {
+        int ShipmentNumber = s.getShipmentNumber();
+        try {
+            String SqlQuery = "DELETE FROM SHIPMENTS WHERE shipntnumber = " + ShipmentNumber;
+            LogToFile(SqlQuery);
+            stmt.executeUpdate(SqlQuery);
+        } catch (Exception e ) {
+            e.printStackTrace();
+        }
+    }
+
+    public void DeleteDeliveryFromDb (Delivery d) {
+        int DeliveryNumber = d.getDeliveryNumber();
+        try {
+            String SqlQuery = "DELETE FROM DELIVERIES WHERE dlvnumber = " + DeliveryNumber;
+            LogToFile(SqlQuery);
+            stmt.executeUpdate(SqlQuery);
+        } catch (Exception e ) {
+            e.printStackTrace();
+        }
+    }
+
+    public void UpdateStockInDb (Stock s) {
+        try {
+            String SqlQuery = "UPDATE STOCK SET quantity = " + s.getQuantity() + " WHERE location = " + s.getLocation()
+                    + "AND product = " + s.getProduct();
+            LogToFile(SqlQuery);
+            stmt.executeUpdate(SqlQuery);
+        } catch (Exception e ) {
+            e.printStackTrace();
+        }
+    }
+
     public void InsertStockIntoDb (Stock s) {
         try {
             String SqlQuery = "INSERT INTO STOCK (location, product, quantity) " +
@@ -219,7 +253,7 @@ public class DataInterface {
                     s.getProduct() + ", " +
                     s.getQuantity() + ")";
 
-            System.out.println(SqlQuery);
+            LogToFile(SqlQuery);
             stmt.executeUpdate(SqlQuery);
 
         } catch (Exception e) {
@@ -251,6 +285,5 @@ public class DataInterface {
             logger.debug(SqlQuery);
         }
     }
-
 
 }

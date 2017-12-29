@@ -209,7 +209,7 @@ public class DataLoader extends DataInterface{
         List <Delivery> deliveryList = new ArrayList<>();
 
         try {
-            String SqlQuery = "SELECT * FROM DELIVERIES WHERE product = " + product + " AND locationto = " + location;
+            String SqlQuery = "SELECT * FROM DELIVERIES WHERE product = " + product + " AND locationfrom = " + location;
             if( GlobalParameters.LoggingLevel > 2) LogToFile(SqlQuery);
             rs = stmt.executeQuery(SqlQuery);
 
@@ -253,6 +253,11 @@ public class DataLoader extends DataInterface{
 
         } catch (Exception e) {
             e.printStackTrace();
+        }
+
+        if (stock == null) {
+            stock = new Stock(location,product,0);
+            InsertStockIntoDb(stock);
         }
 
         return stock;

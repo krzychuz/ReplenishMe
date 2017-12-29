@@ -118,7 +118,7 @@ public class MRPList {
         final Date replenishmentHorizon = getRelativeDate(GlobalParameters.currentTime, replenishmentLeadTime);
 
         di.DeleteReplenishmentInFromDb(location,product);
-        di.DeleteReplenishmentOutFromDb(sourcePlant,product);
+        if (location != sourcePlant) di.DeleteReplenishmentOutFromDb(sourcePlant,product);
         calculateAvailableQuantity(MRPElements);
 
         for (int i = 2; i < MRPElements.size(); i++) {

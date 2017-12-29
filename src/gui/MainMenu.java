@@ -1,6 +1,6 @@
 package gui;
 
-import simulation.SimulationExecutor;
+import org.apache.log4j.PropertyConfigurator;
 
 import java.awt.*;
 import java.sql.SQLException;
@@ -29,6 +29,9 @@ public class MainMenu extends JFrame {
         JMenu ImportData = new JMenu("Import data");
         menuBar.add(ImportData);
 
+        JMenu Simulation = new JMenu("Simulation");
+        menuBar.add(Simulation);
+
         JMenuItem miMaterialMaster = new JMenuItem("Material master");
         DbRecords.add(miMaterialMaster);
 
@@ -50,6 +53,21 @@ public class MainMenu extends JFrame {
         JMenuItem miTruncateMrpTables = new JMenuItem("Truncate MRP tables");
         ImportData.add(miTruncateMrpTables);
 
+        JMenuItem miTestScenario = new JMenuItem("Test scenario");
+        Simulation.add(miTestScenario);
+
+        JMenuItem miScenario1 = new JMenuItem("Scenario 1");
+        Simulation.add(miScenario1);
+
+        JMenuItem miScenario2 = new JMenuItem("Scenario 2");
+        Simulation.add(miScenario2);
+
+        JMenuItem miScenario3 = new JMenuItem("Scenario 3");
+        Simulation.add(miScenario3);
+
+        JMenuItem miScenario4 = new JMenuItem("Scenario 4");
+        Simulation.add(miScenario4);
+
         JButton MrpListButton = new JButton("Browse MRP lists");
 
         miMaterialMaster.setActionCommand("browseMaterialMaster");
@@ -59,6 +77,11 @@ public class MainMenu extends JFrame {
         miGenerateDummyData.setActionCommand("generateDummyData");
         miGenerateDummyStocks.setActionCommand("generateDummyStocks");
         miTruncateMrpTables.setActionCommand("truncateMrpTables");
+        miTestScenario.setActionCommand("runTestScenario");
+        miScenario1.setActionCommand("runScenario1");
+        miScenario2.setActionCommand("runScenario2");
+        miScenario3.setActionCommand("runScenario3");
+        miScenario4.setActionCommand("runScenario4");
         MrpListButton.setActionCommand("browseMrpList");
 
 
@@ -75,6 +98,11 @@ public class MainMenu extends JFrame {
         miGenerateDummyData.addActionListener(actionEvent);
         miGenerateDummyStocks.addActionListener(actionEvent);
         miTruncateMrpTables.addActionListener(actionEvent);
+        miTestScenario.addActionListener(actionEvent);
+        miScenario1.addActionListener(actionEvent);
+        miScenario2.addActionListener(actionEvent);
+        miScenario3.addActionListener(actionEvent);
+        miScenario4.addActionListener(actionEvent);
         MrpListButton.addActionListener(actionEvent);
 
         this.setLayout(new FlowLayout());
@@ -89,8 +117,7 @@ public class MainMenu extends JFrame {
             ex.setVisible(true);
         });
 
-        SimulationExecutor simulationExecutor = new SimulationExecutor();
-        simulationExecutor.runSimulation();
+        PropertyConfigurator.configure("libs/log4j.properties");
 
     }
 }
