@@ -6,6 +6,7 @@ import calculation.Shipment;
 import calculation.Stock;
 import db.DataInterface;
 import db.DataLoader;
+import db.DateHandler;
 import master.Product;
 
 import java.sql.*;
@@ -38,25 +39,6 @@ public class DummyDataGenerator extends DataInterface {
         truncateTable("RESERVATION");
     }
 
-    private static String getRandomDate() {
-        Random r = new Random();
-        int year = ThreadLocalRandom.current().nextInt(2015, 2016 + 1); // losowy rok
-        int day = ThreadLocalRandom.current().nextInt(1, 364 + 1); // losowy dzień roku
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.YEAR, year);
-        calendar.set(Calendar.DAY_OF_YEAR, day);
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        String s = sdf.format(calendar.getTime());
-        s = s.replace("-", "");
-        return s;
-    }
-
-    private static String getRandomTime() {
-        final Random random = new Random();
-        final int millisInDay = 24 * 60 * 60 * 1000;
-        Time time = new Time((long) random.nextInt(millisInDay));
-        return time.toString();
-    }
 
     public void GenerateDummyShipments(int locationFrom, int locationTo, int product, int records) {
 
@@ -65,10 +47,10 @@ public class DummyDataGenerator extends DataInterface {
             int LocationFrom = locationFrom;
             int LocationTo = locationTo;
             int ShipmentNumber = incrementAndGetDocumentNumber("SHIPNT");
-            String LoadingDate = getRandomDate();
-            String UnloadingDate = getRandomDate();
-            String LoadingTime = getRandomTime();
-            String UnloadingTime = getRandomTime();
+            String LoadingDate = DateHandler.getRandomDate();
+            String UnloadingDate = DateHandler.getRandomDate();
+            String LoadingTime = DateHandler.getRandomTime();
+            String UnloadingTime = DateHandler.getRandomTime();
             int Product = product;
             int quantity = 140;
             String ShipParty = "Procter & Gamble";
@@ -92,10 +74,10 @@ public class DummyDataGenerator extends DataInterface {
             int LocationFrom = locationFrom;
             int LocationTo = locationTo;
             int DeliveryNumber = incrementAndGetDocumentNumber("DELIV");
-            String LoadingDate = getRandomDate();
-            String UnloadingDate = getRandomDate();
-            String LoadingTime = getRandomTime();
-            String UnloadingTime = getRandomTime();
+            String LoadingDate = DateHandler.getRandomDate();
+            String UnloadingDate = DateHandler.getRandomDate();
+            String LoadingTime = DateHandler.getRandomTime();
+            String UnloadingTime = DateHandler.getRandomTime();
             int Product = product;
             int quantity = -132;
             String DlvParty = "Procter & Gamble";
@@ -120,7 +102,7 @@ public class DummyDataGenerator extends DataInterface {
             int Location = location;
             int Product = product;
             int Quantity = -500;
-            String Date = getRandomDate();
+            String Date = DateHandler.getRandomDate();
             String ForecastDate = "20171412";
             int ForecastId = incrementAndGetDocumentNumber("INDREQ");
 

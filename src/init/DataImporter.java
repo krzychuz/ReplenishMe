@@ -3,6 +3,7 @@ package init;
 import calculation.Forecast;
 import calculation.Order;
 import db.DataInterface;
+import db.DateHandler;
 import enums.Procurement;
 import enums.SafetyStrategy;
 import enums.Type;
@@ -30,27 +31,6 @@ public class DataImporter extends DataInterface{
     private int limiter;
 
     public DataImporter() throws SQLException {
-    }
-
-    public String getPreviousDay(String day) throws ParseException {
-
-        DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
-        Date myDate = dateFormat.parse(day);
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(myDate);
-        calendar.add(Calendar.DAY_OF_YEAR, -1);
-
-        Date previousDate = calendar.getTime();
-        String result = dateFormat.format(previousDate);
-
-        return result;
-    }
-
-    private static String getRandomTime() {
-        final Random random = new Random();
-        final int millisInDay = 24 * 60 * 60 * 1000;
-        Time time = new Time((long) random.nextInt(millisInDay));
-        return time.toString();
     }
 
     public void loadForecast() {
@@ -82,10 +62,10 @@ public class DataImporter extends DataInterface{
                 int Quantity = (int) Double.parseDouble(item[4].replace(",", "."));
                 if (Quantity > 0) Quantity *= (-1);
 
-                String tmpDate = getPreviousDay(Date1);
+                String tmpDate = DateHandler.getRelativeDate(Date1,-1);
 
                 for (int i = 0; i < 5; i++) {
-                    tmpDate = getPreviousDay(tmpDate);
+                    tmpDate = DateHandler.getRelativeDate(tmpDate,-1);
                     int ForecastId = incrementAndGetDocumentNumber("INDREQ");
                     Forecast f = new Forecast(Location, GCAS, Quantity/5, tmpDate, ForecastedDate, ForecastId);
                     InsertForecastIntoDb(f);
@@ -185,7 +165,7 @@ public class DataImporter extends DataInterface{
                 int product = Integer.parseInt(item[1]);
                 int orderNumber = incrementAndGetDocumentNumber("ORDER");
                 String loadingDate = item[2];
-                String loadingTime = getRandomTime();
+                String loadingTime = DateHandler.getRandomTime();
                 String customer = item[3].trim();
                 int quantity = (int)Double.parseDouble(item[4].replaceAll(",","."));
                 if (quantity > 0) quantity *= (-1);

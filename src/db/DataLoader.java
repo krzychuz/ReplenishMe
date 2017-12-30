@@ -235,6 +235,38 @@ public class DataLoader extends DataInterface{
         return deliveryList;
     }
 
+    public List<PurchaseOrder> getPurchaseOrdersPerProductLocation(int product, int location){
+
+        ResultSet rs = null;
+        List <PurchaseOrder> poList = new ArrayList<>();
+
+        try {
+            String SqlQuery = "SELECT * FROM PURCHASEO WHERE product = " + product + " AND locationto = " + location;
+            if( GlobalParameters.LoggingLevel > 2) LogToFile(SqlQuery);
+            rs = stmt.executeQuery(SqlQuery);
+
+            while (rs.next()) {
+                PurchaseOrder po = new PurchaseOrder(0,0,0,"","","","",0,0,"");
+                po.setLocationFrom(rs.getInt("locationfrom"));
+                po.setLocationTo(rs.getInt("locationto"));
+                po.setPoNumber(rs.getInt("ponumber"));
+                po.setLoadingDate(rs.getString("loadingdate"));
+                po.setLoadingTime(rs.getString("loadingtime"));
+                po.setUnloadingDate(rs.getString("unloadingdate"));
+                po.setUnloadingTime(rs.getString("unloadingtime"));
+                po.setProduct(rs.getInt("product"));
+                po.setQuantity(rs.getInt("quantity"));
+                po.setOrdParty(rs.getString("ordparty"));
+                poList.add(po);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return poList;
+    }
+
     public Stock getStockPerProductLocation(int product, int location){
 
         Stock stock = null;
@@ -436,6 +468,7 @@ public class DataLoader extends DataInterface{
         List<ReplenishmentIn> ReplenishmentInList;
         List<ReplenishmentOut> ReplenishmentOutList;
         List<Reservation> ReservationList;
+        List<PurchaseOrder> PurchaseOrderList;
         Stock Stock;
         Safety Safety;
 
@@ -449,6 +482,7 @@ public class DataLoader extends DataInterface{
         ReservationList = getReservationPerProductLocation(product,location);
         Stock = getStockPerProductLocation(product,location);
         Safety = getSafetyPerProductLocation(product,location);
+        PurchaseOrderList = getPurchaseOrdersPerProductLocation(product,location);
 
         for(Forecast f : ForecastList){
             MRPElement e = new MRPElement(f);
@@ -487,6 +521,11 @@ public class DataLoader extends DataInterface{
 
         for (Reservation r : ReservationList){
             MRPElement e = new MRPElement(r);
+            MrpElementsList.add(e);
+        }
+
+        for (PurchaseOrder po : PurchaseOrderList){
+            MRPElement e = new MRPElement(po);
             MrpElementsList.add(e);
         }
 

@@ -23,6 +23,15 @@ public class MRPElement {
         this.Plant = String.valueOf(d.getLocationTo());
     }
 
+    public MRPElement(PurchaseOrder po){
+        this.Date = po.getUnloadingDate();
+        this.MRPType = MRP.PchOrd;
+        this.MRPElementData = po.getPoNumber();
+        this.MRPElementQuantity = po.getQuantity();
+        this.AvailableQuantity = 0;
+        this.Plant = String.valueOf(po.getLocationFrom());
+    }
+
     public MRPElement (Forecast f) {
         this.Date = f.getDate();
         this.MRPType = MRP.IndReq;

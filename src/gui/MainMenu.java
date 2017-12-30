@@ -1,6 +1,7 @@
 package gui;
 
 import org.apache.log4j.PropertyConfigurator;
+import simulation.InitParameters;
 
 import java.awt.*;
 import java.sql.SQLException;
@@ -118,6 +119,7 @@ public class MainMenu extends JFrame {
         });
 
         PropertyConfigurator.configure("libs/log4j.properties");
+        new InitParameters();
 
     }
 }

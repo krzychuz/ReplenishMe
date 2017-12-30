@@ -7,11 +7,12 @@ import master.Product;
 import org.apache.log4j.Logger;
 import simulation.GlobalParameters;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Collection;
+import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * Created by Krzysiek on 02.12.2017.
@@ -147,6 +148,31 @@ public class DataInterface {
                     d.getProduct() + ", " +
                     d.getQuantity() + ", '" +
                     d.getDlvParty() + "')";
+
+            if( GlobalParameters.LoggingLevel > 2) LogToFile(SqlQuery);
+            stmt.executeUpdate(SqlQuery);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void InsertPurchaseOrderIntoDb(PurchaseOrder p) {
+
+        try {
+            String SqlQuery = "INSERT INTO PURCHASEO (locationfrom, locationto, ponumber, loadingdate, loadingtime, " +
+                    "unloadingdate, unloadingtime, product,  quantity, ordparty) " +
+                    "VALUES (" + p.getLocationFrom() + ", " +
+                    p.getLocationTo() + ", " +
+                    p.getPoNumber() + ", '" +
+                    p.getLoadingDate() + "', '" +
+                    p.getLoadingTime() + "', '" +
+                    p.getUnloadingDate() + "', '" +
+                    p.getUnloadingTime() + "', " +
+                    p.getProduct() + ", " +
+                    p.getQuantity() + ", '" +
+                    p.getOrdParty() + "')";
 
             if( GlobalParameters.LoggingLevel > 2) LogToFile(SqlQuery);
             stmt.executeUpdate(SqlQuery);

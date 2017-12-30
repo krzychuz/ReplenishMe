@@ -6,6 +6,7 @@ import master.Product;
 import master.TLane;
 import org.apache.log4j.Logger;
 import simulation.GlobalParameters;
+import db.DateHandler;
 
 import java.sql.SQLException;
 import java.text.DateFormat;
@@ -57,31 +58,6 @@ public class MRPList {
         return MRPElements;
     }
 
-    private Date getRelativeDate (Date initDate, int relativeDays) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(initDate);
-        calendar.add(Calendar.DAY_OF_YEAR, +relativeDays);
-        return calendar.getTime();
-    }
-
-    private String getStringDate (Date date) {
-        return new java.sql.Date(date.getTime()).toString();
-    }
-
-    private Date getDateFromString (String date) {
-        date = date.replace("-","");
-        DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
-        Date myDate = null;
-        try {
-            myDate = dateFormat.parse(date);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(myDate);
-        return calendar.getTime();
-    }
-
     public void runMRP() {
 
         if (MRPElements.size() > 2) {
@@ -115,7 +91,7 @@ public class MRPList {
             replenishmentLeadTime = (t.getDuration()) / (24);
         }
 
-        final Date replenishmentHorizon = getRelativeDate(GlobalParameters.currentTime, replenishmentLeadTime);
+        final Date replenishmentHorizon = DateHandler.getRelativeDate(GlobalParameters.currentTime, replenishmentLeadTime);
 
         di.DeleteReplenishmentInFromDb(location,product);
         if (location != sourcePlant) di.DeleteReplenishmentOutFromDb(sourcePlant,product);
@@ -125,7 +101,7 @@ public class MRPList {
             int gap = safetyTarget - MRPElements.get(i).getAvailableQuantity();
             if (gap > 0) {
                 if(IsWithinReplenishmentLeadTime(replenishmentHorizon,
-                        getDateFromString(MRPElements.get(i).getDate()))) continue;
+                        DateHandler.getDateFromString(MRPElements.get(i).getDate()))) continue;
                 try {
                     if (MRPElements.get(i).getDate().equals(MRPElements.get(i+1).getDate())) continue;
                 } catch (IndexOutOfBoundsException e) {
@@ -146,10 +122,10 @@ public class MRPList {
 
                 if (location != sourcePlant) {
                     int RoDocNumber = di.incrementAndGetDocumentNumber("PLOREL");
-                    Date earliestReplenishmentOutDate = getRelativeDate(getDateFromString(MRPElements.get(i).getDate())
+                    Date earliestReplenishmentOutDate = DateHandler.getRelativeDate(DateHandler.getDateFromString(MRPElements.get(i).getDate())
                             ,-replenishmentLeadTime);
                     ReplenishmentOut ro = new ReplenishmentOut(sourcePlant,location,RoDocNumber,
-                            getStringDate(earliestReplenishmentOutDate), product, -Quantity);
+                            DateHandler.getStringDate(earliestReplenishmentOutDate), product, -Quantity);
                     di.InsertReplenishmentOutIntoDb(ro);
                 }
 

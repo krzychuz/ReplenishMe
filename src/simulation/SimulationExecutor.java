@@ -1,11 +1,11 @@
 package simulation;
 
-import calculation.Delivery;
-import calculation.MRPList;
-import calculation.Shipment;
-import calculation.Stock;
+import calculation.*;
 import db.DataInterface;
 import db.DataLoader;
+import db.DateHandler;
+import master.Product;
+import master.TLane;
 import org.apache.log4j.Logger;
 
 import java.sql.SQLException;
@@ -22,7 +22,6 @@ public class SimulationExecutor {
     private static Logger logger;
 
     public SimulationExecutor () throws SQLException {
-        new InitParameters();
         logger = Logger.getLogger("simlog");
         //ScenarioParser.ParseXmlScenario();
         IsSimulationRunning = false;
@@ -55,11 +54,14 @@ public class SimulationExecutor {
                 UnloadShipments(product, plant);
                 UpdateProduction(product, plant);
                 ReleaseQmLots(product, plant);
-                DeployStock(product, plant);
+
                 ShipDeliveries(product, plant);
                 InsertOrders(product, plant);
                 CreateDeliveries(product, plant);
-                if(DayPassed) RunMrp(product, plant);
+                if(DayPassed){
+                    RunMrp(product, plant);
+                    DeployStock(product, plant);
+                }
             }
         }
     }
@@ -67,7 +69,7 @@ public class SimulationExecutor {
     private void UnloadShipments(int Product, int Plant) {
         List<Shipment> ShipmentList = dl.getShipmentPerProductLocation(Product, Plant);
         for (Shipment s : ShipmentList) {
-            Date ShipmentDate = GetDate(s.getUnloadingDate(), s.getUnloadingTime());
+            Date ShipmentDate = DateHandler.GetDate(s.getUnloadingDate(), s.getUnloadingTime());
             if (ShipmentDate.before(GlobalParameters.currentTime)) {
                 Stock CurrentStock = dl.getStockPerProductLocation(Product, Plant);
                 CurrentStock.setQuantity(CurrentStock.getQuantity() + s.getQuantity());
@@ -86,13 +88,59 @@ public class SimulationExecutor {
     }
 
     private void DeployStock(int Product, int Plant) {
-        // TODO: Implementation
+        List<ReplenishmentOut> ReplenishmentList = dl.getReplenishmentOutPerProductLocation(Product, Plant);
+        if (ReplenishmentList.size() == 0) return;
+        Stock CurrentStock = dl.getStockPerProductLocation(Product, Plant);
+        Product p = dl.getProductMaster(Product, Plant);
+
+        int AvailableToDeployQuantity = CurrentStock.getQuantity();
+        List<Delivery> DeliveryList = dl.getDeliveryPerProductLocation(Product,Plant);
+
+        for (Delivery d : DeliveryList) {
+            AvailableToDeployQuantity -= Math.abs(d.getQuantity());
+        }
+        if (AvailableToDeployQuantity < p.getRoundingValue()) return;
+
+        while(AvailableToDeployQuantity > p.getRoundingValue()) {
+            ReplenishmentOut ro = ReplenishmentList.get(0);
+            TLane tl = dl.getTLaneDetails(Plant, ro.getLocationTo());
+
+            int LocationFrom = ro.getLocationFrom();
+            int LocationTo = ro.getLocationTo();
+            int DeliveryNumber = di.incrementAndGetDocumentNumber("DELIV");
+            String LoadingTime = DateHandler.getRandomTime();
+            String UnloadingTime = DateHandler.getRandomTime();
+            String LoadingDate = DateHandler.getRelativeDate(DateHandler.getStringDate(GlobalParameters.currentTime),1);
+            String UnloadingDate = DateHandler.getRelativeDate(LoadingDate, tl.getDuration()/24);
+            int product = ro.getProduct();
+            int Quantity = 0;
+            String DlvParty = "Procter & Gamble";
+
+            if(AvailableToDeployQuantity > ro.getQuantity()) {
+                 Quantity =  Math.abs(ro.getQuantity());
+            } else {
+                Quantity = (ro.getQuantity() / p.getRoundingValue()) * p.getRoundingValue();
+            }
+
+            Delivery d = new Delivery(LocationFrom, LocationTo, DeliveryNumber, LoadingDate, LoadingTime, UnloadingDate,
+                    UnloadingTime, product, -Quantity, DlvParty);
+            di.InsertDeliveryIntoDb(d);
+
+            int PoNumber = di.incrementAndGetDocumentNumber("PCHORD");
+            String OrdParty = "Procter & Gamble";
+            PurchaseOrder po = new PurchaseOrder(LocationFrom,LocationTo,PoNumber,LoadingDate,LoadingTime,UnloadingDate,
+                    UnloadingTime,product, Quantity, OrdParty);
+            di.InsertPurchaseOrderIntoDb(po);
+
+            ReplenishmentList.remove(ro);
+            AvailableToDeployQuantity -= Math.abs(Quantity);
+        }
     }
 
     private void ShipDeliveries(int Product, int Plant) {
         List<Delivery> DeliveryList = dl.getDeliveryPerProductLocation(Product, Plant);
         for(Delivery d : DeliveryList) {
-            Date DeliveryDate = GetDate(d.getLoadingDate(), d.getLoadingTime());
+            Date DeliveryDate = DateHandler.GetDate(d.getLoadingDate(), d.getLoadingTime());
             if(DeliveryDate.before(GlobalParameters.currentTime)) {
 
                 int LocationFrom = d.getLocationFrom();
@@ -142,30 +190,6 @@ public class SimulationExecutor {
         if(logger.isDebugEnabled()){
             logger.debug(parameter);
         }
-    }
-
-    private static Date GetDate(String Day, String Hour) {
-        String[] DayTab = Day.split("-");
-        String[] HourTab = Hour.split(":");
-
-        int year = Integer.parseInt(DayTab[0]);
-        int month = Integer.parseInt(DayTab[1]);
-        int day = Integer.parseInt(DayTab[2]);
-        int hour = Integer.parseInt(HourTab[0]);
-        int minute = Integer.parseInt(HourTab[1]);
-        // int second = Integer.parseInt(TmpTab[0]);
-        // TODO: Check why splitting string does not work in this case
-
-        Calendar cal = Calendar.getInstance();
-        cal.set(Calendar.YEAR, year);
-        cal.set(Calendar.MONTH, month);
-        cal.set(Calendar.DAY_OF_MONTH, day);
-        cal.set(Calendar.HOUR_OF_DAY, hour);
-        cal.set(Calendar.MINUTE, minute);
-        cal.set(Calendar.SECOND, 0);
-        cal.set(Calendar.MILLISECOND, 0);
-
-        return cal.getTime();
     }
 
 }
