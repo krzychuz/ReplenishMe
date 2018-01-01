@@ -9,11 +9,7 @@ import simulation.GlobalParameters;
 import db.DateHandler;
 
 import java.sql.SQLException;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -24,7 +20,6 @@ public class MRPList {
     private int product;
     private int location;
     private DataInterface di;
-    private boolean isMRPListChanged;
     private static Logger logger;
 
     public MRPList() throws SQLException {
@@ -35,7 +30,7 @@ public class MRPList {
     }
 
     private List<MRPElement> calculateAvailableQuantity(List<MRPElement> list) {
-        if (isMRPListChanged) list = dl.getMrpElementsPerProductLocation(product, location);
+        list = dl.getMrpElementsPerProductLocation(product, location);
         this.MRPElements = list;
         int tmp = 0;
 
@@ -128,8 +123,6 @@ public class MRPList {
                             DateHandler.getStringDate(earliestReplenishmentOutDate), product, -Quantity);
                     di.InsertReplenishmentOutIntoDb(ro);
                 }
-
-                isMRPListChanged = true;
                 calculateAvailableQuantity(MRPElements);
             }
         }

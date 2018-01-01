@@ -541,4 +541,22 @@ public class DataLoader extends DataInterface{
         return MrpElementsList;
     }
 
+    public int getIdocReferenceNumber (int IdocNumber) {
+        int result = 0;
+        try {
+            String SqlQuery = "SELECT refnum FROM IDOCREF WHERE idocnum = " + IdocNumber;
+            if( GlobalParameters.LoggingLevel > 2) LogToFile(SqlQuery);
+            rs = stmt.executeQuery(SqlQuery);
+
+            while (rs.next()){
+                result = rs.getInt("refnum");
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return result;
+    }
+
 }

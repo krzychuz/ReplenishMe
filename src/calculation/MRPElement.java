@@ -15,7 +15,7 @@ public class MRPElement {
     private String  Plant;
 
     public MRPElement(Delivery d){
-        this.Date = d.getUnloadingDate();
+        this.Date = d.getLoadingDate();
         this.MRPType = MRP.Deliv;
         this.MRPElementData = d.getDeliveryNumber();
         this.MRPElementQuantity = d.getQuantity();

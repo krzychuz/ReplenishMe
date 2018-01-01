@@ -13,3 +13,6 @@ fw_fcst_consumption=5
 # 2 - As above + simulation ticks
 # 3 - As above + SQL queries
 logging_level=3
+
+# Firmed horizon in which producion is commited to plant
+fixed_horizon=3

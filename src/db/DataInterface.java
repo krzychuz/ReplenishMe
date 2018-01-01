@@ -219,6 +219,19 @@ public class DataInterface {
         }
     }
 
+    public void InsertIdocRefIntoDb (int IdocNumber, int IdocReference) {
+        try {
+            String SqlQuery = "INSERT INTO IDOCREF (idocnum, refnum) " +
+                    "VALUES (" + IdocNumber + ", " + IdocReference + ")";
+
+            if( GlobalParameters.LoggingLevel > 2) LogToFile(SqlQuery);
+            stmt.executeUpdate(SqlQuery);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public void DeleteReplenishmentInFromDb (int location, int product) {
         try {
             String SqlQuery = "DELETE FROM REPLENISHIN WHERE locationto = " + location + "AND product = " + product;
@@ -243,6 +256,17 @@ public class DataInterface {
         int ShipmentNumber = s.getShipmentNumber();
         try {
             String SqlQuery = "DELETE FROM SHIPMENTS WHERE shipntnumber = " + ShipmentNumber;
+            LogToFile(SqlQuery);
+            stmt.executeUpdate(SqlQuery);
+        } catch (Exception e ) {
+            e.printStackTrace();
+        }
+    }
+
+    public void DeletePurchaseOrderFromDb (PurchaseOrder po) {
+        int PurchaseOrderNumber = po.getPoNumber();
+        try {
+            String SqlQuery = "DELETE FROM PURCHASEO WHERE ponumber = " + PurchaseOrderNumber;
             LogToFile(SqlQuery);
             stmt.executeUpdate(SqlQuery);
         } catch (Exception e ) {

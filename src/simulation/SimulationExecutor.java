@@ -31,12 +31,12 @@ public class SimulationExecutor {
     }
 
     public void runSimulation() throws SQLException {
-        for (int i = 0; i < 36; i++) {
+        for (int i = 0; i < 360; i++) {
             Tick();
         }
     }
 
-    private void Tick() throws SQLException {
+    public void Tick() throws SQLException {
         boolean DayPassed = false;
         TickCounter++;
         if(TickCounter == 24 / GlobalParameters.Tick) {
@@ -54,7 +54,6 @@ public class SimulationExecutor {
                 UnloadShipments(product, plant);
                 UpdateProduction(product, plant);
                 ReleaseQmLots(product, plant);
-
                 ShipDeliveries(product, plant);
                 InsertOrders(product, plant);
                 CreateDeliveries(product, plant);
@@ -77,6 +76,13 @@ public class SimulationExecutor {
                 di.UpdateStockInDb(CurrentStock);
             }
         }
+    }
+
+    private void PlanProduction(int Product, int Plant) {
+        Product p = dl.getProductMaster(Product, Plant);
+        if (Plant != p.getLocationFrom()) return;
+
+        
     }
 
     private void UpdateProduction(int Product, int Plant) {
@@ -116,10 +122,10 @@ public class SimulationExecutor {
             int Quantity = 0;
             String DlvParty = "Procter & Gamble";
 
-            if(AvailableToDeployQuantity > ro.getQuantity()) {
+            if(AvailableToDeployQuantity > Math.abs(ro.getQuantity())) {
                  Quantity =  Math.abs(ro.getQuantity());
             } else {
-                Quantity = (ro.getQuantity() / p.getRoundingValue()) * p.getRoundingValue();
+                Quantity = CurrentStock.getQuantity() / p.getRoundingValue() * p.getRoundingValue();
             }
 
             Delivery d = new Delivery(LocationFrom, LocationTo, DeliveryNumber, LoadingDate, LoadingTime, UnloadingDate,
@@ -131,6 +137,8 @@ public class SimulationExecutor {
             PurchaseOrder po = new PurchaseOrder(LocationFrom,LocationTo,PoNumber,LoadingDate,LoadingTime,UnloadingDate,
                     UnloadingTime,product, Quantity, OrdParty);
             di.InsertPurchaseOrderIntoDb(po);
+
+            di.InsertIdocRefIntoDb(DeliveryNumber,PoNumber);
 
             ReplenishmentList.remove(ro);
             AvailableToDeployQuantity -= Math.abs(Quantity);
@@ -157,8 +165,17 @@ public class SimulationExecutor {
                 Shipment s = new Shipment(LocationFrom, LocationTo, ShipmentNumber, LoadingDate, LoadingTime,
                         UnloadingDate, UnloadingTime, Product_, Quantity, ShipParty);
 
+                int CorrespondingPurchaseOrder = dl.getIdocReferenceNumber(d.getDeliveryNumber());
+                PurchaseOrder po = new PurchaseOrder();
+                po.setPoNumber(CorrespondingPurchaseOrder);
+
                 di.InsertShipmentIntoDb(s);
                 di.DeleteDeliveryFromDb(d);
+                di.DeletePurchaseOrderFromDb(po);
+
+                Stock CurrentStock = dl.getStockPerProductLocation(Product, Plant);
+                CurrentStock.setQuantity(CurrentStock.getQuantity() - s.getQuantity());
+                di.UpdateStockInDb(CurrentStock);
             }
         }
     }

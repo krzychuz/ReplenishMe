@@ -29,6 +29,9 @@ public class PurchaseOrder {
         this.OrdParty = ordParty;
     }
 
+    public PurchaseOrder() {
+    }
+
     public int getLocationFrom() {
         return LocationFrom;
     }

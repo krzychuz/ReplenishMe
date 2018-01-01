@@ -151,6 +151,11 @@ CREATE TABLE SUFACTOR (
 	sufactor float NOT NULL
 )
 
+CREATE TABLE IDOCREF (
+	idocnum int NOT NULL,
+	refnum int NOT NULL
+)
+
 INSERT INTO LASTDOC (docname, docnumber)
 VALUES ('QMLOT', '0000000');
 
