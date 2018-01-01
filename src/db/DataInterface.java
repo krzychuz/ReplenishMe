@@ -242,10 +242,32 @@ public class DataInterface {
         }
     }
 
+    public void DeleteReplenishmentInFromDb (ReplenishmentIn ri) {
+        int ReplenishmentInNumber = ri.getPlannedOrderNumber();
+        try {
+            String SqlQuery = "DELETE FROM REPLENISHIN WHERE plordnumber = " + ReplenishmentInNumber;
+            if( GlobalParameters.LoggingLevel > 2) LogToFile(SqlQuery);
+            stmt.executeUpdate(SqlQuery);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public void DeleteReplenishmentOutFromDb (int location, int product) {
         try {
             String SqlQuery = "DELETE FROM REPLENISHOUT WHERE locationfrom = " + location + "AND product = " + product;
             if( GlobalParameters.LoggingLevel > 2) LogToFile(SqlQuery);
+            stmt.executeUpdate(SqlQuery);
+        } catch (Exception e ) {
+            e.printStackTrace();
+        }
+    }
+
+    public void DeleteProcessOrderFromDb (ProcessOrder po) {
+        int ProcessOrderNumber = po.getProcessOrderNumber();
+        try {
+            String SqlQuery = "DELETE FROM PROCESSO WHERE prcordnumber = " + ProcessOrderNumber;
+            LogToFile(SqlQuery);
             stmt.executeUpdate(SqlQuery);
         } catch (Exception e ) {
             e.printStackTrace();
@@ -313,14 +335,35 @@ public class DataInterface {
 
     public void InsertOrderIntoDb (Order o) {
         try {
-            String SQLquery = "INSERT INTO ORDERS (ordernumber, location, product, loadingdate, loadingtime, customer, quantity) " +
-                    "VALUES (" + o.getOrderNumber() + ", " +
+            String SQLquery = "INSERT INTO ORDERS (ordernumber, location, product, loadingdate, loadingtime, " +
+                    "customer, quantity) VALUES (" + o.getOrderNumber() + ", " +
                     o.getLocation() + ", " +
                     o.getProduct() + ", '" +
                     o.getLoadingDate() + "' , '" +
                     o.getLoadingTime() + "', '" +
                     o.getCustomer() + "', " +
                     o.getQuantity() + ")";
+
+            if( GlobalParameters.LoggingLevel > 2) LogToFile(SQLquery);
+            stmt.executeUpdate(SQLquery);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void InsertProcessOrderIntoDb (ProcessOrder po) {
+        try {
+            String SQLquery = "INSERT INTO PROCESSO (prcordnumber, location, product, startdate, starttime, " +
+                    "enddate, endtime, quantity) VALUES (" +
+                    po.getProcessOrderNumber() + ", " +
+                    po.getLocation() + ", " +
+                    po.getProduct() + ", '" +
+                    po.getStartDate() + "' , '" +
+                    po.getStartTime() + "', '" +
+                    po.getEndDate() + "' , '" +
+                    po.getEndTime() + "', " +
+                    po.getQuantity() + ")";
 
             if( GlobalParameters.LoggingLevel > 2) LogToFile(SQLquery);
             stmt.executeUpdate(SQLquery);

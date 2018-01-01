@@ -84,6 +84,15 @@ public class MRPElement {
         this.Plant = "";
     }
 
+    public MRPElement (ProcessOrder po) {
+        this.Date = po.getEndDate();
+        this.MRPType = MRP.PrcOrd;
+        this.MRPElementData = po.getProcessOrderNumber();
+        this.MRPElementQuantity = po.getQuantity();
+        this.AvailableQuantity = 0;
+        this.Plant = String.valueOf(po.getLocation());
+    }
+
     public MRPElement (ReplenishmentIn ri) {
         this.Date = ri.getDate();
         this.MRPType = MRP.PlOrd;

@@ -9,5 +9,6 @@ public class GlobalParameters {
     public static int FwForecastConsumption;
     public static int Tick;
     public static int LoggingLevel;
+    public static int FirmecZone;
 
 }

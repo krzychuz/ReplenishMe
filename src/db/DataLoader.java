@@ -430,6 +430,34 @@ public class DataLoader extends DataInterface{
         return replenishmentOutList;
     }
 
+    public List<ProcessOrder> getProcessOrderPerProductLocation (int product, int location) {
+
+        List <ProcessOrder> processOrderList = new ArrayList<>();
+
+        try {
+            String SqlQuery = "SELECT * FROM PROCESSO WHERE product = " + product + " AND location = " + location;
+            if( GlobalParameters.LoggingLevel > 2) LogToFile(SqlQuery);
+            rs = stmt.executeQuery(SqlQuery);
+
+            while (rs.next()){
+                ProcessOrder po = new ProcessOrder();
+                po.setProcessOrderNumber(rs.getInt("prcordnumber"));
+                po.setProduct(rs.getInt("product"));
+                po.setLocation(rs.getInt("location"));
+                po.setStartDate(rs.getString("startdate"));
+                po.setStartTime(rs.getString("starttime"));
+                po.setEndDate(rs.getString("enddate"));
+                po.setEndTime(rs.getString("endtime"));
+                po.setQuantity(rs.getInt("quantity"));
+                processOrderList.add(po);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return processOrderList;
+    }
+
     public List<Reservation> getReservationPerProductLocation(int product, int location){
 
         List<Reservation> reservationList = new ArrayList<>();
@@ -469,6 +497,7 @@ public class DataLoader extends DataInterface{
         List<ReplenishmentOut> ReplenishmentOutList;
         List<Reservation> ReservationList;
         List<PurchaseOrder> PurchaseOrderList;
+        List<ProcessOrder> ProcessOrderList;
         Stock Stock;
         Safety Safety;
 
@@ -483,6 +512,7 @@ public class DataLoader extends DataInterface{
         Stock = getStockPerProductLocation(product,location);
         Safety = getSafetyPerProductLocation(product,location);
         PurchaseOrderList = getPurchaseOrdersPerProductLocation(product,location);
+        ProcessOrderList = getProcessOrderPerProductLocation(product,location);
 
         for(Forecast f : ForecastList){
             MRPElement e = new MRPElement(f);
@@ -525,6 +555,11 @@ public class DataLoader extends DataInterface{
         }
 
         for (PurchaseOrder po : PurchaseOrderList){
+            MRPElement e = new MRPElement(po);
+            MrpElementsList.add(e);
+        }
+
+        for (ProcessOrder po : ProcessOrderList) {
             MRPElement e = new MRPElement(po);
             MrpElementsList.add(e);
         }

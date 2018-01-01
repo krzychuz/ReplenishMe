@@ -15,4 +15,4 @@ fw_fcst_consumption=5
 logging_level=3
 
 # Firmed horizon in which producion is commited to plant
-fixed_horizon=3
+firmed_zone=3

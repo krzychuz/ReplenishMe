@@ -59,6 +59,7 @@ public class SimulationExecutor {
                 CreateDeliveries(product, plant);
                 if(DayPassed){
                     RunMrp(product, plant);
+                    PlanProduction(product,plant);
                     DeployStock(product, plant);
                 }
             }
@@ -82,7 +83,30 @@ public class SimulationExecutor {
         Product p = dl.getProductMaster(Product, Plant);
         if (Plant != p.getLocationFrom()) return;
 
-        
+        List<ReplenishmentIn> ReplenishmentList = dl.getReplenishmentInPerProductLocation(Product,Plant);
+        for (ReplenishmentIn ri : ReplenishmentList) {
+            Date ReplenishmentInDate = DateHandler.GetDate(DateHandler.getRelativeDate(ri.getDate(),1),
+                    DateHandler.getRandomTime());
+            // Potential end of production date
+            if(ReplenishmentInDate.before(DateHandler.getRelativeDate(GlobalParameters.currentTime,
+                    GlobalParameters.FirmecZone))) {
+
+                int ProcessOrderNumber = di.incrementAndGetDocumentNumber("PRCORD");
+                int Location = ri.getLocationFrom();
+                int product = ri.getProduct();
+                String StartDate = ri.getDate();
+                String StartTime = DateHandler.getRandomTime();
+                String EndDate = DateHandler.getRelativeDate(ri.getDate(),1);
+                String EndTime = DateHandler.getRandomTime();
+                int Quantity = ri.getQuantity();
+
+                ProcessOrder po = new ProcessOrder(ProcessOrderNumber, Location, product, StartDate, StartTime,
+                        EndDate, EndTime, Quantity);
+
+                di.InsertProcessOrderIntoDb(po);
+                di.DeleteReplenishmentInFromDb(ri);
+            }
+        }
     }
 
     private void UpdateProduction(int Product, int Plant) {

@@ -85,8 +85,8 @@ CREATE TABLE PROCESSO (
 	location smallint NOT NULL,
 	product int NOT NULL,
 	prcordnumber int NOT NULL,
-	schedulestart datetime NOT NULL,
-	schedulefiish datetime NOT NULL,
+	startdate date NOT NULL,
+	starttime time NOT NULL,
 	quantity int NOT NULL
 );
 
