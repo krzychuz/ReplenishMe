@@ -24,6 +24,9 @@ public class Order {
         this.Quantity = quantity;
     }
 
+    public Order() {
+    }
+
     public int getLocation() {
         return Location;
     }

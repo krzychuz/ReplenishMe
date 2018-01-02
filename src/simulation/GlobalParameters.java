@@ -11,5 +11,6 @@ public class GlobalParameters {
     public static int LoggingLevel;
     public static int FirmedZone;
     public static int QualityCheck;
+    public static int OrderLeadTime;
 
 }

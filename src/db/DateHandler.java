@@ -34,6 +34,13 @@ public class DateHandler {
         return calendar.getTime();
     }
 
+    public static String getRelativeTime (String initDate, int relativeHours) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(getDateFromString(initDate));
+        calendar.add(Calendar.HOUR_OF_DAY, +relativeHours);
+        return getStringDate(calendar.getTime());
+    }
+
     public static String getStringDate (Date date) {
         return new java.sql.Date(date.getTime()).toString();
     }

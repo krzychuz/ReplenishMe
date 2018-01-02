@@ -1,5 +1,5 @@
 # Date when simulation starts
-start_date=20170420
+start_date=20170116
 
 # How many hours passes between simulation ticks, can be set to: 1, 2, 4, 6, 8, 12, 24
 tick=1
@@ -19,3 +19,6 @@ firmed_zone=3
 
 # Average quality release lenght in hours
 quality_check=4
+
+# Average time between order placement and loading in hours
+order_leadtime = 6

@@ -13,5 +13,6 @@ public class InitParameters {
         GlobalParameters.Tick = parametersReader.getInt("tick");;
         GlobalParameters.FirmedZone = parametersReader.getInt("firmed_zone");
         GlobalParameters.QualityCheck = parametersReader.getInt("quality_check");
+        GlobalParameters.OrderLeadTime = parametersReader.getInt("order_leadtime");
     }
 }

@@ -4,11 +4,14 @@ import calculation.*;
 import db.DataInterface;
 import db.DataLoader;
 import db.DateHandler;
+import init.DataImporter;
 import master.Product;
 import master.TLane;
 import org.apache.log4j.Logger;
 
+import javax.activation.DataHandler;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -16,18 +19,26 @@ import java.util.List;
 public class SimulationExecutor {
 
     private boolean IsSimulationRunning;
+    private boolean AreOrdersLoaded;
     private DataInterface di;
     private DataLoader dl;
     private int TickCounter;
+    private int DayCounter;
     private static Logger logger;
+    private DataImporter DataSource;
 
     public SimulationExecutor () throws SQLException {
         logger = Logger.getLogger("simlog");
         //ScenarioParser.ParseXmlScenario();
         IsSimulationRunning = false;
+        AreOrdersLoaded = false;
         di = new DataInterface();
         dl = new DataLoader();
+        DataSource = new DataImporter();
+        DataSource.loadForecast();
+        DataSource.GetFreshForecast();
         TickCounter = 0;
+        DayCounter = 0;
     }
 
     public void runSimulation() throws SQLException {
@@ -38,10 +49,26 @@ public class SimulationExecutor {
 
     public void Tick() throws SQLException {
         boolean DayPassed = false;
+        boolean WeekPassed = false;
         TickCounter++;
         if(TickCounter == 24 / GlobalParameters.Tick) {
             DayPassed = true;
+            DayCounter++;
             TickCounter = 0;
+        }
+
+        if(DayCounter == 7) {
+            WeekPassed = true;
+            DayCounter = 0;
+        }
+
+        if(!AreOrdersLoaded) {
+            DataSource.loadCustomerOrders();
+            AreOrdersLoaded = true;
+        }
+
+        if(WeekPassed) {
+            DataSource.GetFreshForecast();
         }
 
         UpdateSimulationTime();
@@ -266,7 +293,34 @@ public class SimulationExecutor {
     }
 
     private void InsertOrders(int Product, int Plant) {
-        // TODO: Implementation
+        List<Order> OrderList = DataSource.GetOrdersPerLocation(Plant, Product);
+        for(Order o : OrderList) {
+            Date OrderDate = DateHandler.GetDate(o.getLoadingDate(), o.getLoadingTime());
+            if (OrderDate.before(GlobalParameters.currentTime)) {
+                DataSource.RemoveInsertedOrder(o);
+                o.setLoadingDate(DateHandler.getRelativeTime(o.getLoadingDate(),GlobalParameters.OrderLeadTime));
+                di.InsertOrderIntoDb(o);
+                List<Forecast> ForecastList = dl.getForecastsPerProductLocation(Product, Plant);
+                List<String> DatesToConsumeForecast = GetForecastDatesToBeChecked();
+                List<Forecast> ForecastToBeConsumed = new ArrayList<>();
+                for(String s : DatesToConsumeForecast) {
+                    for(Forecast f : ForecastList) {
+                        if(f.getDate().equals(s)) ForecastToBeConsumed.add(f);
+                    }
+                }
+                int TotalToBeConsumed = o.getQuantity();
+                for (Forecast f : ForecastToBeConsumed) {
+                    if(f.getQuantity() < TotalToBeConsumed) {
+                        f.setQuantity(f.getQuantity() - TotalToBeConsumed);
+                        di.UpdateForecastInDb(f);
+                        return;
+                    } else {
+                        TotalToBeConsumed -= f.getQuantity();
+                        di.DeleteForecastFromDb(f);
+                    }
+                }
+            }
+        }
     }
 
     private void CreateDeliveries(int Product, int Plant) {
@@ -292,6 +346,15 @@ public class SimulationExecutor {
         if(logger.isDebugEnabled()){
             logger.debug(parameter);
         }
+    }
+
+    private List<String> GetForecastDatesToBeChecked () {
+        List<String> DatesList = new ArrayList<>();
+        for(int i = -GlobalParameters.BwForecastConsumption; i < GlobalParameters.FwForecastConsumption; i++) {
+            Date d = DateHandler.getRelativeDate(GlobalParameters.currentTime,i);
+            DatesList.add(DateHandler.getStringDate(d));
+        }
+        return DatesList;
     }
 
 }

@@ -317,6 +317,16 @@ public class DataInterface {
         }
     }
 
+    public void DeleteForecastFromDb (Forecast f) {
+        try {
+            String SqlQuery = "DELETE FROM FORECAST WHERE fcstid = " + f.getForecastId();
+            LogToFile(SqlQuery);
+            stmt.executeUpdate(SqlQuery);
+        } catch (Exception e ) {
+            e.printStackTrace();
+        }
+    }
+
     public void DeleteIdocReference (int IdocNumber) {
         try {
             String SqlQuery = "DELETE FROM IDOCREF WHERE idocnum = " + IdocNumber;
@@ -331,6 +341,16 @@ public class DataInterface {
         try {
             String SqlQuery = "UPDATE STOCK SET quantity = " + s.getQuantity() + " WHERE location = " + s.getLocation()
                     + "AND product = " + s.getProduct();
+            LogToFile(SqlQuery);
+            stmt.executeUpdate(SqlQuery);
+        } catch (Exception e ) {
+            e.printStackTrace();
+        }
+    }
+
+    public void UpdateForecastInDb (Forecast f) {
+        try {
+            String SqlQuery = "UPDATE FORECAST SET quantity = " + f.getQuantity() + " WHERE fcstid = " + f.getForecastId();
             LogToFile(SqlQuery);
             stmt.executeUpdate(SqlQuery);
         } catch (Exception e ) {

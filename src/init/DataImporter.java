@@ -17,9 +17,9 @@ import java.sql.Time;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Random;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Created by Krzysiek on 02.12.2017.
@@ -29,8 +29,28 @@ public class DataImporter extends DataInterface{
 
     private final int limit = 1000;
     private int limiter;
+    private List<Order> ImportedOrderList;
+    private List<Forecast> ImportedForecastList;
+    private String CurrentForecastVersion;
 
     public DataImporter() throws SQLException {
+        ImportedOrderList = new ArrayList<>();
+        ImportedForecastList = new ArrayList<>();
+    }
+
+    public void GetFreshForecast() {
+        truncateTable("FORECAST");
+        CurrentForecastVersion = ImportedForecastList.get(0).getForecastDate();
+        List<Forecast> ForecastToRemove = new ArrayList<>();
+        for(Forecast f : ImportedForecastList) {
+            if(f.getForecastDate().equals(CurrentForecastVersion)) {
+                InsertForecastIntoDb(f);
+                ForecastToRemove.add(f);
+            } else {
+                continue;
+            }
+        }
+        ImportedForecastList.removeAll(ForecastToRemove);
     }
 
     public void loadForecast() {
@@ -41,20 +61,14 @@ public class DataImporter extends DataInterface{
         String line = "";
         String CsvSplitBy = ";";
 
-        limiter = 0;
-
         try {
 
             br = new BufferedReader(new FileReader(masterDataFile));
-            br.readLine(); //omijanie lini z nagłówkami
+            br.readLine();
+            // Skip headers line
             while ((line = br.readLine()) != null) {
-
-                limiter++;
-
-                // wykorzystanie przecinka jako separatora
                 String[] item = line.split(CsvSplitBy);
 
-                //castowanie Stringów do odpowiednich typów
                 int Location = Integer.parseInt(item[0]);
                 int GCAS = Integer.parseInt(item[1]);
                 String ForecastedDate = item[2];
@@ -68,11 +82,8 @@ public class DataImporter extends DataInterface{
                     tmpDate = DateHandler.getRelativeDate(tmpDate,-1);
                     int ForecastId = incrementAndGetDocumentNumber("INDREQ");
                     Forecast f = new Forecast(Location, GCAS, Quantity/5, tmpDate, ForecastedDate, ForecastId);
-                    InsertForecastIntoDb(f);
+                    ImportedForecastList.add(f);
                 }
-
-                if (limiter > 10) break;
-
             }
 
         } catch (Exception e) {
@@ -142,25 +153,18 @@ public class DataImporter extends DataInterface{
     }
 
     public void loadCustomerOrders() {
-
-        // deklaracja zmiennych potrzebnych do wczytywania pliku CSV
-        truncateTable("ORDERS");
         String masterDataFile = "import_data/shipments.csv";
         BufferedReader br = null;
-        String line = "";
+        String line;
         String CsvSplitBy = ";";
 
-        //wczytywanie pliksu CSV i tworzenie obiektu
         try {
             Order o;
             br = new BufferedReader(new FileReader(masterDataFile));
             br.readLine();
+
             while ((line = br.readLine()) != null) {
-
-                // wykorzystanie przecinka jako separatora
                 String[] item = line.split(CsvSplitBy);
-
-                //castowanie Stringów do odpowiednich typów
                 int location = Integer.parseInt(item[0]);
                 int product = Integer.parseInt(item[1]);
                 int orderNumber = incrementAndGetDocumentNumber("ORDER");
@@ -169,12 +173,8 @@ public class DataImporter extends DataInterface{
                 String customer = item[3].trim();
                 int quantity = (int)Double.parseDouble(item[4].replaceAll(",","."));
                 if (quantity > 0) quantity *= (-1);
-                //tworzenie obiektu produktu
                 o = new Order(location,product,orderNumber,loadingDate,loadingTime,customer,quantity);
-
-                InsertOrderIntoDb(o);
-
-                if (limiter > limit) break;
+                ImportedOrderList.add(o);
             }
 
         } catch (Exception e) {
@@ -186,6 +186,19 @@ public class DataImporter extends DataInterface{
                 e.printStackTrace();
             }
         }
+    }
+
+    public List <Order> GetOrdersPerLocation(int Location, int Product) {
+        List <Order> OrdersPerLocation;
+        OrdersPerLocation = ImportedOrderList.stream()
+                .filter(item -> item.getLocation() == Location)
+                .filter(item -> item.getProduct() == Product)
+                .collect(Collectors.toList());
+        return OrdersPerLocation;
+    }
+
+    public void RemoveInsertedOrder (Order o) {
+        ImportedOrderList.remove(o);
     }
 }
 
