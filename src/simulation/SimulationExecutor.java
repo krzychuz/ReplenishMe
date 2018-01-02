@@ -9,7 +9,6 @@ import master.Product;
 import master.TLane;
 import org.apache.log4j.Logger;
 
-import javax.activation.DataHandler;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -83,7 +82,7 @@ public class SimulationExecutor {
                 ReleaseQmLots(product, plant);
                 ShipDeliveries(product, plant);
                 InsertOrders(product, plant);
-                CreateDeliveries(product, plant);
+                ShipOrders(product, plant);
                 if(DayPassed){
                     RunMrp(product, plant);
                     PlanProduction(product,plant);
@@ -323,8 +322,24 @@ public class SimulationExecutor {
         }
     }
 
-    private void CreateDeliveries(int Product, int Plant) {
-        // TODO: Implementation
+    private void ShipOrders(int Product, int Plant) {
+        List<Order> OrderList = dl.getOrderPerProductLocation(Product, Plant);
+        Stock  AvailableToPromise = dl.getStockPerProductLocation(Product, Plant);
+        for(Order o : OrderList) {
+            Date OrderDate = DateHandler.GetDate(o.getLoadingDate(), o.getLoadingTime());
+            if (OrderDate.before(GlobalParameters.currentTime) && AvailableToPromise.getQuantity() > 0) {
+                if(Math.abs(o.getQuantity()) < AvailableToPromise.getQuantity()) {
+                    AvailableToPromise.setQuantity(AvailableToPromise.getQuantity() + o.getQuantity());
+                    di.DeleteOrderFromDb(o);
+                    ReportShipment(o);
+                } else {
+                    int CutQuantity = Math.abs(o.getQuantity()) - AvailableToPromise.getQuantity();
+                    ReportCut(o, CutQuantity);
+                    AvailableToPromise.setQuantity(0);
+                }
+            }
+        }
+        di.UpdateStockInDb(AvailableToPromise);
     }
 
     private void RunMrp(int Product, int Plant) throws SQLException {
@@ -355,6 +370,14 @@ public class SimulationExecutor {
             DatesList.add(DateHandler.getStringDate(d));
         }
         return DatesList;
+    }
+
+    private void ReportCut (Order o, int CutQuantity) {
+        System.out.println();
+    }
+
+    private void ReportShipment (Order o) {
+
     }
 
 }

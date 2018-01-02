@@ -327,6 +327,16 @@ public class DataInterface {
         }
     }
 
+    public void DeleteOrderFromDb (Order o) {
+        try {
+            String SqlQuery = "DELETE FROM ORDERS WHERE ordernumber = " + o.getOrderNumber();
+            LogToFile(SqlQuery);
+            stmt.executeUpdate(SqlQuery);
+        } catch (Exception e ) {
+            e.printStackTrace();
+        }
+    }
+
     public void DeleteIdocReference (int IdocNumber) {
         try {
             String SqlQuery = "DELETE FROM IDOCREF WHERE idocnum = " + IdocNumber;
