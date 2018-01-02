@@ -6,6 +6,8 @@ import com.microsoft.sqlserver.jdbc.SQLServerException;
 import master.Product;
 import org.apache.log4j.Logger;
 import simulation.GlobalParameters;
+import simulation.InventoryData;
+import simulation.OrderData;
 
 import java.sql.*;
 import java.text.SimpleDateFormat;
@@ -460,6 +462,61 @@ public class DataInterface {
             LogToFile(SqlQuery);
             stmt.executeUpdate(SqlQuery);
         } catch (Exception e ) {
+            e.printStackTrace();
+        }
+    }
+
+    public void TruncateStatisticTables () {
+        truncateTable("STAT_ORDERS");
+        truncateTable("STAT_INV");
+    }
+
+    public void TruncateMrpTables() {
+        truncateTable("SHIPMENTS");
+        truncateTable("DELIVERIES");
+        truncateTable("FORECAST");
+        truncateTable("ORDERS");
+        truncateTable("PROCESSO");
+        truncateTable("PURCHASEO");
+        truncateTable("QUALITYLOT");
+        truncateTable("REPLENISHIN");
+        truncateTable("REPLENISHOUT");
+        truncateTable("RESERVATION");
+    }
+
+    public void InsertOrderStatistic (OrderData od) {
+        try {
+            String SQLquery = "INSERT INTO STAT_ORDERS (type, date, location, product,  ordernumber, customer, " +
+                    "quantity) VALUES ('" +
+                    od.getOrderType() + "', '" +
+                    od.getDate() + "', " +
+                    od.getLocation() + ", " +
+                    od.getProduct() + ", " +
+                    od.getOrderNumber() + ", '" +
+                    od.getCustomer() + "', " +
+                    od.getQuantity() + ")";
+
+            if( GlobalParameters.LoggingLevel > 2) LogToFile(SQLquery);
+            stmt.executeUpdate(SQLquery);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void InsertInventoryStatistic (InventoryData id) {
+        try {
+            String SQLquery = "INSERT INTO STAT_INV (type, date, location, product, quantity) VALUES ('" +
+                    id.getStockType() + "', '" +
+                    id.getDate() + "', " +
+                    id.getLocation() + ", " +
+                    id.getProduct() + ", " +
+                    id.getQuantity() + ")";
+
+            if( GlobalParameters.LoggingLevel > 2) LogToFile(SQLquery);
+            stmt.executeUpdate(SQLquery);
+
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

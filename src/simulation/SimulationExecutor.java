@@ -1,9 +1,12 @@
 package simulation;
 
 import calculation.*;
+import com.sun.org.apache.regexp.internal.RE;
 import db.DataInterface;
 import db.DataLoader;
 import db.DateHandler;
+import enums.OrderType;
+import enums.StockType;
 import init.DataImporter;
 import master.Product;
 import master.TLane;
@@ -41,9 +44,12 @@ public class SimulationExecutor {
     }
 
     public void runSimulation() throws SQLException {
-        for (int i = 0; i < 360; i++) {
+        di.TruncateMrpTables();
+        di.TruncateStatisticTables();
+        for (int i = 0; i < 480; i++) {
             Tick();
         }
+        // Here we might calculate cumulative statistics after simulation
     }
 
     public void Tick() throws SQLException {
@@ -84,6 +90,7 @@ public class SimulationExecutor {
                 InsertOrders(product, plant);
                 ShipOrders(product, plant);
                 if(DayPassed){
+                    ReportInventoryStatus(product, plant);
                     RunMrp(product, plant);
                     PlanProduction(product,plant);
                     DeployStock(product, plant);
@@ -331,12 +338,17 @@ public class SimulationExecutor {
                 if(Math.abs(o.getQuantity()) < AvailableToPromise.getQuantity()) {
                     AvailableToPromise.setQuantity(AvailableToPromise.getQuantity() + o.getQuantity());
                     di.DeleteOrderFromDb(o);
-                    ReportShipment(o);
+                    ReportShipment(o, Math.abs(o.getQuantity()));
                 } else {
                     int CutQuantity = Math.abs(o.getQuantity()) - AvailableToPromise.getQuantity();
                     ReportCut(o, CutQuantity);
+                    ReportShipment(o, AvailableToPromise.getQuantity());
                     AvailableToPromise.setQuantity(0);
+                    di.DeleteOrderFromDb(o);
                 }
+            } else if (OrderDate.before(GlobalParameters.currentTime) && AvailableToPromise.getQuantity() <= 0) {
+                ReportCut(o, Math.abs(o.getQuantity()));
+                di.DeleteOrderFromDb(o);
             }
         }
         di.UpdateStockInDb(AvailableToPromise);
@@ -373,11 +385,51 @@ public class SimulationExecutor {
     }
 
     private void ReportCut (Order o, int CutQuantity) {
-        System.out.println();
+        OrderData od = new OrderData();
+        od.setOrderType(OrderType.Cut);
+        od.setDate(o.getLoadingDate());
+        od.setLocation(o.getLocation());
+        od.setProduct(o.getProduct());
+        od.setOrderNumber(o.getOrderNumber());
+        od.setCustomer(o.getCustomer());
+        od.setQuantity(CutQuantity);
+        di.InsertOrderStatistic(od);
     }
 
-    private void ReportShipment (Order o) {
+    private void ReportShipment (Order o, int ShipmentQuantity) {
+        OrderData od = new OrderData();
+        od.setOrderType(OrderType.Shipment);
+        od.setDate(o.getLoadingDate());
+        od.setLocation(o.getLocation());
+        od.setProduct(o.getProduct());
+        od.setOrderNumber(o.getOrderNumber());
+        od.setCustomer(o.getCustomer());
+        od.setQuantity(ShipmentQuantity);
+        di.InsertOrderStatistic(od);
+    }
 
+    private void ReportInventoryStatus (int Product, int Plant) {
+        Stock s = dl.getStockPerProductLocation(Product, Plant);
+        InventoryData OnHand = new InventoryData();
+        OnHand.setStockType(StockType.OnHand);
+        OnHand.setDate(DateHandler.getStringDate(GlobalParameters.currentTime));
+        OnHand.setLocation(s.getLocation());
+        OnHand.setProduct(s.getProduct());
+        OnHand.setQuantity(s.getQuantity());
+        di.InsertInventoryStatistic(OnHand);
+
+        List<Shipment> StockInTransit = dl.getShipmentPerProductLocation(Product, Plant);
+        int TotalInTransit = 0;
+        for(Shipment sh : StockInTransit) {
+            TotalInTransit += sh.getQuantity();
+        }
+        InventoryData InTransit = new InventoryData();
+        InTransit.setStockType(StockType.InTransit);
+        InTransit.setDate(DateHandler.getStringDate(GlobalParameters.currentTime));
+        InTransit.setLocation(s.getLocation());
+        InTransit.setProduct(s.getProduct());
+        InTransit.setQuantity(TotalInTransit);
+        di.InsertInventoryStatistic(InTransit);
     }
 
 }

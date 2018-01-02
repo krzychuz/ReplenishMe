@@ -26,18 +26,7 @@ public class DummyDataGenerator extends DataInterface {
         dl = new DataLoader();
     }
 
-    public void TruncateMrpTables() {
-        truncateTable("SHIPMENTS");
-        truncateTable("DELIVERIES");
-        truncateTable("FORECAST");
-        truncateTable("ORDERS");
-        truncateTable("PROCESSO");
-        truncateTable("PURCHASEO");
-        truncateTable("QUALITYLOT");
-        truncateTable("REPLENISHIN");
-        truncateTable("REPLENISHOUT");
-        truncateTable("RESERVATION");
-    }
+
 
 
     public void GenerateDummyShipments(int locationFrom, int locationTo, int product, int records) {
@@ -90,29 +79,6 @@ public class DummyDataGenerator extends DataInterface {
 
         for (int i = 0; i < records; i++) {
             InsertDeliveryIntoDb(deliveriesList.get(i));
-        }
-
-    }
-
-    public void GenerateDummyForecast(int location, int product, int records) {
-
-        List<Forecast> forecastList = new ArrayList<>();
-
-        for (int i = 0; i < records; i++) {
-            int Location = location;
-            int Product = product;
-            int Quantity = -500;
-            String Date = DateHandler.getRandomDate();
-            String ForecastDate = "20171412";
-            int ForecastId = incrementAndGetDocumentNumber("INDREQ");
-
-            Forecast forecast = new Forecast(Location, Product, Quantity, Date, ForecastDate, ForecastId);
-
-            forecastList.add(forecast);
-        }
-
-        for (int i = 0; i < records; i++) {
-            InsertForecastIntoDb(forecastList.get(i));
         }
 
     }

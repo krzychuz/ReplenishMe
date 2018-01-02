@@ -158,6 +158,24 @@ CREATE TABLE IDOCREF (
 	refnum int NOT NULL
 )
 
+CREATE TABLE STAT_ORDERS (
+	type varchar(10) NOT NULL,
+	date date NOT NULL,
+	location smallint NOT NULL,
+	product int NOT NULL,
+	ordernumber int NOT NULL,
+	customer varchar(50) NOT NULL,
+	quantity int NOT NULL
+)
+
+CREATE TABLE STAT_INV (
+	type varchar(10) NOT NULL,
+	date date NOT NULL,
+	location smallint NOT NULL,
+	product int NOT NULL,
+	quantity int NOT NULL
+)
+
 INSERT INTO LASTDOC (docname, docnumber)
 VALUES ('QMLOT', '0000000');
 
