@@ -594,4 +594,45 @@ public class DataLoader extends DataInterface{
         return result;
     }
 
+    public int getIdocPreviousReference (int PreviousIdocNumber) {
+        int result = 0;
+        try {
+            String SqlQuery = "SELECT idocnum FROM IDOCREF WHERE refnum = " + PreviousIdocNumber;
+            if( GlobalParameters.LoggingLevel > 2) LogToFile(SqlQuery);
+            rs = stmt.executeQuery(SqlQuery);
+
+            while (rs.next()){
+                result = rs.getInt("idocnum");
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return result;
+    }
+
+    public QualityLot getQualityLotByNumber (int QualityLotNumber) {
+        QualityLot qmlot = new QualityLot(0,0,"","",0,0);
+        try {
+            String SqlQuery = "SELECT * FROM QUALITYLOT WHERE qmlotnumber = " + QualityLotNumber ;
+            if( GlobalParameters.LoggingLevel >2 ) LogToFile(SqlQuery);
+            rs = stmt.executeQuery(SqlQuery);
+
+            while (rs.next()){
+                qmlot.setLocation(rs.getInt("location"));
+                qmlot.setProduct(rs.getInt("product"));
+                qmlot.setQualityLotNumber(rs.getInt("qmlotnumber"));
+                qmlot.setReleaseDate(rs.getString("releasedate"));
+                qmlot.setReleaseTime(rs.getString("releasetime"));
+                qmlot.setQuantity(rs.getInt("quantity"));
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return qmlot;
+    }
+
 }

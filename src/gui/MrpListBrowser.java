@@ -9,6 +9,7 @@ import simulation.SimulationExecutor;
 import javax.swing.*;
 import java.awt.*;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 /**
@@ -162,8 +163,10 @@ public class MrpListBrowser extends JFrame {
 
         MultipleSimulationSteps.addActionListener(e -> {
             try {
-                se.Tick();
-                se.Tick();
+                int TicksPerDay = 24 / GlobalParameters.Tick;
+                for(int i = 0; i < TicksPerDay; i++) {
+                    se.Tick();
+                }
                 UpdateMrpGrid();
                 UpdateSimulationTimeLabel();
             } catch (Exception exception) {
@@ -174,7 +177,8 @@ public class MrpListBrowser extends JFrame {
     }
 
     private void UpdateSimulationTimeLabel() {
-        CurrentSimulationTime.setText("Current time: " + GlobalParameters.currentTime);
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
+        CurrentSimulationTime.setText("Current time: " + sdf.format(GlobalParameters.currentTime));
     }
 
     private void UpdateMrpGrid() {

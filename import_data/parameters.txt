@@ -1,8 +1,8 @@
 # Date when simulation starts
-start_date=20170417
+start_date=20170420
 
 # How many hours passes between simulation ticks, can be set to: 1, 2, 4, 6, 8, 12, 24
-tick=2
+tick=1
 
 # How many days back and in the future we want to consume forecast
 bw_fcst_consumption=5
@@ -16,3 +16,6 @@ logging_level=3
 
 # Firmed horizon in which producion is commited to plant
 firmed_zone=3
+
+# Average quality release lenght in hours
+quality_check=4

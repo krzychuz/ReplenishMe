@@ -89,7 +89,7 @@ public class SimulationExecutor {
                     DateHandler.getRandomTime());
             // Potential end of production date
             if(ReplenishmentInDate.before(DateHandler.getRelativeDate(GlobalParameters.currentTime,
-                    GlobalParameters.FirmecZone))) {
+                    GlobalParameters.FirmedZone))) {
 
                 int ProcessOrderNumber = di.incrementAndGetDocumentNumber("PRCORD");
                 int Location = ri.getLocationFrom();
@@ -110,11 +110,72 @@ public class SimulationExecutor {
     }
 
     private void UpdateProduction(int Product, int Plant) {
-        // TODO: Implementation
+        Product p = dl.getProductMaster(Product, Plant);
+        if (Plant != p.getLocationFrom()) return;
+
+        List<ProcessOrder> ProcessOrderList = dl.getProcessOrderPerProductLocation(Product, Plant);
+        for(ProcessOrder po : ProcessOrderList) {
+            Date ProcessOrderStart = DateHandler.GetDate(po.getStartDate(), po.getStartTime());
+            Date ProcessOrderEnd = DateHandler.GetDate(po.getEndDate(), po.getEndTime());
+            if(ProcessOrderStart.before(GlobalParameters.currentTime)) {
+                int PercentOfProductionLeft = DateHandler.getPercentOfTimeLeft(ProcessOrderStart,
+                        ProcessOrderEnd);
+                int CorrespondingQmLot = dl.getIdocReferenceNumber(po.getProcessOrderNumber());
+                if (CorrespondingQmLot == 0) {
+                    int RemainingProduction = po.getQuantity() * PercentOfProductionLeft / 100;
+
+                    int Location = po.getLocation();
+                    int QualityLotNumber = di.incrementAndGetDocumentNumber("QMLOT");
+                    String ReleaseDate = po.getEndDate();
+                    String ReleaseTime = po.getEndTime();
+                    int product = po.getProduct();
+                    int Quantity = po.getQuantity() - RemainingProduction;
+
+                    QualityLot qmlot = new QualityLot(Location, QualityLotNumber, ReleaseDate, ReleaseTime,
+                            product, Quantity);
+                    di.InsertQmLotIntoDb(qmlot);
+                    po.setQuantity(RemainingProduction);
+                    di.UpdateProcessOrderInDb(po);
+                    di.InsertIdocRefIntoDb(po.getProcessOrderNumber(), qmlot.getQualityLotNumber());
+                } else {
+                    QualityLot qmlot = dl.getQualityLotByNumber(CorrespondingQmLot);
+                    int TotalProduction = qmlot.getQuantity() + po.getQuantity();
+                    int RemainingProduction = TotalProduction * PercentOfProductionLeft / 100;
+                    if(RemainingProduction == 0) {
+                        di.DeleteProcessOrderFromDb(po);
+                        di.DeleteIdocReference(po.getProcessOrderNumber());
+                    } else {
+                        po.setQuantity(RemainingProduction);
+                        di.UpdateProcessOrderInDb(po);
+                    }
+                    qmlot.setQuantity(TotalProduction - RemainingProduction);
+                    di.UpdateQmLotInDb(qmlot);
+                }
+            }
+        }
     }
 
     private void ReleaseQmLots(int Product, int Plant) {
-        // TODO: Implementation
+        Product p = dl.getProductMaster(Product, Plant);
+        if (Plant != p.getLocationFrom()) return;
+
+        List<QualityLot> QualityLotList = dl.getQualityLotPerProductLocation(Product, Plant);
+        for(QualityLot qmlot : QualityLotList) {
+            int ProcessOrderReference = dl.getIdocPreviousReference(qmlot.getQualityLotNumber());
+            if (ProcessOrderReference != 0) {
+                return;
+            } else {
+                Date ProductionFinishDate = DateHandler.GetDate(qmlot.getReleaseDate(), qmlot.getReleaseTime());
+                Date QmLotReleaseDate = DateHandler.getRelativeTime(ProductionFinishDate, GlobalParameters.QualityCheck);
+                if(QmLotReleaseDate.before(GlobalParameters.currentTime)) {
+                    Stock CurrentStock = dl.getStockPerProductLocation(Product, Plant);
+                    CurrentStock.setQuantity(CurrentStock.getQuantity() + qmlot.getQuantity());
+                    di.DeleteQualityLotFromDb(qmlot);
+                    di.UpdateStockInDb(CurrentStock);
+                }
+            }
+
+        }
     }
 
     private void DeployStock(int Product, int Plant) {

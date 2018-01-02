@@ -87,6 +87,8 @@ CREATE TABLE PROCESSO (
 	prcordnumber int NOT NULL,
 	startdate date NOT NULL,
 	starttime time NOT NULL,
+	enddate date NOT NULL,
+	endtime time NOT NULL,
 	quantity int NOT NULL
 );
 

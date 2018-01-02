@@ -11,6 +11,7 @@ public class InitParameters {
         GlobalParameters.BwForecastConsumption = parametersReader.getInt("bw_fcst_consumption");
         GlobalParameters.FwForecastConsumption = parametersReader.getInt("fw_fcst_consumption");
         GlobalParameters.Tick = parametersReader.getInt("tick");;
-        GlobalParameters.FirmecZone = parametersReader.getInt("firmed_zone");
+        GlobalParameters.FirmedZone = parametersReader.getInt("firmed_zone");
+        GlobalParameters.QualityCheck = parametersReader.getInt("quality_check");
     }
 }

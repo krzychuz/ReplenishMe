@@ -1,5 +1,7 @@
 package db;
 
+import simulation.GlobalParameters;
+
 import java.sql.Time;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -23,6 +25,13 @@ public class DateHandler {
         calendar.setTime(getDateFromString(initDate));
         calendar.add(Calendar.DAY_OF_YEAR, +relativeDays);
         return getStringDate(calendar.getTime());
+    }
+
+    public static Date getRelativeTime (Date initDate, int relativeHours) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(initDate);
+        calendar.add(Calendar.HOUR_OF_DAY, +relativeHours);
+        return calendar.getTime();
     }
 
     public static String getStringDate (Date date) {
@@ -69,7 +78,6 @@ public class DateHandler {
     }
 
     public static String getRandomDate() {
-        Random r = new Random();
         int year = ThreadLocalRandom.current().nextInt(2015, 2016 + 1); // losowy rok
         int day = ThreadLocalRandom.current().nextInt(1, 364 + 1); // losowy dzień roku
         Calendar calendar = Calendar.getInstance();
@@ -86,6 +94,21 @@ public class DateHandler {
         final int millisInDay = 24 * 60 * 60 * 1000;
         Time time = new Time((long) random.nextInt(millisInDay));
         return time.toString();
+    }
+
+    public static int getPercentOfTimeLeft(Date StartDate, Date EndDate) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(GlobalParameters.currentTime);
+        long now = calendar.getTimeInMillis();
+        long s = StartDate.getTime();
+        long e = EndDate.getTime();
+        if (s >= e || now >= e) {
+            return 0;
+        }
+        if (now <= s) {
+            return 100;
+        }
+        return (int) ((e - now) * 100 / (e - s));
     }
 
 }

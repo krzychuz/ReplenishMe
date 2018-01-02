@@ -307,6 +307,26 @@ public class DataInterface {
         }
     }
 
+    public void DeleteQualityLotFromDb (QualityLot qmlot) {
+        try {
+            String SqlQuery = "DELETE FROM QUALITYLOT WHERE qmlotnumber = " + qmlot.getQualityLotNumber();
+            LogToFile(SqlQuery);
+            stmt.executeUpdate(SqlQuery);
+        } catch (Exception e ) {
+            e.printStackTrace();
+        }
+    }
+
+    public void DeleteIdocReference (int IdocNumber) {
+        try {
+            String SqlQuery = "DELETE FROM IDOCREF WHERE idocnum = " + IdocNumber;
+            LogToFile(SqlQuery);
+            stmt.executeUpdate(SqlQuery);
+        } catch (Exception e ) {
+            e.printStackTrace();
+        }
+    }
+
     public void UpdateStockInDb (Stock s) {
         try {
             String SqlQuery = "UPDATE STOCK SET quantity = " + s.getQuantity() + " WHERE location = " + s.getLocation()
@@ -369,6 +389,47 @@ public class DataInterface {
             stmt.executeUpdate(SQLquery);
 
         } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void InsertQmLotIntoDb (QualityLot qmlot) {
+        try {
+            String SQLquery = "INSERT INTO QUALITYLOT (qmlotnumber, location, product, releasedate, releasetime, " +
+                    "quantity) VALUES (" +
+                    qmlot.getQualityLotNumber() + ", " +
+                    qmlot.getLocation() + ", " +
+                    qmlot.getProduct() + ", '" +
+                    qmlot.getReleaseDate() + "' , '" +
+                    qmlot.getReleaseTime() + "', " +
+                    qmlot.getQuantity() + ")";
+
+            if( GlobalParameters.LoggingLevel > 2) LogToFile(SQLquery);
+            stmt.executeUpdate(SQLquery);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void UpdateProcessOrderInDb (ProcessOrder po) {
+        try {
+            String SqlQuery = "UPDATE PROCESSO SET quantity = " + po.getQuantity() +
+                    " WHERE prcordnumber = " + po.getProcessOrderNumber();
+            LogToFile(SqlQuery);
+            stmt.executeUpdate(SqlQuery);
+        } catch (Exception e ) {
+            e.printStackTrace();
+        }
+    }
+
+    public void UpdateQmLotInDb (QualityLot qmlot) {
+        try {
+            String SqlQuery = "UPDATE QUALITYLOT SET quantity = " + qmlot.getQuantity() +
+                    " WHERE qmlotnumber = " + qmlot.getQualityLotNumber();
+            LogToFile(SqlQuery);
+            stmt.executeUpdate(SqlQuery);
+        } catch (Exception e ) {
             e.printStackTrace();
         }
     }
