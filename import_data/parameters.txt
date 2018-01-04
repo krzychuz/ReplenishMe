@@ -1,8 +1,11 @@
 # Date when simulation starts
-start_date=20170116
+start_date=20180101
+
+# Date when simulation ends
+end_date=20180422
 
 # How many hours passes between simulation ticks, can be set to: 1, 2, 4, 6, 8, 12, 24
-tick=1
+tick=2
 
 # How many days back and in the future we want to consume forecast
 bw_fcst_consumption=5
@@ -14,10 +17,10 @@ fw_fcst_consumption=5
 # 3 - As above + SQL queries
 logging_level=3
 
-# Firmed horizon in which producion is commited to plant
+# Firmed horizon in which production is committed to plant in days
 firmed_zone=3
 
-# Average quality release lenght in hours
+# Average quality release length in hours
 quality_check=4
 
 # Average time between order placement and loading in hours

@@ -4,11 +4,10 @@ import calculation.Forecast;
 import calculation.Order;
 import db.DataInterface;
 import db.DateHandler;
-import enums.Procurement;
-import enums.SafetyStrategy;
-import enums.Type;
-import enums.UoM;
+import enums.*;
 import master.Product;
+import simulation.OrderData;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -40,12 +39,26 @@ public class DataImporter extends DataInterface{
 
     public void GetFreshForecast() {
         truncateTable("FORECAST");
-        CurrentForecastVersion = ImportedForecastList.get(0).getForecastDate();
+        try{
+            CurrentForecastVersion = ImportedForecastList.get(0).getForecastDate();
+        } catch (IndexOutOfBoundsException e) {
+            return;
+        }
         List<Forecast> ForecastToRemove = new ArrayList<>();
         for(Forecast f : ImportedForecastList) {
             if(f.getForecastDate().equals(CurrentForecastVersion)) {
                 InsertForecastIntoDb(f);
                 ForecastToRemove.add(f);
+
+                OrderData od = new OrderData();
+                od.setOrderType(OrderType.Forecast);
+                od.setDate(f.getDate());
+                od.setLocation(f.getLocation());
+                od.setProduct(f.getProduct());
+                od.setOrderNumber(f.getForecastId());
+                od.setCustomer("All customers");
+                od.setQuantity(Math.abs(f.getQuantity()));
+                InsertOrderStatistic(od);
             } else {
                 continue;
             }
@@ -53,10 +66,10 @@ public class DataImporter extends DataInterface{
         ImportedForecastList.removeAll(ForecastToRemove);
     }
 
-    public void loadForecast() {
+    public void loadForecast(String ForecastFilePath) {
 
         truncateTable("FORECAST");
-        String masterDataFile = "import_data/forecast.csv";
+        String masterDataFile = ForecastFilePath;
         BufferedReader br = null;
         String line = "";
         String CsvSplitBy = ";";
@@ -152,8 +165,8 @@ public class DataImporter extends DataInterface{
         }
     }
 
-    public void loadCustomerOrders() {
-        String masterDataFile = "import_data/shipments.csv";
+    public void loadCustomerOrders(String OrderFilePath) {
+        String masterDataFile = OrderFilePath;
         BufferedReader br = null;
         String line;
         String CsvSplitBy = ";";

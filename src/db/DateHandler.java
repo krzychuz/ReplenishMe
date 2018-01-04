@@ -105,7 +105,7 @@ public class DateHandler {
 
     public static int getPercentOfTimeLeft(Date StartDate, Date EndDate) {
         Calendar calendar = Calendar.getInstance();
-        calendar.setTime(GlobalParameters.currentTime);
+        calendar.setTime(GlobalParameters.CurrentTime);
         long now = calendar.getTimeInMillis();
         long s = StartDate.getTime();
         long e = EndDate.getTime();

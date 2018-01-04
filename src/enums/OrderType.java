@@ -1,5 +1,5 @@
 package enums;
 
 public enum OrderType {
-    Shipment, Cut;
+    Shipment, Cut, Forecast;
 }

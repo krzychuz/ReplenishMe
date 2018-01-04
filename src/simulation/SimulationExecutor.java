@@ -1,7 +1,6 @@
 package simulation;
 
 import calculation.*;
-import com.sun.org.apache.regexp.internal.RE;
 import db.DataInterface;
 import db.DataLoader;
 import db.DateHandler;
@@ -20,41 +19,52 @@ import java.util.List;
 
 public class SimulationExecutor {
 
-    private boolean IsSimulationRunning;
-    private boolean AreOrdersLoaded;
     private DataInterface di;
     private DataLoader dl;
     private int TickCounter;
     private int DayCounter;
     private static Logger logger;
     private DataImporter DataSource;
+    private boolean IsSimulationPrepared;
 
     public SimulationExecutor () throws SQLException {
         logger = Logger.getLogger("simlog");
         //ScenarioParser.ParseXmlScenario();
-        IsSimulationRunning = false;
-        AreOrdersLoaded = false;
         di = new DataInterface();
         dl = new DataLoader();
         DataSource = new DataImporter();
-        DataSource.loadForecast();
-        DataSource.GetFreshForecast();
         TickCounter = 0;
         DayCounter = 0;
     }
 
-    public void runSimulation() throws SQLException {
+    private void PrepareSimulation() {
         di.TruncateMrpTables();
         di.TruncateStatisticTables();
-        for (int i = 0; i < 480; i++) {
+        DataSource.GetFreshForecast();
+        IsSimulationPrepared = true;
+    }
+
+    public void RunTestSimulation() throws SQLException {
+        DataSource.loadCustomerOrders("import_data/shipments.csv");
+        DataSource.loadForecast("import_data/forecast.csv");
+        if(!IsSimulationPrepared) PrepareSimulation();
+        for (int i = 0; i < 960; i++) {
             Tick();
         }
-        // Here we might calculate cumulative statistics after simulation
+    }
+
+    public void RunScenario1_3 () throws SQLException {
+        DataSource.loadCustomerOrders("import_data/orders_scenario_1_3.csv");
+        DataSource.loadForecast("import_data/forecast_scenario_1_3.csv");
+        if(!IsSimulationPrepared) PrepareSimulation();
+        while (GlobalParameters.CurrentTime.before(GlobalParameters.SimulationEndDate)) {
+            Tick();
+        }
     }
 
     public void Tick() throws SQLException {
+        if(!IsSimulationPrepared) PrepareSimulation();
         boolean DayPassed = false;
-        boolean WeekPassed = false;
         TickCounter++;
         if(TickCounter == 24 / GlobalParameters.Tick) {
             DayPassed = true;
@@ -63,21 +73,12 @@ public class SimulationExecutor {
         }
 
         if(DayCounter == 7) {
-            WeekPassed = true;
+            DataSource.GetFreshForecast();
             DayCounter = 0;
         }
 
-        if(!AreOrdersLoaded) {
-            DataSource.loadCustomerOrders();
-            AreOrdersLoaded = true;
-        }
-
-        if(WeekPassed) {
-            DataSource.GetFreshForecast();
-        }
-
         UpdateSimulationTime();
-        LogToFile("TICK: " + GlobalParameters.currentTime);
+        LogToFile("TICK: " + GlobalParameters.CurrentTime);
 
         int PlantsTable[] = new int[]{2621, 2751, 9979, 4850, 4853, 5053, 2725};
         for (int plant : PlantsTable) {
@@ -103,7 +104,7 @@ public class SimulationExecutor {
         List<Shipment> ShipmentList = dl.getShipmentPerProductLocation(Product, Plant);
         for (Shipment s : ShipmentList) {
             Date ShipmentDate = DateHandler.GetDate(s.getUnloadingDate(), s.getUnloadingTime());
-            if (ShipmentDate.before(GlobalParameters.currentTime)) {
+            if (ShipmentDate.before(GlobalParameters.CurrentTime)) {
                 Stock CurrentStock = dl.getStockPerProductLocation(Product, Plant);
                 CurrentStock.setQuantity(CurrentStock.getQuantity() + s.getQuantity());
                 di.DeleteShipmentFromDb(s);
@@ -121,7 +122,7 @@ public class SimulationExecutor {
             Date ReplenishmentInDate = DateHandler.GetDate(DateHandler.getRelativeDate(ri.getDate(),1),
                     DateHandler.getRandomTime());
             // Potential end of production date
-            if(ReplenishmentInDate.before(DateHandler.getRelativeDate(GlobalParameters.currentTime,
+            if(ReplenishmentInDate.before(DateHandler.getRelativeDate(GlobalParameters.CurrentTime,
                     GlobalParameters.FirmedZone))) {
 
                 int ProcessOrderNumber = di.incrementAndGetDocumentNumber("PRCORD");
@@ -150,7 +151,7 @@ public class SimulationExecutor {
         for(ProcessOrder po : ProcessOrderList) {
             Date ProcessOrderStart = DateHandler.GetDate(po.getStartDate(), po.getStartTime());
             Date ProcessOrderEnd = DateHandler.GetDate(po.getEndDate(), po.getEndTime());
-            if(ProcessOrderStart.before(GlobalParameters.currentTime)) {
+            if(ProcessOrderStart.before(GlobalParameters.CurrentTime)) {
                 int PercentOfProductionLeft = DateHandler.getPercentOfTimeLeft(ProcessOrderStart,
                         ProcessOrderEnd);
                 int CorrespondingQmLot = dl.getIdocReferenceNumber(po.getProcessOrderNumber());
@@ -200,7 +201,7 @@ public class SimulationExecutor {
             } else {
                 Date ProductionFinishDate = DateHandler.GetDate(qmlot.getReleaseDate(), qmlot.getReleaseTime());
                 Date QmLotReleaseDate = DateHandler.getRelativeTime(ProductionFinishDate, GlobalParameters.QualityCheck);
-                if(QmLotReleaseDate.before(GlobalParameters.currentTime)) {
+                if(QmLotReleaseDate.before(GlobalParameters.CurrentTime)) {
                     Stock CurrentStock = dl.getStockPerProductLocation(Product, Plant);
                     CurrentStock.setQuantity(CurrentStock.getQuantity() + qmlot.getQuantity());
                     di.DeleteQualityLotFromDb(qmlot);
@@ -226,15 +227,22 @@ public class SimulationExecutor {
         if (AvailableToDeployQuantity < p.getRoundingValue()) return;
 
         while(AvailableToDeployQuantity > p.getRoundingValue()) {
-            ReplenishmentOut ro = ReplenishmentList.get(0);
-            TLane tl = dl.getTLaneDetails(Plant, ro.getLocationTo());
+            ReplenishmentOut ro = null;
+            TLane tl = null;
+            try {
+                ro = ReplenishmentList.get(0);
+                tl = dl.getTLaneDetails(Plant, ro.getLocationTo());
+            } catch (IndexOutOfBoundsException e) {
+                return;
+            }
+
 
             int LocationFrom = ro.getLocationFrom();
             int LocationTo = ro.getLocationTo();
             int DeliveryNumber = di.incrementAndGetDocumentNumber("DELIV");
             String LoadingTime = DateHandler.getRandomTime();
             String UnloadingTime = DateHandler.getRandomTime();
-            String LoadingDate = DateHandler.getRelativeDate(DateHandler.getStringDate(GlobalParameters.currentTime),1);
+            String LoadingDate = DateHandler.getRelativeDate(DateHandler.getStringDate(GlobalParameters.CurrentTime),1);
             String UnloadingDate = DateHandler.getRelativeDate(LoadingDate, tl.getDuration()/24);
             int product = ro.getProduct();
             int Quantity = 0;
@@ -242,8 +250,10 @@ public class SimulationExecutor {
 
             if(AvailableToDeployQuantity > Math.abs(ro.getQuantity())) {
                  Quantity =  Math.abs(ro.getQuantity());
+            } else if (AvailableToDeployQuantity > p.getRoundingValue()){
+                Quantity = AvailableToDeployQuantity / p.getRoundingValue() * p.getRoundingValue();
             } else {
-                Quantity = CurrentStock.getQuantity() / p.getRoundingValue() * p.getRoundingValue();
+                return;
             }
 
             Delivery d = new Delivery(LocationFrom, LocationTo, DeliveryNumber, LoadingDate, LoadingTime, UnloadingDate,
@@ -267,7 +277,7 @@ public class SimulationExecutor {
         List<Delivery> DeliveryList = dl.getDeliveryPerProductLocation(Product, Plant);
         for(Delivery d : DeliveryList) {
             Date DeliveryDate = DateHandler.GetDate(d.getLoadingDate(), d.getLoadingTime());
-            if(DeliveryDate.before(GlobalParameters.currentTime)) {
+            if(DeliveryDate.before(GlobalParameters.CurrentTime)) {
 
                 int LocationFrom = d.getLocationFrom();
                 int LocationTo = d.getLocationTo();
@@ -302,7 +312,7 @@ public class SimulationExecutor {
         List<Order> OrderList = DataSource.GetOrdersPerLocation(Plant, Product);
         for(Order o : OrderList) {
             Date OrderDate = DateHandler.GetDate(o.getLoadingDate(), o.getLoadingTime());
-            if (OrderDate.before(GlobalParameters.currentTime)) {
+            if (OrderDate.before(GlobalParameters.CurrentTime)) {
                 DataSource.RemoveInsertedOrder(o);
                 o.setLoadingDate(DateHandler.getRelativeTime(o.getLoadingDate(),GlobalParameters.OrderLeadTime));
                 di.InsertOrderIntoDb(o);
@@ -334,7 +344,7 @@ public class SimulationExecutor {
         Stock  AvailableToPromise = dl.getStockPerProductLocation(Product, Plant);
         for(Order o : OrderList) {
             Date OrderDate = DateHandler.GetDate(o.getLoadingDate(), o.getLoadingTime());
-            if (OrderDate.before(GlobalParameters.currentTime) && AvailableToPromise.getQuantity() > 0) {
+            if (OrderDate.before(GlobalParameters.CurrentTime) && AvailableToPromise.getQuantity() > 0) {
                 if(Math.abs(o.getQuantity()) < AvailableToPromise.getQuantity()) {
                     AvailableToPromise.setQuantity(AvailableToPromise.getQuantity() + o.getQuantity());
                     di.DeleteOrderFromDb(o);
@@ -346,7 +356,7 @@ public class SimulationExecutor {
                     AvailableToPromise.setQuantity(0);
                     di.DeleteOrderFromDb(o);
                 }
-            } else if (OrderDate.before(GlobalParameters.currentTime) && AvailableToPromise.getQuantity() <= 0) {
+            } else if (OrderDate.before(GlobalParameters.CurrentTime) && AvailableToPromise.getQuantity() <= 0) {
                 ReportCut(o, Math.abs(o.getQuantity()));
                 di.DeleteOrderFromDb(o);
             }
@@ -355,7 +365,6 @@ public class SimulationExecutor {
     }
 
     private void RunMrp(int Product, int Plant) throws SQLException {
-        // TODO: Implement mechanism for automatic hierarchy recognizing within given network
         MRPList mrpList = new MRPList();
         mrpList.setMRPList(Product,Plant);
         mrpList.runMRP();
@@ -364,9 +373,9 @@ public class SimulationExecutor {
     private void UpdateSimulationTime() {
         int tick = GlobalParameters.Tick;
         Calendar cal = Calendar.getInstance();
-        cal.setTime(GlobalParameters.currentTime);
+        cal.setTime(GlobalParameters.CurrentTime);
         cal.add(Calendar.HOUR_OF_DAY, tick);
-        GlobalParameters.currentTime = cal.getTime();
+        GlobalParameters.CurrentTime = cal.getTime();
     }
 
     public void LogToFile (String parameter){
@@ -378,7 +387,7 @@ public class SimulationExecutor {
     private List<String> GetForecastDatesToBeChecked () {
         List<String> DatesList = new ArrayList<>();
         for(int i = -GlobalParameters.BwForecastConsumption; i < GlobalParameters.FwForecastConsumption; i++) {
-            Date d = DateHandler.getRelativeDate(GlobalParameters.currentTime,i);
+            Date d = DateHandler.getRelativeDate(GlobalParameters.CurrentTime,i);
             DatesList.add(DateHandler.getStringDate(d));
         }
         return DatesList;
@@ -412,7 +421,7 @@ public class SimulationExecutor {
         Stock s = dl.getStockPerProductLocation(Product, Plant);
         InventoryData OnHand = new InventoryData();
         OnHand.setStockType(StockType.OnHand);
-        OnHand.setDate(DateHandler.getStringDate(GlobalParameters.currentTime));
+        OnHand.setDate(DateHandler.getStringDate(GlobalParameters.CurrentTime));
         OnHand.setLocation(s.getLocation());
         OnHand.setProduct(s.getProduct());
         OnHand.setQuantity(s.getQuantity());
@@ -425,7 +434,7 @@ public class SimulationExecutor {
         }
         InventoryData InTransit = new InventoryData();
         InTransit.setStockType(StockType.InTransit);
-        InTransit.setDate(DateHandler.getStringDate(GlobalParameters.currentTime));
+        InTransit.setDate(DateHandler.getStringDate(GlobalParameters.CurrentTime));
         InTransit.setLocation(s.getLocation());
         InTransit.setProduct(s.getProduct());
         InTransit.setQuantity(TotalInTransit);

@@ -4,9 +4,6 @@ import init.DataImporter;
 import init.DummyDataGenerator;
 import simulation.SimulationExecutor;
 
-import javax.swing.*;
-import javax.swing.border.Border;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
@@ -17,6 +14,7 @@ import java.sql.SQLException;
 public class ActionClass implements ActionListener  {
 
     DataImporter dataImporter = new DataImporter();
+    SimulationExecutor simulationExecutor = new SimulationExecutor();
 
     public ActionClass() throws SQLException {
     }
@@ -46,13 +44,13 @@ public class ActionClass implements ActionListener  {
                 }
                 break;
             case "importForecast":
-                dataImporter.loadForecast();
+                //dataImporter.loadForecast();
                 break;
             case "importMaterialMaster":
                 dataImporter.loadMaterialMaster();
                 break;
             case "importCustomerOrders":
-                dataImporter.loadCustomerOrders();
+                //dataImporter.loadCustomerOrders();
                 break;
             case "generateDummyData":
                 dummyDataGenerator.GenerateDummyShipments(5053,2751,83732410,10);
@@ -66,15 +64,19 @@ public class ActionClass implements ActionListener  {
                 dummyDataGenerator.TruncateMrpTables();
                 break;
             case "runTestScenario":
-                SimulationExecutor simulationExecutor = null;
-                try {
-                    simulationExecutor = new SimulationExecutor();
-                    simulationExecutor.runSimulation();
+                              try {
+
+                    simulationExecutor.RunTestSimulation();
                 } catch (SQLException e1) {
                     e1.printStackTrace();
                 }
                 break;
-            case "runScenario1":
+            case "runScenario1_3":
+                try {
+                    simulationExecutor.RunScenario1_3();
+                } catch (SQLException e1) {
+                    e1.printStackTrace();
+                }
                 break;
             case "runScenario2":
                 break;

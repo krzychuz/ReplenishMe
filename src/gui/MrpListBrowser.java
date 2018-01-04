@@ -178,7 +178,7 @@ public class MrpListBrowser extends JFrame {
 
     private void UpdateSimulationTimeLabel() {
         SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
-        CurrentSimulationTime.setText("Current time: " + sdf.format(GlobalParameters.currentTime));
+        CurrentSimulationTime.setText("Current time: " + sdf.format(GlobalParameters.CurrentTime));
     }
 
     private void UpdateMrpGrid() {

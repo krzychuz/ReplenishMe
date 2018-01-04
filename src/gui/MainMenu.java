@@ -19,7 +19,7 @@ public class MainMenu extends JFrame {
     private void initUI() {
 
         setTitle("ReplenishMe - Main menu");
-        setSize(1024, 768);
+        setSize(800, 600);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         JMenuBar menuBar = new JMenuBar();
@@ -57,19 +57,16 @@ public class MainMenu extends JFrame {
         JMenuItem miTestScenario = new JMenuItem("Test scenario");
         Simulation.add(miTestScenario);
 
-        JMenuItem miScenario1 = new JMenuItem("Scenario 1");
-        Simulation.add(miScenario1);
-
-        JMenuItem miScenario2 = new JMenuItem("Scenario 2");
-        Simulation.add(miScenario2);
-
-        JMenuItem miScenario3 = new JMenuItem("Scenario 3");
-        Simulation.add(miScenario3);
-
-        JMenuItem miScenario4 = new JMenuItem("Scenario 4");
-        Simulation.add(miScenario4);
-
-        JButton MrpListButton = new JButton("Browse MRP lists");
+        JButton btnMrpList = new JButton("Browse MRP lists");
+        JButton btnScenario_1_1 = new JButton("Scenario 1 - Shipments in line with forecast");
+        JButton btnScenario_1_2 = new JButton("Scenario 1 - Undershipments");
+        JButton btnScenario_1_3 = new JButton("Scenario 1 - Overshipments");
+        JButton btnScenario_2_1 = new JButton("Scenario 2 - Low minimum production run");
+        JButton btnScenario_2_2 = new JButton("Scenario 2 - High minimum production run");
+        JButton btnScenario_3_1 = new JButton("Scenario 3 - Safety stock as safety strategy");
+        JButton btnScenario_3_2 = new JButton("Scenario 3 - Safety time as safety strategy");
+        JButton btnScenario_4_1 = new JButton("Scenario 4 - Production damaged due to natural disaster");
+        JButton btnScenario_4_2 = new JButton("Scenario 4 - Production line breakdown");
 
         miMaterialMaster.setActionCommand("browseMaterialMaster");
         miImportForecast.setActionCommand("importForecast");
@@ -79,11 +76,16 @@ public class MainMenu extends JFrame {
         miGenerateDummyStocks.setActionCommand("generateDummyStocks");
         miTruncateMrpTables.setActionCommand("truncateMrpTables");
         miTestScenario.setActionCommand("runTestScenario");
-        miScenario1.setActionCommand("runScenario1");
-        miScenario2.setActionCommand("runScenario2");
-        miScenario3.setActionCommand("runScenario3");
-        miScenario4.setActionCommand("runScenario4");
-        MrpListButton.setActionCommand("browseMrpList");
+        btnScenario_1_1.setActionCommand("runScenario_1_1");
+        btnScenario_1_2.setActionCommand("runScenario_1_2");
+        btnScenario_1_3.setActionCommand("runScenario_1_3");
+        btnScenario_2_1.setActionCommand("runScenario_2_1");
+        btnScenario_2_2.setActionCommand("runScenario_2_2");
+        btnScenario_3_1.setActionCommand("runScenario_3_1");
+        btnScenario_3_2.setActionCommand("runScenario_3_2");
+        btnScenario_4_1.setActionCommand("runScenario_4_1");
+        btnScenario_4_2.setActionCommand("runScenario_4_2");
+        btnMrpList.setActionCommand("browseMrpList");
 
 
         ActionClass actionEvent = null;
@@ -100,18 +102,66 @@ public class MainMenu extends JFrame {
         miGenerateDummyStocks.addActionListener(actionEvent);
         miTruncateMrpTables.addActionListener(actionEvent);
         miTestScenario.addActionListener(actionEvent);
-        miScenario1.addActionListener(actionEvent);
-        miScenario2.addActionListener(actionEvent);
-        miScenario3.addActionListener(actionEvent);
-        miScenario4.addActionListener(actionEvent);
-        MrpListButton.addActionListener(actionEvent);
+        btnScenario_1_3.addActionListener(actionEvent);
+        btnMrpList.addActionListener(actionEvent);
+        btnScenario_1_1.addActionListener(actionEvent);
+        btnScenario_1_2.addActionListener(actionEvent);
+        btnScenario_1_3.addActionListener(actionEvent);
+        btnScenario_2_1.addActionListener(actionEvent);
+        btnScenario_2_2.addActionListener(actionEvent);
+        btnScenario_3_1.addActionListener(actionEvent);
+        btnScenario_3_2.addActionListener(actionEvent);
+        btnScenario_4_1.addActionListener(actionEvent);
+        btnScenario_4_2.addActionListener(actionEvent);
 
-        this.setLayout(new FlowLayout());
-        this.add(MrpListButton);
+        this.setLayout(new GridBagLayout());
+        GridBagConstraints constraints = new GridBagConstraints();
+        constraints.insets = new Insets(10,10,10,10);
+        constraints.gridx = 0;
+        constraints.gridy = 0;
+        btnMrpList.setPreferredSize(new Dimension(500,25));
+        btnMrpList.setBackground(new Color(128,255,165));
+        this.add(btnMrpList, constraints);
+        constraints.gridx = 0;
+        constraints.gridy = 1;
+        btnScenario_1_1.setPreferredSize(new Dimension(500,25));
+        this.add(btnScenario_1_1, constraints);
+        constraints.gridx = 0;
+        constraints.gridy = 2;
+        btnScenario_1_2.setPreferredSize(new Dimension(500,25));
+        this.add(btnScenario_1_2, constraints);
+        constraints.gridx = 0;
+        constraints.gridy = 3;
+        btnScenario_1_3.setPreferredSize(new Dimension(500,25));
+        this.add(btnScenario_1_3, constraints);
+        constraints.gridx = 0;
+        constraints.gridy = 4;
+        btnScenario_2_1.setPreferredSize(new Dimension(500,25));
+        this.add(btnScenario_2_1, constraints);
+        constraints.gridx = 0;
+        constraints.gridy = 5;
+        btnScenario_2_2.setPreferredSize(new Dimension(500,25));
+        this.add(btnScenario_2_2, constraints);
+        constraints.gridx = 0;
+        constraints.gridy = 6;
+        btnScenario_3_1.setPreferredSize(new Dimension(500,25));
+        this.add(btnScenario_3_1, constraints);
+        constraints.gridx = 0;
+        constraints.gridy = 7;
+        btnScenario_3_2.setPreferredSize(new Dimension(500,25));
+        this.add(btnScenario_3_2, constraints);
+        constraints.gridx = 0;
+        constraints.gridy = 8;
+        btnScenario_4_1.setPreferredSize(new Dimension(500,25));
+        this.add(btnScenario_4_1, constraints);
+        constraints.gridx = 0;
+        constraints.gridy = 9;
+        btnScenario_4_2.setPreferredSize(new Dimension(500,25));
+        this.add(btnScenario_4_2, constraints);
         setJMenuBar(menuBar);
     }
 
-    public static void main(String[] args) throws SQLException {
+    public static void main(String[] args) {
 
         EventQueue.invokeLater(() -> {
             MainMenu ex = new MainMenu();
