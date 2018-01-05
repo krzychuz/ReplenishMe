@@ -176,6 +176,13 @@ CREATE TABLE STAT_INV (
 	quantity int NOT NULL
 )
 
+CREATE TABLE PROD_LOTS (
+	location smallint NOT NULL,
+	product int NOT NULL,
+	minquantity int NOT NULL,
+	maxquantity int NOT NULL
+)
+
 INSERT INTO LASTDOC (docname, docnumber)
 VALUES ('QMLOT', '0000000');
 

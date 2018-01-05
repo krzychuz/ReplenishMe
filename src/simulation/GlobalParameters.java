@@ -20,5 +20,6 @@ public class GlobalParameters {
     public static Date NaturalDisasterDate;
     public static Date LineBreakdownStartDate;
     public static Date LineBreakdownEndDate;
+    public static boolean IsProductionLotsLogicActive;
 
 }

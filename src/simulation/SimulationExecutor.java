@@ -63,6 +63,29 @@ public class SimulationExecutor {
         }
     }
 
+    public void RunScenario_2_1() throws SQLException {
+        GlobalParameters.IsProductionLotsLogicActive = true;
+        DataSource.loadCustomerOrders("import_data/orders_scenario_1_1.csv");
+        DataSource.loadForecast("import_data/forecast_scenario_1_1.csv");
+        DataSource.loadProductionLots("import_data/high_production_lots.csv");
+        if(!IsSimulationPrepared) PrepareSimulation();
+        while (GlobalParameters.CurrentTime.before(GlobalParameters.SimulationEndDate)) {
+            Tick();
+        }
+    }
+
+    public void RunScenario_2_2() throws SQLException {
+        GlobalParameters.IsProductionLotsLogicActive = true;
+        // Pls delete one afterwards
+        GlobalParameters.IsProductionLotsLogicActive = true;
+        DataSource.loadCustomerOrders("import_data/orders_scenario_1_1.csv");
+        DataSource.loadForecast("import_data/forecast_scenario_1_1.csv");
+        if(!IsSimulationPrepared) PrepareSimulation();
+        while (GlobalParameters.CurrentTime.before(GlobalParameters.SimulationEndDate)) {
+            Tick();
+        }
+    }
+
     public void RunScenario_3_2 () throws SQLException {
         GlobalParameters.GlobalSafetyStrategy = SafetyStrategy.ST;
         DataSource.loadCustomerOrders("import_data/orders_scenario_1_1.csv");
@@ -83,6 +106,22 @@ public class SimulationExecutor {
         Stock s = dl.getStockPerProductLocation(83732410, 2621);
         s.setQuantity(0);
         di.UpdateStockInDb(s);
+        while (GlobalParameters.CurrentTime.before(GlobalParameters.SimulationEndDate)) {
+            Tick();
+        }
+    }
+
+    public void RunScenario_4_2 () throws SQLException {
+        DataSource.loadCustomerOrders("import_data/orders_scenario_1_1.csv");
+        DataSource.loadForecast("import_data/forecast_scenario_1_1.csv");
+        if(!IsSimulationPrepared) PrepareSimulation();
+        while (GlobalParameters.CurrentTime.before(GlobalParameters.LineBreakdownStartDate)) {
+            Tick();
+        }
+        while (GlobalParameters.CurrentTime.before(GlobalParameters.LineBreakdownEndDate)) {
+            Tick();
+            di.DeleteProductionFromDb(4853, 83732410);
+        }
         while (GlobalParameters.CurrentTime.before(GlobalParameters.SimulationEndDate)) {
             Tick();
         }
@@ -158,7 +197,22 @@ public class SimulationExecutor {
                 String StartTime = DateHandler.getRandomTime();
                 String EndDate = DateHandler.getRelativeDate(ri.getDate(),1);
                 String EndTime = DateHandler.getRandomTime();
-                int Quantity = ri.getQuantity();
+                int Quantity;
+
+                if (GlobalParameters.IsProductionLotsLogicActive) {
+                    ProductionLot pl = dl.getProductionLotPerProductLocation(Product, Plant);
+                    if(ri.getQuantity() < pl.getMinimumQuantity()) {
+                        // Means that requirement is below minimum production threshold
+                        return;
+                    } else if (ri.getQuantity() > pl.getMaximumQuantity()) {
+                        // Production needs to be limited to maximum production lot
+                        Quantity = pl.getMaximumQuantity();
+                    } else {
+                        Quantity = ri.getQuantity();
+                    }
+                } else {
+                    Quantity = ri.getQuantity();
+                }
 
                 ProcessOrder po = new ProcessOrder(ProcessOrderNumber, Location, product, StartDate, StartTime,
                         EndDate, EndTime, Quantity);

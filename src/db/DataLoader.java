@@ -680,4 +680,24 @@ public class DataLoader extends DataInterface{
         return qmlot;
     }
 
+    public ProductionLot getProductionLotPerProductLocation (int product, int location) {
+        ProductionLot pl = new ProductionLot();
+        try {
+            String SqlQuery = "SELECT * FROM PROD_LOTS WHERE product = " + product + " AND location = " + location;
+            if( GlobalParameters.LoggingLevel > 2) LogToFile(SqlQuery);
+            rs = stmt.executeQuery(SqlQuery);
+
+            while (rs.next()) {
+                pl.setLocation(rs.getInt("location"));
+                pl.setProduct(rs.getInt("product"));
+                pl.setMinimumQuantity(rs.getInt("minquantity"));
+                pl.setMaximumQuantity(rs.getInt("maxquantity"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return pl;
+    }
+
 }

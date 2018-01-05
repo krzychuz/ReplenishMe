@@ -22,5 +22,6 @@ public class InitParameters {
         GlobalParameters.NaturalDisasterDate = parametersReader.getDate("disaster_date");
         GlobalParameters.LineBreakdownStartDate = parametersReader.getDate("breakdown_start_date");
         GlobalParameters.LineBreakdownEndDate = parametersReader.getDate("breakdown_end_date");
+        GlobalParameters.IsProductionLotsLogicActive = false;
     }
 }

@@ -2,6 +2,7 @@ package init;
 
 import calculation.Forecast;
 import calculation.Order;
+import calculation.ProductionLot;
 import db.DataInterface;
 import db.DateHandler;
 import enums.*;
@@ -95,6 +96,37 @@ public class DataImporter extends DataInterface{
                     ImportedForecastList.add(f);
                     tmpDate = DateHandler.getRelativeDate(tmpDate,-1);
                 }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                br.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void loadProductionLots(String ProductionLotsFilePath) {
+        truncateTable("PROD_LOTS");
+        BufferedReader br = null;
+        String line;
+        String CsvSplitBy = ";";
+
+        try {
+            br = new BufferedReader(new FileReader(ProductionLotsFilePath));
+            br.readLine();
+
+            while ((line = br.readLine()) != null) {
+                String[] item = line.split(CsvSplitBy);
+                int location = Integer.parseInt(item[0]);
+                int product = Integer.parseInt(item[1]);
+                int minQuantity = Integer.parseInt(item[2]);
+                int maxQuantity = Integer.parseInt(item[3]);
+                ProductionLot pl = new ProductionLot(location, product, minQuantity, maxQuantity);
+                InsertProductionLotDataIntoDb(pl);
             }
 
         } catch (Exception e) {

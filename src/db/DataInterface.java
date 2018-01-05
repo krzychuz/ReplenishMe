@@ -360,6 +360,16 @@ public class DataInterface {
         }
     }
 
+    public void DeleteProductionFromDb (int Location, int Product) {
+        try {
+            String SqlQuery = "DELETE FROM PROCESSO WHERE location = " + Location + " AND product = " + Product;
+            LogToFile(SqlQuery);
+            stmt.executeUpdate(SqlQuery);
+        } catch (Exception e ) {
+            e.printStackTrace();
+        }
+    }
+
     public void UpdateStockInDb (Stock s) {
         try {
             String SqlQuery = "UPDATE STOCK SET quantity = " + s.getQuantity() + " WHERE location = " + s.getLocation()
@@ -446,6 +456,22 @@ public class DataInterface {
                     qmlot.getReleaseDate() + "' , '" +
                     qmlot.getReleaseTime() + "', " +
                     qmlot.getQuantity() + ")";
+
+            if( GlobalParameters.LoggingLevel > 2) LogToFile(SQLquery);
+            stmt.executeUpdate(SQLquery);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void InsertProductionLotDataIntoDb(ProductionLot pl) {
+        try {
+            String SQLquery = "INSERT INTO PROD_LOTS (location, product, minquantity, maxquantity) VALUES (" +
+                    pl.getLocation() + ", " +
+                    pl.getProduct() + ", " +
+                    pl.getMinimumQuantity() + " , " +
+                    pl.getMaximumQuantity() + ")";
 
             if( GlobalParameters.LoggingLevel > 2) LogToFile(SQLquery);
             stmt.executeUpdate(SQLquery);

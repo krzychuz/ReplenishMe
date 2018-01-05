@@ -34,6 +34,13 @@ public class ActionClass implements ActionListener  {
         dialog.setLocationRelativeTo(null);
     }
 
+    private void HideDialog() {
+        timer.setRepeats(false);
+        timer.start();
+        dialog.setVisible(true);
+        dialog.setVisible(false);
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
                 String action = (e.getActionCommand());
@@ -98,10 +105,22 @@ public class ActionClass implements ActionListener  {
                         dialog.dispose();
                     }
                 });
-                timer.setRepeats(false);
-                timer.start();
-                dialog.setVisible(true);
-                dialog.setVisible(false);
+                HideDialog();
+                break;
+            case "runScenario_2_1":
+                PrepareDialog();
+                timer = new Timer(1000, new AbstractAction() {
+                    @Override
+                    public void actionPerformed(ActionEvent ae) {
+                        try {
+                            simulationExecutor.RunScenario_2_1();
+                        } catch (SQLException e1) {
+                            e1.printStackTrace();
+                        }
+                        dialog.dispose();
+                    }
+                });
+                HideDialog();
                 break;
             case "runScenario_3_2":
                 PrepareDialog();
@@ -116,10 +135,7 @@ public class ActionClass implements ActionListener  {
                         dialog.dispose();
                     }
                 });
-                timer.setRepeats(false);
-                timer.start();
-                dialog.setVisible(true);
-                dialog.setVisible(false);
+                HideDialog();
                 break;
             default:
                 break;
