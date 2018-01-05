@@ -73,6 +73,21 @@ public class SimulationExecutor {
         }
     }
 
+    public void RunScenario_4_1 () throws SQLException {
+        DataSource.loadCustomerOrders("import_data/orders_scenario_1_1.csv");
+        DataSource.loadForecast("import_data/forecast_scenario_1_1.csv");
+        if(!IsSimulationPrepared) PrepareSimulation();
+        while (GlobalParameters.CurrentTime.before(GlobalParameters.NaturalDisasterDate)) {
+            Tick();
+        }
+        Stock s = dl.getStockPerProductLocation(83732410, 2621);
+        s.setQuantity(0);
+        di.UpdateStockInDb(s);
+        while (GlobalParameters.CurrentTime.before(GlobalParameters.SimulationEndDate)) {
+            Tick();
+        }
+    }
+
     public void Tick() throws SQLException {
         if(!IsSimulationPrepared) PrepareSimulation();
         boolean DayPassed = false;

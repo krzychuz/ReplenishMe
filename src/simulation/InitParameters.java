@@ -19,5 +19,8 @@ public class InitParameters {
         GlobalParameters.SimulationEndDate = parametersReader.getDate("end_date");
         GlobalParameters.GlobalSafetyStrategy  = SafetyStrategy.SS;
         GlobalParameters.GlobalSafetyTimeSettings = parametersReader.getInt("safety_time");
+        GlobalParameters.NaturalDisasterDate = parametersReader.getDate("disaster_date");
+        GlobalParameters.LineBreakdownStartDate = parametersReader.getDate("breakdown_start_date");
+        GlobalParameters.LineBreakdownEndDate = parametersReader.getDate("breakdown_end_date");
     }
 }

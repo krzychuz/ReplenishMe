@@ -30,7 +30,7 @@ order_leadtime = 6
 safety_time = 10
 
 # Date of natural disaster in distribution center
-disater_date = 20180223
+disaster_date = 20180223
 
 # Start date of production line breakdown
 breakdown_start_date = 20180228

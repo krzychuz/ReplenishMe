@@ -17,5 +17,8 @@ public class GlobalParameters {
     public static Date SimulationEndDate;
     public static SafetyStrategy GlobalSafetyStrategy;
     public static int GlobalSafetyTimeSettings;
+    public static Date NaturalDisasterDate;
+    public static Date LineBreakdownStartDate;
+    public static Date LineBreakdownEndDate;
 
 }
