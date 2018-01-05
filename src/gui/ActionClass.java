@@ -5,7 +5,6 @@ import init.DummyDataGenerator;
 import simulation.SimulationExecutor;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
@@ -21,6 +20,7 @@ public class ActionClass implements ActionListener  {
             JOptionPane.WARNING_MESSAGE, JOptionPane.DEFAULT_OPTION, null, new Object[]{},
             null);
     private final JDialog dialog = new JDialog();
+    private Timer timer;
 
     public ActionClass() throws SQLException {
     }
@@ -87,11 +87,11 @@ public class ActionClass implements ActionListener  {
                 break;
             case "runScenario_1_1":
                 PrepareDialog();
-                Timer timer = new Timer(1000, new AbstractAction() {
+                timer = new Timer(1000, new AbstractAction() {
                     @Override
                     public void actionPerformed(ActionEvent ae) {
                         try {
-                            simulationExecutor.RunScenario1_1();
+                            simulationExecutor.RunScenario_1_1();
                         } catch (SQLException e1) {
                             e1.printStackTrace();
                         }
@@ -103,7 +103,23 @@ public class ActionClass implements ActionListener  {
                 dialog.setVisible(true);
                 dialog.setVisible(false);
                 break;
-            case "runScenario_1_2":
+            case "runScenario_3_2":
+                PrepareDialog();
+                timer = new Timer(1000, new AbstractAction() {
+                    @Override
+                    public void actionPerformed(ActionEvent ae) {
+                        try {
+                            simulationExecutor.RunScenario_3_2();
+                        } catch (SQLException e1) {
+                            e1.printStackTrace();
+                        }
+                        dialog.dispose();
+                    }
+                });
+                timer.setRepeats(false);
+                timer.start();
+                dialog.setVisible(true);
+                dialog.setVisible(false);
                 break;
             default:
                 break;

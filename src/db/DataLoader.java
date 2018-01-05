@@ -576,6 +576,51 @@ public class DataLoader extends DataInterface{
         return MrpElementsList;
     }
 
+    public List<MRPElement> getRequirementsPerProductLocation(int product, int location) {
+        List<MRPElement> MrpElementsList = new ArrayList<>();
+        List<Forecast> ForecastList;
+        List<Delivery> DeliveryList;
+        List<Order> OrderList;
+        List<ReplenishmentOut> ReplenishmentOutList;
+        List<Reservation> ReservationList;
+
+        ForecastList = getForecastsPerProductLocation(product, location);
+
+        DeliveryList = getDeliveryPerProductLocation(product, location);
+        OrderList = getOrderPerProductLocation(product, location);
+        ReplenishmentOutList = getReplenishmentOutPerProductLocation(product, location);
+        ReservationList = getReservationPerProductLocation(product, location);
+
+        for (Forecast f : ForecastList) {
+            MRPElement e = new MRPElement(f);
+            MrpElementsList.add(e);
+        }
+
+        for (Delivery d : DeliveryList) {
+            MRPElement e = new MRPElement(d);
+            MrpElementsList.add(e);
+        }
+
+        for (Order o : OrderList) {
+            MRPElement e = new MRPElement(o);
+            MrpElementsList.add(e);
+        }
+
+        for (ReplenishmentOut ro : ReplenishmentOutList) {
+            MRPElement e = new MRPElement(ro);
+            MrpElementsList.add(e);
+        }
+
+        for (Reservation r : ReservationList) {
+            MRPElement e = new MRPElement(r);
+            MrpElementsList.add(e);
+        }
+
+        Collections.sort(MrpElementsList, (o1, o2) -> o1.getDate().compareTo(o2.getDate()));
+
+        return MrpElementsList;
+    }
+
     public int getIdocReferenceNumber (int IdocNumber) {
         int result = 0;
         try {

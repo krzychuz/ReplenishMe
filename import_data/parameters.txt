@@ -1,27 +1,39 @@
 # Date when simulation starts
-start_date=20180101
+start_date = 20180101
 
 # Date when simulation ends
-end_date=20180422
+end_date = 20180422
 
 # How many hours passes between simulation ticks, can be set to: 1, 2, 4, 6, 8, 12, 24
-tick=2
+tick = 2
 
 # How many days back and in the future we want to consume forecast
-bw_fcst_consumption=5
-fw_fcst_consumption=5
+bw_fcst_consumption = 5
+fw_fcst_consumption = 5
 
 # Logging level setup
 # 1 - Generic simulation information
 # 2 - As above + simulation ticks
 # 3 - As above + SQL queries
-logging_level=3
+logging_level = 3
 
 # Firmed horizon in which production is committed to plant in days
 firmed_zone=3
 
 # Average quality release length in hours
-quality_check=4
+quality_check = 4
 
 # Average time between order placement and loading in hours
 order_leadtime = 6
+
+# Global safety time settings
+safety_time = 10
+
+# Date of natural disaster in distribution center
+disater_date = 20180223
+
+# Start date of production line breakdown
+breakdown_start_date = 20180228
+
+# End date of production line breakdown
+breakdown_end_date = 20180307

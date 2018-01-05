@@ -1,5 +1,7 @@
 package simulation;
 
+import enums.SafetyStrategy;
+
 import java.util.Date;
 
 public class GlobalParameters {
@@ -13,5 +15,7 @@ public class GlobalParameters {
     public static int QualityCheck;
     public static int OrderLeadTime;
     public static Date SimulationEndDate;
+    public static SafetyStrategy GlobalSafetyStrategy;
+    public static int GlobalSafetyTimeSettings;
 
 }

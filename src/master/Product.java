@@ -110,4 +110,10 @@ public class Product {
     public void setLocationFrom(int locationFrom) {
         LocationFrom = locationFrom;
     }
+
+    public boolean hasSafety() {
+        boolean result = false;
+        if (this.Target > 0) result = true;
+        return result;
+    }
 }

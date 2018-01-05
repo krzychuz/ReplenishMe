@@ -2,6 +2,7 @@ package calculation;
 
 import db.DataInterface;
 import db.DataLoader;
+import enums.SafetyStrategy;
 import master.Product;
 import master.TLane;
 import org.apache.log4j.Logger;
@@ -75,7 +76,17 @@ public class MRPList {
 
         Product p = dl.getProductMaster(product, location);
         int sourcePlant = p.getLocationFrom();
-        int safetyTarget = p.getTarget();
+        int safetyTarget = 0;
+
+        if (p.hasSafety() && GlobalParameters.GlobalSafetyStrategy == SafetyStrategy.SS) {
+            safetyTarget = p.getTarget();
+        } else if (p.hasSafety() && GlobalParameters.GlobalSafetyStrategy == SafetyStrategy.ST) {
+            safetyTarget = CalculateRequirementsForSafetyTime();
+            p.setTarget(safetyTarget);
+            di.UpdateSafetyPerProductLocation(p);
+
+        }
+
         int roundingValue = p.getRoundingValue();
         TLane t = dl.getTLaneDetails(sourcePlant, location);
         int replenishmentLeadTime;
@@ -126,6 +137,23 @@ public class MRPList {
                 calculateAvailableQuantity(MRPElements);
             }
         }
+    }
+
+    private int CalculateRequirementsForSafetyTime () {
+        List<MRPElement> RequirementsList = dl.getRequirementsPerProductLocation(product, location);
+        int tmp = 0;
+        int i = 0;
+        Date DummyDate = GlobalParameters.CurrentTime;
+        Date RequirementsHorizon = DateHandler.getRelativeDate(GlobalParameters.CurrentTime,10);
+
+        while (DummyDate.before(RequirementsHorizon)) {
+            tmp += RequirementsList.get(i).getMRPElementQuantity();
+            RequirementsList.get(i).setAvailableQuantity(tmp);
+            i++;
+            DummyDate = DateHandler.getRelativeDate(DummyDate,1);
+        }
+
+        return Math.abs(tmp);
     }
 
     public void LogToFile (String SimulationStep){

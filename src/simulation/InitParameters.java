@@ -1,6 +1,8 @@
 package simulation;
 
 
+import enums.SafetyStrategy;
+
 public class InitParameters {
 
     private ParametersReader parametersReader;
@@ -15,5 +17,7 @@ public class InitParameters {
         GlobalParameters.QualityCheck = parametersReader.getInt("quality_check");
         GlobalParameters.OrderLeadTime = parametersReader.getInt("order_leadtime");
         GlobalParameters.SimulationEndDate = parametersReader.getDate("end_date");
+        GlobalParameters.GlobalSafetyStrategy  = SafetyStrategy.SS;
+        GlobalParameters.GlobalSafetyTimeSettings = parametersReader.getInt("safety_time");
     }
 }

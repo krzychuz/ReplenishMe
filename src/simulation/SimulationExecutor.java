@@ -5,6 +5,7 @@ import db.DataInterface;
 import db.DataLoader;
 import db.DateHandler;
 import enums.OrderType;
+import enums.SafetyStrategy;
 import enums.StockType;
 import init.DataImporter;
 import master.Product;
@@ -53,7 +54,17 @@ public class SimulationExecutor {
         }
     }
 
-    public void RunScenario1_1 () throws SQLException {
+    public void RunScenario_1_1() throws SQLException {
+        DataSource.loadCustomerOrders("import_data/orders_scenario_1_1.csv");
+        DataSource.loadForecast("import_data/forecast_scenario_1_1.csv");
+        if(!IsSimulationPrepared) PrepareSimulation();
+        while (GlobalParameters.CurrentTime.before(GlobalParameters.SimulationEndDate)) {
+            Tick();
+        }
+    }
+
+    public void RunScenario_3_2 () throws SQLException {
+        GlobalParameters.GlobalSafetyStrategy = SafetyStrategy.ST;
         DataSource.loadCustomerOrders("import_data/orders_scenario_1_1.csv");
         DataSource.loadForecast("import_data/forecast_scenario_1_1.csv");
         if(!IsSimulationPrepared) PrepareSimulation();
@@ -91,8 +102,8 @@ public class SimulationExecutor {
                 InsertOrders(product, plant);
                 ShipOrders(product, plant);
                 if(DayPassed){
-                    ReportInventoryStatus(product, plant);
                     RunMrp(product, plant);
+                    ReportInventoryStatus(product, plant);
                     PlanProduction(product,plant);
                     DeployStock(product, plant);
                 }

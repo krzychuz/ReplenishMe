@@ -477,6 +477,17 @@ public class DataInterface {
         }
     }
 
+    public void UpdateSafetyPerProductLocation (Product p) {
+        try {
+            String SqlQuery = "UPDATE PRODUCTS SET target = " + p.getTarget() +
+                    " WHERE gcas = " + p.getGCAS() + " AND location = " + p.getLocation();
+            LogToFile(SqlQuery);
+            stmt.executeUpdate(SqlQuery);
+        } catch (Exception e ) {
+            e.printStackTrace();
+        }
+    }
+
     public void TruncateStatisticTables () {
         truncateTable("STAT_ORDERS");
         truncateTable("STAT_INV");
