@@ -30,7 +30,6 @@ public class SimulationExecutor {
 
     public SimulationExecutor () throws SQLException {
         logger = Logger.getLogger("simlog");
-        //ScenarioParser.ParseXmlScenario();
         di = new DataInterface();
         dl = new DataLoader();
         DataSource = new DataImporter();
@@ -63,11 +62,29 @@ public class SimulationExecutor {
         }
     }
 
+    public void RunScenario_1_2() throws SQLException {
+        DataSource.loadCustomerOrders("import_data/orders_scenario_1_2.csv");
+        DataSource.loadForecast("import_data/forecast_scenario_1_2.csv");
+        if(!IsSimulationPrepared) PrepareSimulation();
+        while (GlobalParameters.CurrentTime.before(GlobalParameters.SimulationEndDate)) {
+            Tick();
+        }
+    }
+
+    public void RunScenario_1_3() throws SQLException {
+        DataSource.loadCustomerOrders("import_data/orders_scenario_1_3.csv");
+        DataSource.loadForecast("import_data/forecast_scenario_1_3.csv");
+        if(!IsSimulationPrepared) PrepareSimulation();
+        while (GlobalParameters.CurrentTime.before(GlobalParameters.SimulationEndDate)) {
+            Tick();
+        }
+    }
+
     public void RunScenario_2_1() throws SQLException {
         GlobalParameters.IsProductionLotsLogicActive = true;
-        DataSource.loadCustomerOrders("import_data/orders_scenario_1_1.csv");
-        DataSource.loadForecast("import_data/forecast_scenario_1_1.csv");
-        DataSource.loadProductionLots("import_data/high_production_lots.csv");
+        DataSource.loadCustomerOrders("import_data/orders_scenario_2.csv");
+        DataSource.loadForecast("import_data/forecast_scenario_2.csv");
+        DataSource.loadProductionLots("import_data/low_production_lots.csv");
         if(!IsSimulationPrepared) PrepareSimulation();
         while (GlobalParameters.CurrentTime.before(GlobalParameters.SimulationEndDate)) {
             Tick();
@@ -76,10 +93,18 @@ public class SimulationExecutor {
 
     public void RunScenario_2_2() throws SQLException {
         GlobalParameters.IsProductionLotsLogicActive = true;
-        // Pls delete one afterwards
-        GlobalParameters.IsProductionLotsLogicActive = true;
-        DataSource.loadCustomerOrders("import_data/orders_scenario_1_1.csv");
-        DataSource.loadForecast("import_data/forecast_scenario_1_1.csv");
+        DataSource.loadCustomerOrders("import_data/orders_scenario_2.csv");
+        DataSource.loadForecast("import_data/forecast_scenario_2.csv");
+        DataSource.loadProductionLots("import_data/high_production_lots.csv");
+        if(!IsSimulationPrepared) PrepareSimulation();
+        while (GlobalParameters.CurrentTime.before(GlobalParameters.SimulationEndDate)) {
+            Tick();
+        }
+    }
+
+    public void RunScenario_3_1 () throws SQLException {
+        DataSource.loadCustomerOrders("import_data/orders_scenario_3.csv");
+        DataSource.loadForecast("import_data/forecast_scenario_3.csv");
         if(!IsSimulationPrepared) PrepareSimulation();
         while (GlobalParameters.CurrentTime.before(GlobalParameters.SimulationEndDate)) {
             Tick();
@@ -88,8 +113,8 @@ public class SimulationExecutor {
 
     public void RunScenario_3_2 () throws SQLException {
         GlobalParameters.GlobalSafetyStrategy = SafetyStrategy.ST;
-        DataSource.loadCustomerOrders("import_data/orders_scenario_1_1.csv");
-        DataSource.loadForecast("import_data/forecast_scenario_1_1.csv");
+        DataSource.loadCustomerOrders("import_data/orders_scenario_3.csv");
+        DataSource.loadForecast("import_data/forecast_scenario_3.csv");
         if(!IsSimulationPrepared) PrepareSimulation();
         while (GlobalParameters.CurrentTime.before(GlobalParameters.SimulationEndDate)) {
             Tick();
@@ -97,8 +122,8 @@ public class SimulationExecutor {
     }
 
     public void RunScenario_4_1 () throws SQLException {
-        DataSource.loadCustomerOrders("import_data/orders_scenario_1_1.csv");
-        DataSource.loadForecast("import_data/forecast_scenario_1_1.csv");
+        DataSource.loadCustomerOrders("import_data/orders_scenario_4.csv");
+        DataSource.loadForecast("import_data/forecast_scenario_4.csv");
         if(!IsSimulationPrepared) PrepareSimulation();
         while (GlobalParameters.CurrentTime.before(GlobalParameters.NaturalDisasterDate)) {
             Tick();
@@ -112,8 +137,8 @@ public class SimulationExecutor {
     }
 
     public void RunScenario_4_2 () throws SQLException {
-        DataSource.loadCustomerOrders("import_data/orders_scenario_1_1.csv");
-        DataSource.loadForecast("import_data/forecast_scenario_1_1.csv");
+        DataSource.loadCustomerOrders("import_data/orders_scenario_4.csv");
+        DataSource.loadForecast("import_data/forecast_scenario_4.csv");
         if(!IsSimulationPrepared) PrepareSimulation();
         while (GlobalParameters.CurrentTime.before(GlobalParameters.LineBreakdownStartDate)) {
             Tick();
@@ -121,6 +146,7 @@ public class SimulationExecutor {
         while (GlobalParameters.CurrentTime.before(GlobalParameters.LineBreakdownEndDate)) {
             Tick();
             di.DeleteProductionFromDb(4853, 83732410);
+            di.DeleteQualityLotsFromDb(4853, 83732410);
         }
         while (GlobalParameters.CurrentTime.before(GlobalParameters.SimulationEndDate)) {
             Tick();

@@ -370,6 +370,16 @@ public class DataInterface {
         }
     }
 
+    public void DeleteQualityLotsFromDb (int Location, int Product) {
+        try {
+            String SqlQuery = "DELETE FROM QUALITYLOT WHERE location = " + Location + " AND product = " + Product;
+            LogToFile(SqlQuery);
+            stmt.executeUpdate(SqlQuery);
+        } catch (Exception e ) {
+            e.printStackTrace();
+        }
+    }
+
     public void UpdateStockInDb (Stock s) {
         try {
             String SqlQuery = "UPDATE STOCK SET quantity = " + s.getQuantity() + " WHERE location = " + s.getLocation()

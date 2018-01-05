@@ -27,7 +27,7 @@ quality_check = 4
 order_leadtime = 6
 
 # Global safety time settings
-safety_time = 10
+safety_time = 9
 
 # Date of natural disaster in distribution center
 disaster_date = 20180223

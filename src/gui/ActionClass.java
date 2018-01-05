@@ -107,6 +107,36 @@ public class ActionClass implements ActionListener  {
                 });
                 HideDialog();
                 break;
+            case "runScenario_1_2":
+                PrepareDialog();
+                timer = new Timer(1000, new AbstractAction() {
+                    @Override
+                    public void actionPerformed(ActionEvent ae) {
+                        try {
+                            simulationExecutor.RunScenario_1_2();
+                        } catch (SQLException e1) {
+                            e1.printStackTrace();
+                        }
+                        dialog.dispose();
+                    }
+                });
+                HideDialog();
+                break;
+            case "runScenario_1_3":
+                PrepareDialog();
+                timer = new Timer(1000, new AbstractAction() {
+                    @Override
+                    public void actionPerformed(ActionEvent ae) {
+                        try {
+                            simulationExecutor.RunScenario_1_3();
+                        } catch (SQLException e1) {
+                            e1.printStackTrace();
+                        }
+                        dialog.dispose();
+                    }
+                });
+                HideDialog();
+                break;
             case "runScenario_2_1":
                 PrepareDialog();
                 timer = new Timer(1000, new AbstractAction() {
@@ -122,6 +152,36 @@ public class ActionClass implements ActionListener  {
                 });
                 HideDialog();
                 break;
+            case "runScenario_2_2":
+                PrepareDialog();
+                timer = new Timer(1000, new AbstractAction() {
+                    @Override
+                    public void actionPerformed(ActionEvent ae) {
+                        try {
+                            simulationExecutor.RunScenario_2_2();
+                        } catch (SQLException e1) {
+                            e1.printStackTrace();
+                        }
+                        dialog.dispose();
+                    }
+                });
+                HideDialog();
+                break;
+            case "runScenario_3_1":
+                PrepareDialog();
+                timer = new Timer(1000, new AbstractAction() {
+                    @Override
+                    public void actionPerformed(ActionEvent ae) {
+                        try {
+                            simulationExecutor.RunScenario_3_1();
+                        } catch (SQLException e1) {
+                            e1.printStackTrace();
+                        }
+                        dialog.dispose();
+                    }
+                });
+                HideDialog();
+                break;
             case "runScenario_3_2":
                 PrepareDialog();
                 timer = new Timer(1000, new AbstractAction() {
@@ -129,6 +189,36 @@ public class ActionClass implements ActionListener  {
                     public void actionPerformed(ActionEvent ae) {
                         try {
                             simulationExecutor.RunScenario_3_2();
+                        } catch (SQLException e1) {
+                            e1.printStackTrace();
+                        }
+                        dialog.dispose();
+                    }
+                });
+                HideDialog();
+                break;
+            case "runScenario_4_1":
+                PrepareDialog();
+                timer = new Timer(1000, new AbstractAction() {
+                    @Override
+                    public void actionPerformed(ActionEvent ae) {
+                        try {
+                            simulationExecutor.RunScenario_4_1();
+                        } catch (SQLException e1) {
+                            e1.printStackTrace();
+                        }
+                        dialog.dispose();
+                    }
+                });
+                HideDialog();
+                break;
+            case "runScenario_4_2":
+                PrepareDialog();
+                timer = new Timer(1000, new AbstractAction() {
+                    @Override
+                    public void actionPerformed(ActionEvent ae) {
+                        try {
+                            simulationExecutor.RunScenario_4_2();
                         } catch (SQLException e1) {
                             e1.printStackTrace();
                         }
