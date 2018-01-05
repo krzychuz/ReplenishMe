@@ -53,9 +53,9 @@ public class SimulationExecutor {
         }
     }
 
-    public void RunScenario1_3 () throws SQLException {
-        DataSource.loadCustomerOrders("import_data/orders_scenario_1_3.csv");
-        DataSource.loadForecast("import_data/forecast_scenario_1_3.csv");
+    public void RunScenario1_1 () throws SQLException {
+        DataSource.loadCustomerOrders("import_data/orders_scenario_1_1.csv");
+        DataSource.loadForecast("import_data/forecast_scenario_1_1.csv");
         if(!IsSimulationPrepared) PrepareSimulation();
         while (GlobalParameters.CurrentTime.before(GlobalParameters.SimulationEndDate)) {
             Tick();
@@ -426,6 +426,15 @@ public class SimulationExecutor {
         OnHand.setProduct(s.getProduct());
         OnHand.setQuantity(s.getQuantity());
         di.InsertInventoryStatistic(OnHand);
+
+        int SafetyTarget = dl.getProductMaster(Product, Plant).getTarget();
+        InventoryData Safety = new InventoryData();
+        Safety.setStockType(StockType.Safety);
+        Safety.setDate(DateHandler.getStringDate(GlobalParameters.CurrentTime));
+        Safety.setLocation(s.getLocation());
+        Safety.setProduct(s.getProduct());
+        Safety.setQuantity(SafetyTarget);
+        di.InsertInventoryStatistic(Safety);
 
         List<Shipment> StockInTransit = dl.getShipmentPerProductLocation(Product, Plant);
         int TotalInTransit = 0;

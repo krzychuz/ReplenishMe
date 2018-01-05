@@ -24,7 +24,8 @@ public class GridView extends JFrame {
     }
 
     private void initUI(){
-        JOptionPane.showMessageDialog(null, new JScrollPane(table));
+        JOptionPane dialog = new JOptionPane();
+        dialog.showMessageDialog(null, new JScrollPane(table));
     }
 
 }

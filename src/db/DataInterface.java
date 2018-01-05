@@ -329,6 +329,17 @@ public class DataInterface {
         }
     }
 
+    public void DeleteExistingForecastFromStatistics(Forecast f) {
+        try {
+            String SqlQuery = "DELETE FROM STAT_ORDERS WHERE type = 'Forecast' AND location = " + f.getLocation() +
+                    " AND product = " + f.getProduct() + " AND date = '" + f.getDate() + "'";
+            LogToFile(SqlQuery);
+            stmt.executeUpdate(SqlQuery);
+        } catch (Exception e ) {
+            e.printStackTrace();
+        }
+    }
+
     public void DeleteOrderFromDb (Order o) {
         try {
             String SqlQuery = "DELETE FROM ORDERS WHERE ordernumber = " + o.getOrderNumber();

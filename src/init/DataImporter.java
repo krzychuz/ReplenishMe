@@ -12,13 +12,8 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.sql.Time;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * Created by Krzysiek on 02.12.2017.
@@ -47,6 +42,8 @@ public class DataImporter extends DataInterface{
         List<Forecast> ForecastToRemove = new ArrayList<>();
         for(Forecast f : ImportedForecastList) {
             if(f.getForecastDate().equals(CurrentForecastVersion)) {
+                DeleteExistingForecastFromStatistics(f);
+                // By doing so only the latest forecast version will be stored in the database
                 InsertForecastIntoDb(f);
                 ForecastToRemove.add(f);
 
@@ -89,13 +86,14 @@ public class DataImporter extends DataInterface{
                 int Quantity = (int) Double.parseDouble(item[4].replace(",", "."));
                 if (Quantity > 0) Quantity *= (-1);
 
-                String tmpDate = DateHandler.getRelativeDate(Date1,-1);
+                //String tmpDate = DateHandler.getRelativeDate(Date1,-1);
+                String tmpDate = Date1;
 
-                for (int i = 0; i < 5; i++) {
-                    tmpDate = DateHandler.getRelativeDate(tmpDate,-1);
+                for (int i = 0; i < 7; i++) {
                     int ForecastId = incrementAndGetDocumentNumber("INDREQ");
-                    Forecast f = new Forecast(Location, GCAS, Quantity/5, tmpDate, ForecastedDate, ForecastId);
+                    Forecast f = new Forecast(Location, GCAS, Quantity/7, tmpDate, ForecastedDate, ForecastId);
                     ImportedForecastList.add(f);
+                    tmpDate = DateHandler.getRelativeDate(tmpDate,-1);
                 }
             }
 

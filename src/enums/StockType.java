@@ -1,5 +1,5 @@
 package enums;
 
 public enum StockType {
-    OnHand, InTransit;
+    OnHand, InTransit, Safety;
 }
