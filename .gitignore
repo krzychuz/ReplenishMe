@@ -93,4 +93,7 @@ hs_err_pid*
 # Simulatin logs
 /logs/
 
+# Corrupted .git
+/.git_old/
+
 # End of https://www.gitignore.io/api/java,intellij
