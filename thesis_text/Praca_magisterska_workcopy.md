@@ -4,19 +4,11 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <title>Praca_magisterska_workcopy</title>
-  <style type="text/css">
-      code{white-space: pre-wrap;}
-      span.smallcaps{font-variant: small-caps;}
-      div.line-block{white-space: pre-line;}
-      div.column{display: inline-block; vertical-align: top; width: 50%;}
-  </style>
   <!--[if lt IE 9]>
     <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
   <![endif]-->
 </head>
 <body>
-<p><img src="media/image1.jpeg" alt="logo02" style="width:5.78125in;height:0.86458in" /></p>
 <p><strong>Wydział Informatyki</strong></p>
 <p><strong>Katedra Inżynierii Oprogramowania</strong></p>
 <p>Inżynieria oprogramowania, procesów biznesowych i baz danych</p>
